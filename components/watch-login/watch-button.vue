@@ -1,11 +1,18 @@
 <template>
 	<view>
 		<!-- 按钮 -->
-		<button :class="['buttonBorder',!_rotate?'dlbutton':'dlbutton_loading']" :style="{'background':bgColor, 'color': fontColor}">
+	<!-- 	<button :class="['buttonBorder',!_rotate?'dlbutton':'dlbutton_loading']" :style="{'background':bgColor, 'color': fontColor}">
 			<view :class="_rotate?'rotate_loop':''">
 				<text v-if="_rotate" class="cuIcon cuIcon-loading1 "></text>
 				<text v-if="!_rotate">{{ text }}</text>
 			</view>
+		</button> -->
+		<button :class="['buttonBorder','dlbutton']" :style="{'background':bgColor, 'color': fontColor}">
+			<view :class="_rotate?'rotate_loop':''">
+				<text v-if="_rotate" class="cuIcon cuIcon-loading1 "></text>
+				<text v-if="!_rotate">{{ text }}</text>
+			</view>
+			<text v-if="_rotate" >登录中</text>
 		</button>
 	</view>
 </template>

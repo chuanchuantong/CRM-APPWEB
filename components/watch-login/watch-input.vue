@@ -82,10 +82,10 @@
 				//是否显示密码
 				this.showPassword = !this.showPassword
 			},
-			onInput(e) {
+			onInput(e) {  
 				//传出值
 				this.$emit('input', e.target.value)
-			},
+			}, 
 			setCode(){
 				//设置获取验证码的事件
 				if(this.isRunCode){

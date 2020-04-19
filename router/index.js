@@ -8,24 +8,32 @@ import Router from 'uni-simple-router'
 Vue.use(Router)
 //初始化
 const router = new Router({
-    routes: [...modules]//路由表
+	routes: [...modules] //路由表
 });
 
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
-  console.log('测试')
- console.log(to)
-	  // let token = uni.getStorageSync("Token")
-	  // if(token.length==0 || token == null){
-		  // next({path:'/'})
-	  // }else{
-		 //  if(to.name!='login'){
-		   next()
-		 //  }
-		 //  else{
-			//  next({path:'/main'})
-		 //  }
-	  // } 
+	console.log(to)
+	uni.removeStorageSync("Token")
+	let token = uni.getStorageSync("Token") 
+	if (token != '') {
+		if (to.name == 'login') {
+			next({
+				path: '/main'
+			})
+		} else {
+			next()
+		}
+	} else {
+		console.log(to)
+		if (to.name != 'login') {
+			next({
+				path: '/'
+			})
+		} else {
+			next();
+		}
+	}
 })
 // 全局路由后置守卫
 router.afterEach((to, from) => {
