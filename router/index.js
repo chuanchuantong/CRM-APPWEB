@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
 	//uni.removeStorageSync("Token")
 	let token = uni.getStorageSync("Token") 
 	if (token != '') {
-		if (to.name == 'login') {
+		if (to.isauth) {
 				// #ifdef H5
 				next({
 					path: '/main'
@@ -32,9 +32,8 @@ router.beforeEach((to, from, next) => {
 		} else {
 			next()
 		}
-	} else {
-		console.log(to)
-		if (to.name != 'login') {
+	} else { 
+		if (!to.isauth) {
 			next({
 				path: '/'
 			})

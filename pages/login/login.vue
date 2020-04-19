@@ -29,7 +29,7 @@
 			<view class="footer">
 				<navigator url="forget" open-type="navigate">找回密码</navigator>
 				<text>|</text>
-				<navigator url="register" open-type="navigate">注册账号</navigator>
+				<navigator url="register" open-type="navigate" @click="reg">注册账号</navigator>
 			</view>
 		</view>
 	</view>
@@ -63,13 +63,7 @@
 			wButton
 		},
 		mounted() {
-			_this = this;
-			//this.isLogin();
-			uni.getNetworkType({
-			    success: function (res) {
-			        console.log(res.networkType);
-			    }
-			});
+			_this = this; 
 		},
 		methods: {
 			isLogin() {
@@ -170,6 +164,16 @@
 				}
 
 
+			},
+			reg(){
+				// #ifdef H5
+				_this.$router.push("pwd")
+				//#endif
+				//#ifdef APP-PLUS
+				Router.push({
+					name: 'pwd'
+				});
+				// #endif
 			},
 			login_weixin() {
 				//微信登录

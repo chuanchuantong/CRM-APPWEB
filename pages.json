@@ -5,9 +5,7 @@
 			 "style" : {"titleNView":false}
 		},{
 			"path": "pages/login/pwd",
-			"style": {
-				"navigationBarTitleText": "注册"
-			}
+			"style" : {"titleNView":false}
 		},{
             "path" : "pages/my/index",
             "style" : {"titleNView":false}

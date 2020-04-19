@@ -1,7 +1,7 @@
 <template>
-	<view class="main-list oBorder">
+	<view :class="type!='radio'?'main-list oBorder':'main-list oBorderradio'">
 		<!-- 文本框 -->
-		<input 
+		<input v-if="type!='radio'"
 			class="main-input" 
 			:value="value" 
 			:type="_type"  
@@ -9,13 +9,29 @@
 			:password="type==='password'&&!showPassword" 
 			@input="onInput"
 		/>
+		<radio-group v-if="type=='radio'" class="block main-input" @change="RadioChange">
+		<view style="width: 49%;float: left;"> 
+			<radio :class="radio=='A'?'checked':''" :checked="radio=='A'?true:false" value="A"></radio><text style="margin-left: 9%;">男</text>
+		</view>
+		<view style="width: 49%;float: right;"> 
+			<radio :class="radio=='B'?'checked':''" :checked="radio=='B'?true:false" value="B"></radio><text style="margin-left: 9%;">女</text>
+		</view>
+		</radio-group>
 		<!-- 是否可见密码 -->
-		<image 
-			v-if="_isShowPass&&type==='password'&&!_isShowCode"
+		<image  
+			v-if="_isShowPass&&type==='password'&&!_isShowCode&&!isScan"
 			class="img cuIcon" 
 			:class="showPassword?'cuIcon-attention':'cuIcon-attentionforbid'" 
 			@tap="showPass"
 		></image>
+		<!-- #ifdef APP-PLUS -->
+		<image v-if="isScan"
+			class="img cuIcon" 
+			:class="'cuIcon-scan'" 
+			@tap="showScan"
+		></image>
+		<!-- #endif -->
+		
 		<!-- 倒计时 -->
 		<view 
 			v-if="_isShowCode&&!_isShowPass"
@@ -34,6 +50,7 @@
 				showPassword: false, //是否显示明文
 				second: 0, //倒计时
 				isRunCode: false, //是否开始倒计时
+				radio:'A'
 			}
 		},
 		props:{
@@ -52,6 +69,11 @@
 			},
 			isShowCode:{
 				//是否显示获取验证码（二选一）
+				type: [Boolean,String],
+				default: false,
+			},
+			isScan:{
+				//是否显示扫一扫（二选一）
 				type: [Boolean,String],
 				default: false,
 			},
@@ -78,9 +100,22 @@
 			// clearInterval(countDown);//先清理一次循环，避免缓存
 		},
 		methods:{
+			RadioChange(e) {
+				this.radio = e.detail.value
+			},
 			showPass(){
 				//是否显示密码
 				this.showPassword = !this.showPassword
+			},
+			showScan(){
+				// 允许从相机和相册扫码
+				uni.scanCode({
+				    success: function (res) {
+				        console.log('条码类型：' + res.scanType);
+				        console.log('条码内容：' + res.result);
+						this.$emit('scan', res.result)
+				    }
+				});
 			},
 			onInput(e) {  
 				//传出值
@@ -126,7 +161,7 @@
 		computed:{
 			_type(){
 				//处理值
-				const type = this.type
+				const type = this.type 
 				return type == 'password' ? 'text' : type
 			},
 			_isShowPass() {
@@ -199,5 +234,9 @@
 	    border-radius: 2.5rem ;
 	    -webkit-box-shadow: 0 0 60upx 0 rgba(43,86,112,.1) ;
 	    box-shadow: 0 0 60upx 0 rgba(43,86,112,.1) ;
+	}
+	.oBorderradio{
+	    border: none;
+	    border-radius: 2.5rem ; 
 	}
 </style>
