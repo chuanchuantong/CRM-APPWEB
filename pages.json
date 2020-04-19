@@ -50,6 +50,10 @@
             "path" : "pages/clues/components/createclue/index",
             "style" : {"titleNView":false}
         }
+        ,{
+            "path" : "pages/subordinate/index",
+            "style" : {"titleNView":false}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
