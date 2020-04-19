@@ -79,8 +79,15 @@
 		},
 		methods: {
 			openUrl(url) {
+				//#ifdef APP-PLUS
 				console.log("点击了路由跳转",url)
 				Router.push(url);
+				//#endif
+				
+				//#ifdef H5
+				console.log("点击了路由跳转H5",url)
+				this.$router.push(url);
+				//#endif
 			}
 		}
 	}

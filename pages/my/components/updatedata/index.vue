@@ -28,8 +28,9 @@
 			};
 		},
 		created() {
-			this.title = this.$Router.query.title;
-			this.content = this.$Router.query.content;
+			console.log(this)
+			this.title = this.$Route.query.title;
+			this.content = this.$Route.query.content;
 		},
 		methods: {
 			savedata() {

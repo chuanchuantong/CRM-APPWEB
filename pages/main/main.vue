@@ -1,38 +1,45 @@
 <template>
 
-	<view class="content"> 
-	<cu-custom v-show="PageCur=='basics'" bgColor="bg-gradual-blue"><block slot="content">首页</block></cu-custom>
-	<cu-custom v-show="PageCur=='basics1'" bgColor="bg-gradual-blue"><block slot="content">线索管理</block></cu-custom>
-	<cu-custom v-show="PageCur=='component'" bgColor="bg-gradual-blue"><block slot="content">用户管理</block></cu-custom>
-	<myself v-if="PageCur=='myself'"></myself>
-	<view class="cu-bar tabbar bg-white shadow foot">
-		<view class="action" @click="NavChange" data-cur="basics">
-			<view class='cuIcon-cu-image'>
-				<image :src="'/static/tabbar/basics' + [PageCur=='basics'?'_cur':''] + '.png'"></image>
+	<view class="content">
+		<cu-custom v-show="PageCur=='basics'" bgColor="bg-gradual-blue">
+			<block slot="content">首页</block>
+		</cu-custom>
+		<cu-custom v-show="PageCur=='cluesmanage'" bgColor="bg-gradual-blue">
+			<block slot="content">线索管理</block>
+		</cu-custom>
+		<cu-custom v-show="PageCur=='component'" bgColor="bg-gradual-blue">
+			<block slot="content">用户管理</block>
+		</cu-custom>
+		<myself v-if="PageCur=='myself'"></myself>
+		<cluesmanage v-if="PageCur=='cluesmanage'"></cluesmanage>
+		<view class="cu-bar tabbar bg-white shadow foot">
+			<view class="action" @click="NavChange" data-cur="basics">
+				<view class='cuIcon-cu-image'>
+					<image :src="'/static/tabbar/basics' + [PageCur=='basics'?'_cur':''] + '.png'"></image>
+				</view>
+				<view :class="PageCur=='basics'?'text-green':'text-gray'">首页</view>
 			</view>
-			<view :class="PageCur=='basics'?'text-green':'text-gray'">首页</view>
-		</view>
-		<view class="action" @click="NavChange" data-cur="basics1">
-			<view class='cuIcon-cu-image'>
-				<image :src="'/static/tabbar/basics' + [PageCur=='basics1'?'_cur':''] + '.png'"></image>
+			<view class="action" @click="NavChange" data-cur="cluesmanage">
+				<view class='cuIcon-cu-image'>
+					<image :src="'/static/tabbar/plugin' + [PageCur=='cluesmanage'?'_cur':''] + '.png'"></image>
+				</view>
+				<view :class="PageCur=='cluesmanage'?'text-green':'text-gray'">线索管理</view>
 			</view>
-			<view :class="PageCur=='basics1'?'text-green':'text-gray'">线索管理</view>
-		</view>
-		<view class="action" @click="NavChange" data-cur="component">
-			<view class='cuIcon-cu-image'>
-				<image :src="'/static/tabbar/component' + [PageCur == 'component'?'_cur':''] + '.png'"></image>
+			<view class="action" @click="NavChange" data-cur="component">
+				<view class='cuIcon-cu-image'>
+					<image :src="'/static/tabbar/component' + [PageCur == 'component'?'_cur':''] + '.png'"></image>
+				</view>
+				<view :class="PageCur=='component'?'text-green':'text-gray'">用户管理</view>
 			</view>
-			<view :class="PageCur=='component'?'text-green':'text-gray'">用户管理</view>
-		</view>
-		<view class="action" @click="NavChange" data-cur="myself">
-			<view class='cuIcon-cu-image'>
-				<image :src="'/static/tabbar/plugin' + [PageCur == 'myself'?'_cur':''] + '.png'"></image>
+			<view class="action" @click="NavChange" data-cur="myself">
+				<view class='cuIcon-cu-image'>
+					<image :src="'/static/tabbar/plugin' + [PageCur == 'myself'?'_cur':''] + '.png'"></image>
+				</view>
+				<view :class="PageCur=='myself'?'text-green':'text-gray'">我的</view>
 			</view>
-			<view :class="PageCur=='myself'?'text-green':'text-gray'">我的</view>
 		</view>
 	</view>
-	</view>
-</template> 
+</template>
 <style lang="scss">
 	.myself {
 		width: 100%;
@@ -160,17 +167,17 @@
 
 
 <script>
-	 
 	export default {
 		data() {
-		return {
+			return {
 				PageCur: 'basics'
 			}
 		},
 		methods: {
 			NavChange: function(e) {
 				console.log(e)
-				this.PageCur = e.currentTarget.dataset.cur
+				this.PageCur = e.currentTarget.dataset.cur;
+				console.log(this.PageCur)
 			}
 		}
 	}
