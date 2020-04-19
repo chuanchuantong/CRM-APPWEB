@@ -14,13 +14,21 @@ const router = new Router({
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
 	console.log(to)
-	uni.removeStorageSync("Token")
+	//uni.removeStorageSync("Token")
 	let token = uni.getStorageSync("Token") 
 	if (token != '') {
 		if (to.name == 'login') {
-			next({
-				path: '/main'
-			})
+				// #ifdef H5
+				next({
+					path: '/main'
+				})
+				//#endif
+				//#ifdef APP-PLUS
+				next({
+					path: 'main'
+				})
+				// #endif
+			
 		} else {
 			next()
 		}

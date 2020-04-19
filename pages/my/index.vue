@@ -66,6 +66,14 @@
 				</view>
 			</view>
 		</view>
+		<view class="cu-list menu sm-border">
+			<view class="cu-item arrow" @click="outLogin">
+				<view class="content">
+					<text class="cuIcon-settings text-grey"></text>
+					<text class="text-grey">退出登录</text>
+				</view>
+			</view>
+		</view>
 
 	</view>
 
@@ -87,6 +95,16 @@
 				//#ifdef H5
 				console.log("点击了路由跳转H5",url)
 				this.$router.push(url);
+				//#endif
+			},
+			outLogin(){
+				uni.removeStorageSync("Token")
+				//#ifdef APP-PLUS 
+				Router.push({name:'login'});
+				//#endif
+				
+				//#ifdef H5 
+				this.$router.push("/");
 				//#endif
 			}
 		}

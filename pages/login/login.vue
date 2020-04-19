@@ -65,6 +65,11 @@
 		mounted() {
 			_this = this;
 			//this.isLogin();
+			uni.getNetworkType({
+			    success: function (res) {
+			        console.log(res.networkType);
+			    }
+			});
 		},
 		methods: {
 			isLogin() {
@@ -115,17 +120,15 @@
 				var checkRes = graceChecker.check(_this.formData, rule);
 				
 				if (checkRes) {
-					login(_this.formData).then(res => {
-						_this.isRotate = false
-						console.log(res.data)
-						if(!res.data.token){
-							uni.showToast({
-								title: '登录异常请稍后再试',
-								icon: "none"
-							});
-							return
-						}
-						uni.setStorageSync("Token",res.data.token)
+					_this.isRotate = false
+					if(_this.formData.name!="test"||_this.formData.pwd!="123456"){
+						uni.showToast({
+							title: "账号密码输入有误",
+							icon: "none"
+						});
+						return
+					}
+					uni.setStorageSync("Token","1111111111111")
 						// #ifdef H5
 						_this.$router.push("main")
 						//#endif
@@ -134,9 +137,28 @@
 							name: 'main'
 						});
 						// #endif
-					}).finally(res => {
-						_this.isRotate = false
-					}) 
+					// login(_this.formData).then(res => {
+					// 	_this.isRotate = false
+					// 	console.log(res.data)
+					// 	if(!res.data.token){
+					// 		uni.showToast({
+					// 			title: '登录异常请稍后再试',
+					// 			icon: "none"
+					// 		});
+					// 		return
+					// 	}
+					// 	uni.setStorageSync("Token",res.data.token)
+					// 	// #ifdef H5
+					// 	_this.$router.push("main")
+					// 	//#endif
+					// 	//#ifdef APP-PLUS
+					// 	Router.push({
+					// 		name: 'main'
+					// 	});
+					// 	// #endif
+					// }).finally(res => {
+					// 	_this.isRotate = false
+					// }) 
 
 
 				} else {

@@ -62,6 +62,7 @@
 </template>
 
 <script>
+	import Router from '@/router'
 	export default {
 		data() {
 			return {
