@@ -10,28 +10,21 @@ const My = [{
 	name: 'wallet',
 	aliasPath: '/wallet',
 	meta: {
-		title: '线索管理',
+		title: '我的钱包',
 	}
 }, {
 	path: '/pages/my/components/data/index',
 	name: 'data',
 	aliasPath: '/data',
 	meta: {
-		title: '线索管理',
+		title: '我的资料',
 	}
 }, {
 	path: '/pages/my/components/updatedata/index',
 	name: 'updatedata',
 	aliasPath: '/updatedata',
 	meta: {
-		title: '线索管理',
-	}
-}, {
-	path: '/pages/my/components/data/index',
-	name: 'data',
-	aliasPath: '/data',
-	meta: {
-		title: '线索管理',
+		title: '更新资料',
 	}
 }]
 export default My

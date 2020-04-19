@@ -5,6 +5,8 @@ Vue.config.productionTip = false
 import { RouterMount } from 'uni-simple-router'
  import myself from './pages/my/index.vue'
  Vue.component('myself',myself)
+ import cluesmanage from './pages/clues/index.vue'
+ Vue.component('cluesmanage',cluesmanage)
  import cuCustom from './colorui/components/cu-custom.vue'
  Vue.component('cu-custom',cuCustom)
 App.mpType = 'app'
