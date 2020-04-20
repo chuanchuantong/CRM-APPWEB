@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="content">更新信息</block></cu-custom>
 		<cu-custom bgColor="bg-blue" :isBack="true">
 			<block slot="content">{{title}}</block>
 			<block slot="right">
@@ -8,7 +7,6 @@
 					<button class="cu-btn bg-green" @click="savedata">保存</button>
 				</view>
 			</block>
-
 		</cu-custom>
 		<form>
 			<view class="cu-form-group">
@@ -40,7 +38,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .cu-bar.btn-group uni-button{
 	 max-width:none !important;
 }

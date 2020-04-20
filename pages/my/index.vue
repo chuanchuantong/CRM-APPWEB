@@ -1,7 +1,9 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue"><block slot="content">我的</block></cu-custom>
-		<view class="cu-list menu sm-border menu-avatar">
+		<cu-custom bgColor="bg-gradual-blue">
+			<block slot="content">我的</block>
+		</cu-custom>
+		<view class="cu-list menu menu-avatar">
 			<view class="cu-item arrow" @click="openUrl('data')">
 				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
 				<view class="content flex-sub">
@@ -111,7 +113,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	.positionLine {
 		height: 10upx;
 	}

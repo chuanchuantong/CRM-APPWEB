@@ -9,6 +9,8 @@ import { RouterMount } from 'uni-simple-router'
  Vue.component('cluesmanage',cluesmanage)
  import subordinate from './pages/subordinate/index.vue'
  Vue.component('subordinate',subordinate)
+ import home from './pages/home/index.vue'
+ Vue.component('home',home)
  import cuCustom from './colorui/components/cu-custom.vue'
  Vue.component('cu-custom',cuCustom)
 App.mpType = 'app'

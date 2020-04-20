@@ -4,12 +4,21 @@
 
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="content">我的线索</block>
+			<block slot="right">
+				<view class="cu-bar btn-group">
+					<button class="cu-btn bg-green" @click="saveclueinfo">
+						<text v-if="isloading" class="cuIcon-loading2 cuIconfont-spin"></text> 
+						{{buttontext}}
+					</button>
+				</view>
+			</block>
 		</cu-custom>
 
 		<form>
 			<view class="cu-bar bg-white solid-bottom">
 				<view class="action">
-					<text class="cuIcon-titles text-gray"></text> 基本信息
+					<text class="cuIcon-titles text-green"></text>
+					基本信息
 				</view>
 			</view>
 			<view class="cu-form-group">
@@ -22,7 +31,7 @@
 			</view>
 			<view class="cu-bar bg-white solid-bottom">
 				<view class="action">
-					<text class="cuIcon-titles text-gray"></text> 客户信息
+					<text class="cuIcon-titles text-green"></text>客户信息
 				</view>
 			</view>
 			<view class="cu-form-group">
@@ -55,7 +64,7 @@
 			</view>
 			<view class="cu-bar bg-white solid-bottom">
 				<view class="action">
-					<text class="cuIcon-titles text-gray"></text> 需求信息
+					<text class="cuIcon-titles text-green"></text>需求信息
 				</view>
 			</view>
 			<view class="cu-form-group">
@@ -86,10 +95,7 @@
 				<view class="title"><text class="required">*</text>计划提车时间</view>
 				<input placeholder="请输入计划提车时间" name="input"></input>
 			</view>
-			<button class="cu-btn block bg-blue margin-tb-sm lg" @click="saveclueinfo">
-				<text v-if="isloading" class="cuIcon-loading2 cuIconfont-spin"></text> 
-				{{buttontext}}
-			</button>
+
 		</form>
 
 	</view>
@@ -115,7 +121,7 @@
 
 <style scoped lang="scss">
 	page {
-		background-color: #DDDDDD;
+		background-color: #EEEEEE;
 	}
 
 	.cu-form-group .title {
@@ -127,5 +133,8 @@
 		color: red;
 		line-height: 60upx;
 		margin-right: 10upx;
+	}
+	.cu-bar.btn-group uni-button{
+		 max-width:none !important;
 	}
 </style>

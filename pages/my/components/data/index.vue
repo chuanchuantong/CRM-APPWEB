@@ -108,7 +108,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .positionLine{
 	height: 10upx;
 }

@@ -3,53 +3,34 @@
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="content">我的钱包</block>
 		</cu-custom>
-		<view class="cu-list grid col-4 no-border">
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>总佣金</text>
-			</view>
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>已提现</text>
-			</view>
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>可提现</text>
-			</view>
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>等待中</text>
-			</view>
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>总订单</text>
-			</view>
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>总销售提成</text>
-			</view>
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>总邀请</text>
-			</view>
-			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
-				<text>总推广佣金</text>
-			</view>
-		</view>
-
-		<view class="positionLine"></view>
-		<view class="cu-list  menu-avatar">
-			<view class="cu-item">
-				<view class="content" style="width: 80%;text-align: center;">
-					内容
+		<view class="bg-white padding">
+			<view class="grid margin-bottom text-center col-3">
+				<view class="gradpadding">
+					<view class="text-grey textcolor">500</view>
+					<view class="text-gray text-sm fontsize">
+						总佣金
+					</view>
 				</view>
-				<view class="action" style="width: 20%;text-align: center;">
-					时间
+				<view class="gradpadding">
+					<view class="text-grey textcolor">100</view>
+					<view class="text-gray text-sm fontsize">
+						已提现
+					</view>
+				</view>
+				<view class="gradpadding">
+					<view class="text-grey textcolor">100</view>
+					<view class="text-gray text-sm fontsize">
+						等待中
+					</view>
+				</view>
+				<view class="gradpadding">
+					<view class="text-grey textcolor">100</view>
+					<view class="text-gray text-sm fontsize">
+						可提现
+					</view>
 				</view>
 			</view>
 		</view>
-		<myclues></myclues>
 
 	</view>
 </template>
@@ -70,25 +51,17 @@
 	}
 </script>
 
-<style lang="scss">
-	.positionLine {
-		height: 10upx;
+<style scoped lang="scss">
+	.gradpadding {
+		padding: 30upx 0px;
+		width: 25% !important;
 	}
-
-	.cu-list.menu-avatar>.cu-item .content {
-		left: 20upx !important;
-		width: 100% !important;
+	
+	.textcolor {
+		color: #333333 !important;
+		font-size: 40upx;
 	}
-
-	.cu-list.menu-avatar>.cu-item .action {
-		width: 140upx !important;
-	}
-
-	.cu-list.menu-avatar>.cu-item {
-		height: 80upx !important;
-	}
-
-	.cu-list.menu-avatar>.cu-item .flex .text-cut {
-		max-width: 566upx !important;
+	.fontsize{
+		font-size: 26upx;
 	}
 </style>

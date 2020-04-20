@@ -52,6 +52,10 @@
             "path" : "pages/subordinate/index",
             "style" : {"titleNView":false}
         }
+        ,{
+            "path" : "pages/home/index",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

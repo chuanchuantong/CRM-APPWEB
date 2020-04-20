@@ -1,7 +1,7 @@
 <template>
 
 	<view class="content">
-		<cu-custom v-show="PageCur=='basics'" bgColor="bg-gradual-blue">
+		<cu-custom v-show="PageCur=='home'" bgColor="bg-gradual-blue">
 			<block slot="content">首页</block>
 		</cu-custom>
 		<cu-custom v-show="PageCur=='cluesmanage'" bgColor="bg-gradual-blue">
@@ -13,6 +13,7 @@
 		<myself v-if="PageCur=='myself'"></myself>
 		<cluesmanage v-if="PageCur=='cluesmanage'"></cluesmanage>
 		<subordinate v-if="PageCur=='subordinate'"></subordinate>
+		<home v-if="PageCur=='home'"></home>
 		<view class="cu-bar tabbar bg-white shadow foot">
 			<view class="action" @click="NavChange" v-for="item in menuData" :data-cur="item.menucode">
 				<view class='cuIcon-cu-image'>
