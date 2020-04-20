@@ -13,13 +13,13 @@
 		<myself v-if="PageCur=='myself'"></myself>
 		<cluesmanage v-if="PageCur=='cluesmanage'"></cluesmanage>
 		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" @click="NavChange" data-cur="basics">
+			<view class="action" @click="NavChange" v-for="item in menuData" :data-cur="item.menucode">
 				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/basics' + [PageCur=='basics'?'_cur':''] + '.png'"></image>
+					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
 				</view>
-				<view :class="PageCur=='basics'?'text-green':'text-gray'">首页</view>
+				<view :class="PageCur==item.menucode?'text-green':'text-gray'">{{item.menuname}}</view>
 			</view>
-			<view class="action" @click="NavChange" data-cur="cluesmanage">
+		<!-- 	<view class="action" @click="NavChange" data-cur="cluesmanage">
 				<view class='cuIcon-cu-image'>
 					<image :src="'/static/tabbar/plugin' + [PageCur=='cluesmanage'?'_cur':''] + '.png'"></image>
 				</view>
@@ -36,7 +36,7 @@
 					<image :src="'/static/tabbar/plugin' + [PageCur == 'myself'?'_cur':''] + '.png'"></image>
 				</view>
 				<view :class="PageCur=='myself'?'text-green':'text-gray'">我的</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -167,11 +167,20 @@
 
 
 <script>
+	import {getMenu} from '@/api/appsys.js'
 	export default {
 		data() {
 			return {
-				PageCur: 'basics'
+				PageCur: 'basics',
+				menuData:{}
 			}
+		},
+		created() {
+			getMenu({roleId:1,parentId:0}).then(res=>{
+				this.menuData = res.data
+				console.log(res)
+				this.PageCur = res.data[0].menucode
+			})
 		},
 		methods: {
 			NavChange: function(e) {
