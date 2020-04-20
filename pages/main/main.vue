@@ -12,6 +12,7 @@
 		</cu-custom>
 		<myself v-if="PageCur=='myself'"></myself>
 		<cluesmanage v-if="PageCur=='cluesmanage'"></cluesmanage>
+		<subordinate v-if="PageCur=='subordinate'"></subordinate>
 		<view class="cu-bar tabbar bg-white shadow foot">
 			<view class="action" @click="NavChange" v-for="item in menuData" :data-cur="item.menucode">
 				<view class='cuIcon-cu-image'>
@@ -25,11 +26,11 @@
 				</view>
 				<view :class="PageCur=='cluesmanage'?'text-green':'text-gray'">线索管理</view>
 			</view>
-			<view class="action" @click="NavChange" data-cur="component">
+			<view class="action" @click="NavChange" data-cur="subordinate">
 				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/component' + [PageCur == 'component'?'_cur':''] + '.png'"></image>
+					<image :src="'/static/tabbar/component' + [PageCur == 'subordinate'?'_cur':''] + '.png'"></image>
 				</view>
-				<view :class="PageCur=='component'?'text-green':'text-gray'">用户管理</view>
+				<view :class="PageCur=='subordinate'?'text-green':'text-gray'">用户管理</view>
 			</view>
 			<view class="action" @click="NavChange" data-cur="myself">
 				<view class='cuIcon-cu-image'>

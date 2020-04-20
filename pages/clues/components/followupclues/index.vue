@@ -67,16 +67,18 @@
 
 <style lang="scss">
 	.cu-list.menu-avatar>.cu-item .content {
-		position: absolute;
-		left: 10px !important;
-		line-height: 1.6em;
+		left: 20upx !important;
+		width: 100% !important;
 	}
-
+	
 	.cu-list.menu-avatar>.cu-item .action {
-		width: 70px !important;
+		width: 140upx !important;
 	}
-
+	
 	.cu-list.menu-avatar>.cu-item {
-		height: 35px !important;
+		height: 80upx !important;
+	}
+	.cu-list.menu-avatar>.cu-item .flex .text-cut{
+		max-width: 566upx !important;
 	}
 </style>

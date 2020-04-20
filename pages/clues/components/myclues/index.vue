@@ -50,7 +50,7 @@
 				</view>
 			</view>
 			<view class="cu-item" @click="createclues">
-				<view class="content">
+				<view class="content" style="text-align: center;">
 					<text class="cuIcon-roundadd text-grey"></text>
 					<text class="text-grey">创建线索</text>
 				</view>
@@ -89,16 +89,18 @@
 
 <style lang="scss">
 	.cu-list.menu-avatar>.cu-item .content {
-		position: absolute;
-		left: 10px !important;
-		line-height: 1.6em;
+		left: 20upx !important;
+		width: 100% !important;
 	}
-
+	
 	.cu-list.menu-avatar>.cu-item .action {
-		width: 70px !important;
+		width: 140upx !important;
 	}
-
+	
 	.cu-list.menu-avatar>.cu-item {
-		height: 35px !important;
+		height: 80upx !important;
+	}
+	.cu-list.menu-avatar>.cu-item .flex .text-cut{
+		max-width: 566upx !important;
 	}
 </style>
