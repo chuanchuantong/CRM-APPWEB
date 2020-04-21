@@ -1,7 +1,9 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue"><block slot="content">我的</block></cu-custom>
-		<view class="cu-list menu sm-border menu-avatar">
+		<cu-custom bgColor="bg-gradual-blue">
+			<block slot="content">我的</block>
+		</cu-custom>
+		<view class="cu-list menu menu-avatar">
 			<view class="cu-item arrow" @click="openUrl('data')">
 				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
 				<view class="content flex-sub">
@@ -34,7 +36,7 @@
 		</view>
 		<view class="positionLine"></view>
 		<view class="cu-list menu sm-border">
-			<view class="cu-item arrow">
+			<view class="cu-item arrow" @click="openUrl('subordinate')">
 				<view class="content">
 					<text class="cuIcon-group text-grey"></text>
 					<text class="text-grey">我的推广</text>
@@ -50,7 +52,7 @@
 					<text class="text-grey">用户管理</text>
 				</view>
 			</view>
-			<view class="cu-item arrow">
+			<view class="cu-item arrow" @click="openUrl('cluesresult')">
 				<view class="content">
 					<text class="cuIcon-paint text-grey"></text>
 					<text class="text-grey">线索结果</text>
@@ -83,7 +85,16 @@
 	import Router from '@/router'
 	export default {
 		data() {
-			return {};
+			return {
+				wallet:false
+			};
+		},
+		props:{id:{
+			type:[Number,String],
+			default:-1
+		}},
+		created(){
+		console.log("我的页面的id",this.id)	
 		},
 		methods: {
 			openUrl(url) {
@@ -111,7 +122,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 	.positionLine {
 		height: 10upx;
 	}

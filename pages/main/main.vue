@@ -1,7 +1,7 @@
 <template>
 
 	<view class="content">
-		<cu-custom v-show="PageCur=='basics'" bgColor="bg-gradual-blue">
+		<cu-custom v-show="PageCur=='home'" bgColor="bg-gradual-blue">
 			<block slot="content">首页</block>
 		</cu-custom>
 		<cu-custom v-show="PageCur=='cluesmanage'" bgColor="bg-gradual-blue">
@@ -10,11 +10,12 @@
 		<cu-custom v-show="PageCur=='component'" bgColor="bg-gradual-blue">
 			<block slot="content">用户管理</block>
 		</cu-custom>
-		<myself v-if="PageCur=='myself'"></myself>
+		<myself :id="id" v-if="PageCur=='myself'"></myself>
 		<cluesmanage v-if="PageCur=='cluesmanage'"></cluesmanage>
 		<subordinate v-if="PageCur=='subordinate'"></subordinate>
+		<home v-if="PageCur=='home'"></home>
 		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" @click="NavChange" v-for="item in menuData" :data-cur="item.menucode">
+			<view class="action" @click="NavChange" v-for="item in menuData" :data-id="item.id" :data-cur="item.menucode">
 				<view class='cuIcon-cu-image'>
 					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
 				</view>
@@ -41,6 +42,40 @@
 		</view>
 	</view>
 </template>
+
+<script>
+	import {getMenu} from '@/api/appsys.js'
+	export default {
+		data() {
+			return {
+				PageCur: 'basics',
+				menuData:{},
+				id:0,
+			}
+		},
+		created() {
+			getMenu({roleId:1,parentId:0}).then(res=>{
+				this.menuData = res.data
+				console.log(res)
+				this.PageCur = res.data[0].menucode;
+				this.id=res.data[0].id;
+				
+			})
+		},
+		methods: {
+			NavChange: function(e) {
+				console.log(e)
+				console.log("id为",e.currentTarget.dataset.id);
+				this.id=e.currentTarget.dataset.id;
+				
+				this.PageCur = e.currentTarget.dataset.cur;
+				console.log(this.PageCur)
+			}
+		}
+	}
+</script>
+
+
 <style lang="scss">
 	.myself {
 		width: 100%;
@@ -166,29 +201,3 @@
 	}
 </style>
 
-
-<script>
-	import {getMenu} from '@/api/appsys.js'
-	export default {
-		data() {
-			return {
-				PageCur: 'basics',
-				menuData:{}
-			}
-		},
-		created() {
-			getMenu({roleId:1,parentId:0}).then(res=>{
-				this.menuData = res.data
-				console.log(res)
-				this.PageCur = res.data[0].menucode
-			})
-		},
-		methods: {
-			NavChange: function(e) {
-				console.log(e)
-				this.PageCur = e.currentTarget.dataset.cur;
-				console.log(this.PageCur)
-			}
-		}
-	}
-</script>

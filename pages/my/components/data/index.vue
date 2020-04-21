@@ -101,14 +101,20 @@
 		},
 		methods: {
 			openUrl(url,title,content) {
-				console.log("点击了路由跳转",url)
+				//#ifdef APP-PLUS
 				Router.push({name:url,params:{title:title,content:content}});
+				//#endif
+				
+				//#ifdef H5
+				this.$router.push({name:url,params:{title:title,content:content}});
+				//#endif
+				
 			}
 		}
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .positionLine{
 	height: 10upx;
 }

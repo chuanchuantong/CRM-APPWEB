@@ -3,18 +3,40 @@
 		<cu-custom bgColor="bg-gradual-blue">
 			<block slot="content">查看下线</block>
 		</cu-custom>
-		
+		<view class="bg-white padding">
+			<view class="grid margin-bottom text-center col-3">
+				<view class="gradpadding tleft">
+					<view class="text-grey textcolor">0.00</view>
+					<view class="text-gray text-sm">
+						可提现金额（元)
+					</view>
+				</view>
+				<view class="gradpadding tcenter">
+					<view class="text-grey textcolor">0.00</view>
+					<view class="text-gray text-sm">
+						累计赚取现金额（元)
+					</view>
+				</view>
+				<view class="gradpadding tright">
+					<view class="text-grey textcolor">3</view>
+					<view class="text-gray text-sm">
+						累计邀请人（元)
+					</view>
+				</view>
+			</view>
+		</view>
+
 		<view class="box">
 			<view class="cu-bar bg-white">
 				<view class="action">
 					<text class="cuIcon-titles text-green"></text>
-					<text class="text-xl text-bold">我的战绩</text>
+					<text class="text-xl text-bold">我的下线</text>
 				</view>
 			</view>
-			
+
 		</view>
-		
-		<view class="cu-card case">
+
+		<view class="cu-card case no-card">
 			<view class="cu-item shadow">
 				<view class="cu-list menu-avatar">
 					<view class="cu-item">
@@ -22,7 +44,7 @@
 						<view class="content flex-sub">
 							<view class="text-grey">正义天使 凯尔</view>
 							<view class="text-gray text-sm flex justify-between">
-								销售经理
+								经理
 								<view class="text-gray text-sm">
 									<text class="margin-lr-xs"></text> 2020-04-19 22:00:00
 								</view>
@@ -34,7 +56,7 @@
 						<view class="content flex-sub">
 							<view class="text-grey">正义天使 凯尔</view>
 							<view class="text-gray text-sm flex justify-between">
-								销售经理
+								专员
 								<view class="text-gray text-sm">
 									<text class="margin-lr-xs"></text> 2020-04-19 22:00:00
 								</view>
@@ -46,7 +68,7 @@
 						<view class="content flex-sub">
 							<view class="text-grey">正义天使 凯尔</view>
 							<view class="text-gray text-sm flex justify-between">
-								销售经理
+								人员
 								<view class="text-gray text-sm">
 									<text class="margin-lr-xs"></text> 2020-04-19 22:00:00
 								</view>
@@ -56,7 +78,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 
 	</view>
 </template>
@@ -65,12 +87,31 @@
 	export default {
 		data() {
 			return {
-
+				
 			};
 		}
 	}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+	.tleft {
+		width: 30%;
+	}
 
+	.tcenter {
+		width: 40%;
+	}
+
+	.tright {
+		width: 30%;
+	}
+
+	.gradpadding {
+		padding: 30upx 0px;
+	}
+
+	.textcolor {
+		color: #333333 !important;
+		font-size: 40upx;
+	}
 </style>

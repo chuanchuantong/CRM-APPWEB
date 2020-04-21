@@ -52,6 +52,22 @@
             "path" : "pages/subordinate/index",
             "style" : {"titleNView":false}
         }
+        ,{
+            "path" : "pages/home/index",
+            "style" : {"titleNView":false}
+        }
+        ,{
+            "path" : "pages/clues/components/cluesresult/index",
+            "style" : {"titleNView":false}
+        }
+        ,{
+            "path" : "pages/clues/components/cluesinfo/index",
+            "style" : {"titleNView":false}
+        }
+        ,{
+            "path" : "pages/clues/components/approvalinfo/index",
+            "style" : {"titleNView":false}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
