@@ -1,8 +1,5 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="content">我的钱包</block>
-		</cu-custom>
 		<view class="cu-list grid col-4 no-border">
 			<view class="cu-item">
 				<view class="cuIcon-moneybag"></view>

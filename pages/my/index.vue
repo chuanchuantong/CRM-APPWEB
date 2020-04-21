@@ -36,7 +36,7 @@
 		</view>
 		<view class="positionLine"></view>
 		<view class="cu-list menu sm-border">
-			<view class="cu-item arrow">
+			<view class="cu-item arrow" @click="openUrl('subordinate')">
 				<view class="content">
 					<text class="cuIcon-group text-grey"></text>
 					<text class="text-grey">我的推广</text>
@@ -52,7 +52,7 @@
 					<text class="text-grey">用户管理</text>
 				</view>
 			</view>
-			<view class="cu-item arrow">
+			<view class="cu-item arrow" @click="openUrl('cluesresult')">
 				<view class="content">
 					<text class="cuIcon-paint text-grey"></text>
 					<text class="text-grey">线索结果</text>
@@ -85,7 +85,16 @@
 	import Router from '@/router'
 	export default {
 		data() {
-			return {};
+			return {
+				wallet:false
+			};
+		},
+		props:{id:{
+			type:[Number,String],
+			default:-1
+		}},
+		created(){
+		console.log("我的页面的id",this.id)	
 		},
 		methods: {
 			openUrl(url) {

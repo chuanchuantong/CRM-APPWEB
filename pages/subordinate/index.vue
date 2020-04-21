@@ -3,8 +3,6 @@
 		<cu-custom bgColor="bg-gradual-blue">
 			<block slot="content">查看下线</block>
 		</cu-custom>
-
-
 		<view class="bg-white padding">
 			<view class="grid margin-bottom text-center col-3">
 				<view class="gradpadding tleft">
@@ -89,7 +87,7 @@
 	export default {
 		data() {
 			return {
-
+				
 			};
 		}
 	}
