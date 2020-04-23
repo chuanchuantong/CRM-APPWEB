@@ -11,7 +11,7 @@
 			<block slot="content">用户管理</block>
 		</cu-custom>
 		<myself :id="id" v-if="PageCur=='myself'"></myself>
-		<cluesmanage v-if="PageCur=='cluesmanage'"></cluesmanage>
+		<cluesmanage :id="id" v-if="PageCur=='cluesmanage'"></cluesmanage>
 		<subordinate v-if="PageCur=='subordinate'"></subordinate>
 		<home v-if="PageCur=='home'"></home>
 		<view class="cu-bar tabbar bg-white shadow foot">

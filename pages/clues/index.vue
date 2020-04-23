@@ -19,24 +19,47 @@
 	import myclues from './components/myclues/index.vue';
 	import followup from './components/followupclues/index.vue';
 	import distribution from './components/distributionclues/index.vue';
+	import {
+		getMenu
+	} from '@/api/appsys.js'
 	export default {
+		props: {
+			id: {
+				type: [Number, String],
+				default: -1
+			}
+		},
 		components: {
 			myclues,
 			followup,
 			distribution
 		},
+		created() {
+			var _this = this;
+			_this.getCuleMenu();
+		},
 		data() {
 			return {
 				TabCur: 0,
-				scrollLeft: 0,
 				clues: ["我的线索", "跟进线索", "分配线索"]
 			};
 		},
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
-				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+			},
+			getCuleMenu() {
+				var _this = this;
+				console.log(_this.id)
+				//获取线索id
+				getMenu({
+					parentId:parseInt(_this.id)
+				}).then(res => {
+					console.log("线索管理的获取菜单数据", res)
+
+				})
 			}
+
 		}
 	}
 </script>

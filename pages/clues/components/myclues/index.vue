@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="cu-list  menu-avatar">
-			<view class="cu-item">
+			<view class="cu-item" @click="openUrl(1)">
 				<view class="content">
 					<view class="text-sm flex">
 						<view class="text-cut">
@@ -13,7 +13,7 @@
 					<view class="text-xs">2020-04-19</view>
 				</view>
 			</view>
-			<view class="cu-item">
+			<view class="cu-item" @click="openUrl(1)">
 				<view class="content">
 					<view class="text-sm flex">
 						<view class="text-cut">
@@ -25,7 +25,7 @@
 					<view class="text-xs">2020-04-19</view>
 				</view>
 			</view>
-			<view class="cu-item">
+			<view class="cu-item" @click="openUrl(1)">
 				<view class="content">
 					<view class="text-sm flex">
 						<view class="text-cut">
@@ -37,7 +37,7 @@
 					<view class="text-xs">2020-04-19</view>
 				</view>
 			</view>
-			<view class="cu-item">
+			<view class="cu-item" @click="openUrl(1)">
 				<view class="content">
 					<view class="text-sm flex">
 						<view class="text-cut">
@@ -81,6 +81,26 @@
 				//#ifdef H5
 				console.log("点击了路由跳转H5",'createclue')
 				this.$router.push('createclue');
+				//#endif
+			},
+			openUrl(clueid){
+				console.log("线索id",clueid)
+				//#ifdef APP-PLUS
+				Router.push({
+					name: 'cluesdetail',
+					params: {
+						clueid:clueid
+					}
+				});
+				//#endif
+				
+				//#ifdef H5
+				this.$router.push({
+					name: 'cluesdetail',
+					params: {
+						clueid:clueid
+					}
+				});
 				//#endif
 			}
 		}

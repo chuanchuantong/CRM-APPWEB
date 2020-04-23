@@ -1,19 +1,149 @@
 <template>
 	<view>
-		
+		<view class="cu-bar bg-white solid-bottom">
+			<view class="action">
+				<text class="cuIcon-titles text-green"></text>审核记录
+			</view>
+		</view>
+		<view class="cu-timeline">
+			<view class="cu-time">昨天</view>
+			<view class="cu-item text-blue">
+				<view class="content bg-green shadow-blur">
+					<text>22:22</text> 【广州市】快件已到达地球
+				</view>
+			</view>
+			<view class="cu-time">昨天</view>
+			<view class="cu-item text-red">
+				<view class="content bg-red shadow-blur">
+					这是第一次，我家的铲屎官走了这么久。久到足足有三天！！
+				</view>
+			</view>
+		</view>
+		<view class="positionLine"></view>
+		<form>
+			<view class="cu-bar bg-white solid-bottom">
+				<view class="action">
+					<text class="cuIcon-titles text-green"></text>
+					审核信息
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title"><text class="required">*</text>选择OA专员</view>
+				<picker @change="pickerChange" :value="oauserindex" :range="oausers">
+					<view class="picker">
+						{{oauserindex>-1?oausers[oauserindex]:'请选择'}}
+					</view>
+				</picker>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="title"><text class="required">*</text>客户级别</view>
+				<radio-group class="block" @change="radioChange">
+					<radio class='round blue margin-left-sm' :class="leave=='A+'?'checked':''" :checked="leave=='A+'?true:false" value="A+"></radio>A+
+					<radio class='round blue margin-left-sm' :class="leave=='A'?'checked':''" :checked="leave=='A'?true:false" value="A"></radio>A
+					<radio class='round blue margin-left-sm' :class="leave=='A-'?'checked':''" :checked="leave=='A-'?true:false" value="A-"></radio>A-
+				</radio-group>
+			</view>
+			<view class="cu-form-group">
+				<view class="title"><text class="required">*</text>客户特点</view>
+				<textarea maxlength="500" placeholder="请输入客户特点"></textarea>
+			</view>
+			<view class="cu-form-group">
+				<view class="title"><text class="required">*</text>进度记录</view>
+				<picker mode="date" :value="date" start="1990-01-01" end="3000-12-31" @change="dateChange">
+					<view class="picker">
+						{{date}}
+					</view>
+				</picker>
+			</view>
+		</form>
 	</view>
 </template>
 
 <script>
 	export default {
+		props: {
+			clueid: {
+				type: [Number],
+				default: -1
+			},
+			roleName: 'OA'
+		},
 		data() {
 			return {
-				
+				//选择oa的索引
+				oauserindex: -1,
+				//oa集合
+				oausers: [],
+				//自定义匹配选择的OA的用户id
+				oauserinfo: {},
+				leave: '',
+				date: ''
 			};
+		},
+		created() {
+			var _this = this;
+			//1、销售经理显示OA下拉框（此角色为销售经理所有）
+			//2、客户级别单选按钮 A+   A  A-（此选项为OA所有）
+			//3、客户特点多行文本（此选项为OA所有）
+			//4、进度记录（此选项为OA所有）
+			var oauserlist = [{
+				value: 100,
+				text: 'test1'
+			}, {
+				value: 200,
+				text: 'test2'
+			}, {
+				value: 300,
+				text: 'test3'
+			}];
+			oauserlist.forEach((info, index) => {
+				_this.$set(_this.oauserinfo, index, info.value);
+				_this.oausers.push(info.text);
+			})
+			//处理日期
+			var dateInfo = new Date();
+			var year = dateInfo.getFullYear();
+			var month=((dateInfo.getMonth() + 1)>10?(dateInfo.getMonth() + 1):'0'+(dateInfo.getMonth() + 1));
+			var date=dateInfo.getDate();
+			_this.date=year+'-'+month+'-'+date;
+		},
+		methods: {
+			pickerChange(e) {
+				var _this = this;
+				_this.oauserindex = e.detail.value;
+			},
+			radioChange(e) {
+				var _this = this;
+				_this.leave = e.detail.value;
+				console.log(_this.leave)
+			},
+			dateChange(e) {
+				this.date = e.detail.value
+			},
 		}
+
+
 	}
 </script>
 
 <style scoped lang="scss">
+	.positionLine {
+		height: 10upx;
+	}
 
+	.cu-form-group .required {
+		color: red;
+		line-height: 60upx;
+		margin-right: 10upx;
+	}
+
+	.cu-form-group .title {
+		min-width: calc(6em + 40upx);
+		text-align: right;
+	}
+
+	.margin-left-sm {
+		margin-right: 10upx !important;
+	}
 </style>

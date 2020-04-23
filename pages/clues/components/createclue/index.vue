@@ -4,14 +4,6 @@
 
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="content">新建线索</block>
-			<block slot="right">
-				<view class="cu-bar btn-group">
-					<button class="cu-btn bg-green" @click="saveclueinfo">
-						<text v-if="isRotate" class="cuIcon-loading2 cuIconfont-spin"></text>
-						保存
-					</button>
-				</view>
-			</block>
 		</cu-custom>
 
 		<form>
@@ -81,13 +73,22 @@
 				<input v-model="cluesInfo.isholdcash" placeholder="请输入是否持币" name="input"></input>
 			</view>
 			<view class="cu-form-group">
-
 				<view class="title"><text class="required">*</text>现有车型</view>
 				<input v-model="cluesInfo.exitscar" placeholder="请输入现有车型" name="input"></input>
 			</view>
 			<view class="cu-form-group">
 				<view class="title"><text class="required">*</text>计划提车时间</view>
 				<input v-model="cluesInfo.plantime" placeholder="请输入计划提车时间" name="input"></input>
+			</view>
+			<view class="cu-form-group">
+				<button class="cu-btn bg-green" @click="saveclueinfo(true)">
+					<text v-if="saveBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
+					保存
+				</button>
+				<button class="cu-btn bg-green" @click="saveclueinfo(false)">
+					<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
+					提交
+				</button>
 			</view>
 		</form>
 
@@ -96,7 +97,10 @@
 
 <script>
 	var graceChecker = require("@/js_sdk/graceui-dataChecker/graceChecker.js")
-	import {insertclue} from '../../../../api/clues.js'
+	import {
+		insertclue
+	} from '../../../../api/clues.js'
+	import dictionary from '../../../../utils/dictionary.js'
 	export default {
 		data() {
 			return {
@@ -115,13 +119,16 @@
 					exitscar: '',
 					plantime: '',
 					level: '',
-					email: ''
+					email: '',
+					status: dictionary.cluesStatus.save, //线索状态
 				},
 				isRotate: false, //是否加载旋转
+				saveBtnLoading:false,
+				submitBtnLoading:false,
 			};
 		},
 		methods: {
-			saveclueinfo() {
+			saveclueinfo(isSave) {
 				var _this = this;
 				//登录
 				if (_this.isRotate) {
@@ -129,112 +136,131 @@
 					return false;
 				}
 				_this.isRotate = true;
-				var rule = [{
+				
+				var rule = [];
+				if (!isSave) {
+					_this.submitBtnLoading=true;
+					_this.cluesInfo.status = dictionary.cluesStatus.submit;
+					rule = [{
+							name: "shorthand",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入线索名称"
+						},
+						{
+							name: "source",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入线索来源"
+						},
+						{
+							name: "customername",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入客户姓名"
+						},
+						{
+							name: "customeraddress",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入地址"
+						},
+						{
+							name: "contactinfo",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入联系方式"
+						},
+						{
+							name: "industry",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入客户行业"
+						},
+						{
+							name: "intentioncar",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入意向车型"
+						},
+						{
+							name: "needs",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入需求"
+						},
+						{
+							name: "budget",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入预算"
+						},
+						{
+							name: "isholdcash",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入是否持币"
+						},
+						{
+							name: "exitscar",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入现有车型"
+						},
+						{
+							name: "plantime",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入计划提车时间"
+						},
+						{
+							name: "level",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入客户级别"
+						},
+						{
+							name: "email",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入邮箱"
+						},
+					];
+				} else {
+					_this.saveBtnLoading=true;
+					_this.cluesInfo.status = dictionary.cluesStatus.save;
+					rule = [{
 						name: "shorthand",
 						checkType: "notnull",
 						checkRule: "",
 						required: true,
 						errorMsg: "请输入线索名称"
-					},
-					{
-						name: "source",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入线索来源"
-					},
-					{
-						name: "customername",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入客户姓名"
-					},
-					{
-						name: "customeraddress",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入地址"
-					},
-					{
-						name: "contactinfo",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入联系方式"
-					},
-					{
-						name: "industry",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入客户行业"
-					},
-					{
-						name: "intentioncar",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入意向车型"
-					},
-					{
-						name: "needs",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入需求"
-					},
-					{
-						name: "budget",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入预算"
-					},
-					{
-						name: "isholdcash",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入是否持币"
-					},
-					{
-						name: "exitscar",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入现有车型"
-					},
-					{
-						name: "plantime",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入计划提车时间"
-					},
-					{
-						name: "level",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入客户级别"
-					},
-					{
-						name: "email",
-						checkType: "notnull",
-						checkRule: "",
-						required: true,
-						errorMsg: "请输入邮箱"
-					},
-				];
+					}];
+				}
+				console.log(_this.cluesInfo)
+				return;
 				var checkRes = graceChecker.check(_this.cluesInfo, rule);
 				if (checkRes) {
-					_this.isRotate = false;
 					//新增线索接口
 					insertclue(_this.cluesInfo).then(response => {
+						_this.saveBtnLoading=false;
+						_this.submitBtnLoading=false;
 						_this.isRotate = false;
-						if (response.code!=200) {
+						if (response.code != 200) {
 							uni.showToast({
 								title: '保存线索异常请稍后再试',
 								icon: "none"
@@ -245,7 +271,7 @@
 						uni.showToast({
 							title: '保存成功',
 							icon: "none",
-							success:function(){
+							success: function() {
 								// #ifdef H5
 								_this.$router.push("cluesmanage")
 								//#endif
@@ -257,10 +283,13 @@
 							}
 						});
 					}).finally(response => {
+						_this.saveBtnLoading=false;
+						_this.submitBtnLoading=false;
 						_this.isRotate = false
 					})
-				}
-				else{
+				} else {
+					_this.saveBtnLoading=false;
+					_this.submitBtnLoading=false;
 					_this.isRotate = false;
 					uni.showToast({
 						title: graceChecker.error,
@@ -273,8 +302,11 @@
 </script>
 
 <style scoped lang="scss">
-	page {
-		background-color: #EEEEEE;
+
+	.cu-btn {
+		width: 40% !important;
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
 	}
 
 	.cu-form-group .title {

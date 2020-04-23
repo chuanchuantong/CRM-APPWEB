@@ -14,10 +14,16 @@
 				</view>
 			</view>
 		</view>
-		<view class="positionLine"></view>
+		
 		<view class="cu-list menu sm-border">
+			<!-- <view v-for="(menuInfo,index) in menus" :key="index" class="cu-item arrow" @click="openUrl(menuInfo.url)">
+				<view class="content"> <text class="'cuIcon-'+menuInfo.icon+' text-grey'"></text>
+					<text class="text-grey">{{menuInfo.name}}</text>
+				</view>
+				<view v-if="menuInfo.bottom" class="positionLine"></view>
+			</view> -->
 			<view class="cu-item arrow" @click="openUrl('wallet')">
-				<view class="content" > <text class="cuIcon-pay text-grey"></text>
+				<view class="content"> <text class="cuIcon-pay text-grey"></text>
 					<text class="text-grey">我的钱包</text>
 				</view>
 			</view>
@@ -83,41 +89,65 @@
 
 <script>
 	import Router from '@/router'
+	import {
+		getMenu
+	} from '@/api/appsys.js'
 	export default {
 		data() {
 			return {
-				wallet:false
+				//菜单集合
+				menus:[],
+				
 			};
 		},
-		props:{id:{
-			type:[Number,String],
-			default:-1
-		}},
-		created(){
-		console.log("我的页面的id",this.id)	
+		props: {
+			id: {
+				type: [Number, String],
+				default: -1
+			}
+		},
+		created() {
+			var _this = this;
+			_this.getMyMenu();
 		},
 		methods: {
+			//跳转页面
 			openUrl(url) {
 				//#ifdef APP-PLUS
-				console.log("点击了路由跳转",url)
+				console.log("点击了路由跳转", url)
 				Router.push(url);
 				//#endif
-				
+
 				//#ifdef H5
-				console.log("点击了路由跳转H5",url)
+				console.log("点击了路由跳转H5", url)
 				this.$router.push(url);
 				//#endif
 			},
-			outLogin(){
+			//退出登录
+			outLogin() {
 				uni.removeStorageSync("Token")
 				//#ifdef APP-PLUS 
-				Router.push({name:'login'});
+				Router.push({
+					name: 'login'
+				});
 				//#endif
-				
+
 				//#ifdef H5 
 				this.$router.push("/");
 				//#endif
-			}
+			},
+			//获取个人中心需要现实的菜单
+			getMyMenu() {
+				var _this = this;
+				console.log(_this.id)
+				//获取线索id
+				getMenu({
+					parentId: parseInt(_this.id)
+				}).then(res => {
+					console.log("个人中心获取菜单数据", res)
+
+				})
+			},
 		}
 	}
 </script>
