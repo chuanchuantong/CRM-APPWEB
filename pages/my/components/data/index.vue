@@ -9,7 +9,7 @@
 					<text class="text-grey">用户ID</text>
 				</view>
 				<view class="action">
-					<text class="text-grey text-sm">用户888888</text>
+					<text class="text-grey text-sm">{{userInfo.usercode}}</text>
 				</view>
 			</view>
 			<view class="cu-item arrow" @click="openUrl('updatedata','更改昵称',userInfo.nickname)">
@@ -52,7 +52,7 @@
 					<text class="text-grey">我的邀请码</text>
 				</view>
 				<view class="action">
-					<text class="text-grey text-sm">MYDEYAOQING</text>
+					<text class="text-grey text-sm">{{userInfo.incode}}</text>
 				</view>
 			</view>
 			<view class="cu-item arrow">
@@ -98,9 +98,11 @@
 				}
 			};
 		},
+		created() {
+			this.userInfo = JSON.parse( localStorage.getItem("data"));
+		},
 		methods: {
-			openUrl(url, title, content) {
-				console.log(url, title, content)
+			openUrl(url, title, content) { 
 				//#ifdef APP-PLUS
 				Router.push({
 					name: url,
@@ -112,11 +114,11 @@
 				//#endif
 
 				//#ifdef H5
-				this.$router.push({
+				this.$Router.push({
 					name: url,
 					params: {
-						title,
-						content
+						title: title,
+						content: content
 					}
 				});
 				//#endif

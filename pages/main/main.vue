@@ -45,6 +45,7 @@
 
 <script>
 	import {getMenu} from '@/api/appsys.js'
+	import {getUserInfo} from '@/api/login.js'
 	export default {
 		data() {
 			return {
@@ -54,13 +55,14 @@
 			}
 		},
 		created() {
+			this.init();
 			getMenu({roleId:1,parentId:0}).then(res=>{
 				this.menuData = res.data
 				console.log(res)
 				this.PageCur = res.data[0].menucode;
 				this.id=res.data[0].id;
 				
-			})
+			});
 		},
 		methods: {
 			NavChange: function(e) {
@@ -70,6 +72,13 @@
 				
 				this.PageCur = e.currentTarget.dataset.cur;
 				console.log(this.PageCur)
+			},
+			init:function(){
+				getUserInfo().then(res=>{
+					localStorage.setItem('data',JSON.stringify(res.data))
+					
+				})
+				
 			}
 		}
 	}

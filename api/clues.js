@@ -14,3 +14,11 @@ export function insertclue(data){
 export function searchclues(data){
 	return http.post("/clue/selectById",data)
 }
+
+/**
+ * 分页获取当前用户的线索
+ * @param {Object} data
+ */
+export function selectAll(data){
+	return http.post("/clue/selectAll",data)
+}

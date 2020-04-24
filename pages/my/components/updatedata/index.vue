@@ -26,7 +26,7 @@
 			};
 		},
 		created() {
-			console.log(this)
+			console.log(this.$Route)
 			this.title = this.$Route.query.title;
 			this.content = this.$Route.query.content;
 		},

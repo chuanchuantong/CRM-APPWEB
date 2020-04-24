@@ -7,9 +7,9 @@
 			<view class="cu-item arrow" @click="openUrl('data')">
 				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
 				<view class="content flex-sub">
-					<view class="myname">凯尔</view>
+					<view class="myname">{{userinfo.nickname}}({{userinfo.rolename}})</view>
 					<view class="text-gray text-sm flex justify-between myincode">
-						邀请码：TCC0820
+						邀请码：{{userinfo.incode}}
 					</view>
 				</view>
 			</view>
@@ -97,6 +97,7 @@
 			return {
 				//菜单集合
 				menus:[],
+				userinfo:{}
 				
 			};
 		},
@@ -107,6 +108,7 @@
 			}
 		},
 		created() {
+			this.userinfo = JSON.parse( localStorage.getItem("data"));
 			var _this = this;
 			_this.getMyMenu();
 		},
