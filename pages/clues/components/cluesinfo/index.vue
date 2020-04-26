@@ -2,6 +2,12 @@
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="content">线索详情</block>
+			<block slot="right">
+				<button class="cu-btn bg-green lg" @click="submitApproval()">
+					<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
+					提交
+				</button>
+			</block>
 		</cu-custom>
 
 		<view class="cu-list menu sm-border">
@@ -123,7 +129,7 @@
 
 		</view>
 
-		<approvalInfo :clueid="clueid"></approvalInfo>
+		<approvalInfo ref="approvalInfo" :clueid="clueid"></approvalInfo>
 
 	</view>
 </template>
@@ -138,7 +144,8 @@
 			return {
 				clueid: 0,
 				showOrHide: false,
-				animation:''
+				animation:'',
+				submitBtnLoading:false,
 			};
 		},
 		created() {
@@ -151,6 +158,14 @@
 				var _this = this;
 				_this.showOrHide = !_this.showOrHide;
 			},
+			//提交审批信息
+			submitApproval(){
+				var _this=this;
+				_this.submitBtnLoading=true;
+				//此函数中需要调用子组件的提提交方法
+				_this.$refs.approvalInfo.submit();
+				// _this.submitBtnLoading=false;
+			}
 		}
 	}
 </script>
