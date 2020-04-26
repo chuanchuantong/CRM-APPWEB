@@ -26,5 +26,27 @@ const My = [{
 	meta: {
 		title: '更新资料',
 	}
+}, {
+	path: '/pages/my/components/cashwithdrawal/cashapply/index',
+	name: 'cashapply',
+	aliasPath: '/cashapply',
+	meta: {
+		title: '提现申请',
+	}
+}, {
+	path: '/pages/my/components/cashwithdrawal/addcashmode/index',
+	name: 'addcashmode',
+	aliasPath: '/addcashmode',
+	meta: {
+		title: '新增提现方式',
+	}
+},
+{
+	path: '/pages/my/components/cashwithdrawal/accountmanage/index',
+	name: 'accountmanage',
+	aliasPath: '/accountmanage',
+	meta: {
+		title: '账户管理',
+	}
 }]
 export default My

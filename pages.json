@@ -25,8 +25,7 @@
 		}, {
 			"path": "pages/clues/index",
 			"style": {
-				"titleNView": false,
-				"enablePullDownRefresh": true//就是这个
+				"titleNView": false
 			}
 		}, {
 			"path": "pages/my/components/data/index",
@@ -42,14 +41,12 @@
 			"path": "pages/main/main",
 			"style": {
 				"navigationBarTitleText": "登录模板",
-				"titleNView": false,
-				"enablePullDownRefresh": true//就是这个
+				"titleNView": false
 			}
 		}, {
 			"path": "pages/clues/components/myclues/index",
 			"style": {
-				"titleNView": false,
-				"enablePullDownRefresh": true//就是这个
+				"titleNView": false
 			}
 		}, {
 			"path": "pages/clues/components/followupclues/index",
@@ -92,7 +89,29 @@
 				"titleNView": false
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/my/components/cashwithdrawal/cashapply/index",
+            "style" : {
+				"titleNView": false
+			}
+        }
+        ,{
+            "path" : "pages/my/components/cashwithdrawal/addcashmode/index",
+            "style" : {
+				"titleNView": false
+			}
+        }
+        ,{
+            "path" : "pages/my/components/cashwithdrawal/accountmanage/index",
+            "style" : {
+				"titleNView": false
+			}
+        }
+        ,{
+            "path" : "components/loadmore/index",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

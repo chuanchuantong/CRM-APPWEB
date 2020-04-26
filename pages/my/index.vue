@@ -27,13 +27,13 @@
 					<text class="text-grey">我的钱包</text>
 				</view>
 			</view>
-			<view class="cu-item arrow">
+			<view class="cu-item arrow" @click="openUrl('accountmanage')">
 				<view class="content">
 					<text class="cuIcon-rank text-grey"></text>
 					<text class="text-grey">账户管理</text>
 				</view>
 			</view>
-			<view class="cu-item arrow">
+			<view class="cu-item arrow" @click="openUrl('cashapply')">
 				<view class="content">
 					<text class="cuIcon-redpacket text-grey"></text>
 					<text class="text-grey">提现申请</text>
