@@ -10,16 +10,10 @@
 				</view>
 			</scroll-view>
 
-			<mescroll-body class="clueData" ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption"
-			 :up="upOption">
-				<myclues v-if="TabCur=='0'"></myclues>
+			 
+				<myclues :returnData="returnData" v-if="TabCur=='0'"></myclues>
 				<followup v-if="TabCur=='1'"></followup>
-				<distribution v-if="TabCur=='2'"></distribution>
-			</mescroll-body>
-
-
-
-
+				<distribution v-if="TabCur=='2'"></distribution> 
 
 		</view>
 
@@ -36,6 +30,9 @@
 	} from '@/api/appsys.js'
 	// 引入mescroll-mixins.js
 	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
+	import {
+		selectAll
+	} from '@/api/clues.js'
 	export default {
 		mixins: [MescrollMixin], // 使用mixin
 		props: {
@@ -52,6 +49,11 @@
 		created() {
 			var _this = this;
 			_this.getCuleMenu();
+			_this.InitClues();
+		},
+		
+		onPageScroll: function(e) { //nvue暂不支持滚动监听，可用bindingx代替
+			console.log("滚动距离为：" + e.scrollTop);
 		},
 		data() {
 			return {
@@ -70,20 +72,38 @@
 					auto: true, // 是否在初始化完毕之后自动执行上拉加载的回调; 默认true
 					page: {
 						num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
-						size: 10 // 每页数据的数量,默认10
+						size: 20 // 每页数据的数量,默认10
 					},
 					noMoreSize: 5, // 配置列表的总数量要大于等于5条才显示'-- END --'的提示
 					empty: {
 						tip: '暂无相关数据'
 					}
 				},
+				queryData: {
+					currentPage: 1,
+					pageSize: 20,
+					params: {
+
+					}
+				},
+				returnData: []
 			};
 		},
 		methods: {
-			//页面滚动执行方式
-			onPageScroll(e) {
-				this.scrollTop = e.scrollTop
+			onPageScroll(e) { //nvue暂不支持滚动监听，可用bindingx代替
+				console.log("滚动距离为：" + e.scrollTop);
+				//console.log('当前滚动条的位置:' + e.scrollTop + ', 是否向上滑:'+e.isScrollUp)
 			},
+			aaaa(e){
+				console.log("昵称你擦撒撒旦撒旦撒旦撒大大")
+			},
+			InitClues(){
+				this.queryData.currentPage=1;
+				selectAll(this.queryData).then(res => {
+					console.log(res)
+					this.returnData = res.data.list;
+				})
+			}, 
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 			},
@@ -104,28 +124,49 @@
 			/*下拉刷新的回调, 有三种处理方式:*/
 			downCallback() {
 				// 第1种: 请求具体接口
-				uni.request({
-					url: 'xxxx',
-					success: () => {
-						// 请求成功,隐藏加载状态
-						this.mescroll.endSuccess()
-					},
-					fail: () => {
-						// 请求失败,隐藏加载状态
-						this.mescroll.endErr()
-					}
+				// uni.request({
+				// 	url: 'xxxx',
+				// 	success: () => {
+				// 		// 请求成功,隐藏加载状态
+				// 		this.mescroll.endSuccess()
+				// 	},
+				// 	fail: () => {
+				// 		// 请求失败,隐藏加载状态
+				// 		this.mescroll.endErr()
+				// 	}
+				// })
+
+				selectAll(this.queryData).then(res => {
+					this.returnData = res.data.list;
+					this.mescroll.endSuccess()
 				})
+
 				// 第2种: 下拉刷新和上拉加载调同样的接口, 那么不用第1种方式, 直接mescroll.resetUpScroll()即可
-				this.mescroll.resetUpScroll(); // 重置列表为第一页 (自动执行 page.num=1, 再触发upCallback方法 )
+				//this.mescroll.resetUpScroll(); // 重置列表为第一页 (自动执行 page.num=1, 再触发upCallback方法 )
 				// 第3种: 下拉刷新什么也不处理, 可直接调用或者延时一会调用 mescroll.endSuccess() 结束即可
-				this.mescroll.endSuccess()
+				//this.mescroll.endSuccess()
 				// 若整个downCallback方法仅调用mescroll.resetUpScroll(),则downCallback方法可删 (mixins已默认)
 			},
 			/*上拉加载的回调*/
 			upCallback(page) {
-				console.log("上啦刷新")
+				console.log("上啦刷新", page)
 				let pageNum = page.num; // 页码, 默认从1开始
 				let pageSize = page.size; // 页长, 默认每页10条
+				this.queryData.currentPage = page.num;
+				this.queryData.pageSize = page.size;
+				selectAll(this.queryData).then(res => {
+					console.log("总页数", res.data.total)
+					if (page.num == 1) this.returnData = [];
+					console.log("源：", res.data.list)
+					this.returnData = this.returnData.concat(res.data.list);
+					console.log("返回的数据", this.returnData)
+					let totalPage = res.data.pages;
+					let curPageLen = res.data.size;
+
+					this.$nextTick(() => {
+						this.mescroll.endByPage(curPageLen, totalPage);
+					})
+				})
 				// 	uni.request({
 				// 		url: 'xxxx?pageNum=' + pageNum + '&pageSize=' + pageSize,
 				// 		success: (data) => {
@@ -184,6 +225,14 @@
 			}
 
 
+		},
+		watch: {
+			'TabCur': function(newVal) {
+				console.log(newVal)
+				if (newVal == "0") {
+					console.log(this.returnData)
+				}
+			}
 		}
 	}
 </script>
@@ -194,7 +243,7 @@
 			position: fixed;
 			z-index: 1000;
 			width: 100%;
-			margin-top: -110upx !important;
+			 
 		}
 
 		.clueData {

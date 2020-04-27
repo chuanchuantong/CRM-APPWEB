@@ -21,13 +21,13 @@
 		</view>
 		<view class="positionLine"></view>
 		<form>
-			<view class="cu-bar bg-white solid-bottom">
+			<view class="cu-bar bg-white solid-bottom" v-if="showXs">
 				<view class="action">
 					<text class="cuIcon-titles text-green"></text>
 					审核信息
 				</view>
 			</view>
-			<view class="cu-form-group">
+			<view class="cu-form-group" v-if="showXs">
 				<view class="title"><text class="required">*</text>选择OA专员</view>
 				<picker @change="pickerChange" :value="oauserindex" :range="oausers">
 					<view class="picker">
@@ -36,7 +36,7 @@
 				</picker>
 			</view>
 
-			<view class="cu-form-group">
+			<view class="cu-form-group" v-if="ShowOA">
 				<view class="title"><text class="required">*</text>客户级别</view>
 				<radio-group class="block" @change="radioChange">
 					<radio class='round blue margin-left-sm' :class="leave=='A+'?'checked':''" :checked="leave=='A+'?true:false" value="A+"></radio>A+
@@ -44,11 +44,11 @@
 					<radio class='round blue margin-left-sm' :class="leave=='A-'?'checked':''" :checked="leave=='A-'?true:false" value="A-"></radio>A-
 				</radio-group>
 			</view>
-			<view class="cu-form-group">
+			<view class="cu-form-group" v-if="ShowOA">
 				<view class="title"><text class="required">*</text>客户特点</view>
 				<textarea maxlength="500" placeholder="请输入客户特点"></textarea>
 			</view>
-			<view class="cu-form-group">
+			<view class="cu-form-group" v-if="ShowOA">
 				<view class="title"><text class="required">*</text>进度记录</view>
 				<picker mode="date" :value="date" start="1990-01-01" end="3000-12-31" @change="dateChange">
 					<view class="picker">
@@ -67,7 +67,15 @@
 				type: [Number],
 				default: -1
 			},
-			roleName: 'OA'
+			roleName: 'OA',
+			showXs:{
+				type:[Boolean,String],
+				default:false
+			},
+			ShowOA:{
+				type:[Boolean,String],
+				default:false
+				}
 		},
 		data() {
 			return {

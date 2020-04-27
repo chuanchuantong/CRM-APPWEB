@@ -23,19 +23,19 @@
 			<view class="cu-form-group">
 				<view class="title">提交人</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.username}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">线索名称</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.shorthand}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">线索来源</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.source}}
 				</view>
 			</view>
 			<view class="cu-bar bg-white solid-bottom">
@@ -46,37 +46,37 @@
 			<view class="cu-form-group">
 				<view class="title">客户姓名</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.customername}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">客户级别</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.level}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">客户行业</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.industry}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">联系方式</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.contactinfo}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">邮箱</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+{{updateData.contactinfo}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">地址</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.customeraddress}}
 				</view>
 			</view>
 			<view class="cu-bar bg-white solid-bottom">
@@ -87,49 +87,50 @@
 			<view class="cu-form-group">
 				<view class="title">意向车型</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.intentioncar}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">需求</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.needs}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">预算</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.budget}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">是否持币</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.isholdcash}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">现有车型</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.exitscar}}
 				</view>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">计划提车时间</view>
 				<view>
-					这是线索名称这是线索名称这是线索名称这是线索名称这是线索名称
+					{{updateData.plantime}}
 				</view>
 			</view>
 
 		</view>
 
-		<approvalInfo :clueid="clueid"></approvalInfo>
+		<approvalInfo :showXs="showXs" :ShowOA="ShowOA" :clueid="clueid"></approvalInfo>
 
 	</view>
 </template>
 
 <script>
 	import approvalInfo from '../approvalinfo/index';
+	import {searchclues} from '@/api/clues.js'
 	export default {
 		components: {
 			approvalInfo
@@ -138,19 +139,38 @@
 			return {
 				clueid: 0,
 				showOrHide: false,
-				animation:''
+				animation:'',
+				updateData:[],
+				showUserId:false,
+				showXs:false,
+				ShowOA:false,
+				staticentity:[]
 			};
 		},
 		created() {
 			var _this = this;
-			_this.clueid = _this.$route.params.clueid;
-			console.log("线索对应id为", _this.clueid)
+			//#ifdef APP-PLUS
+			this.staticentity =uni.getStorageSync("data")
+			//#endif
+			//#ifdef H5
+			this.staticentity = JSON.parse(localStorage.getItem("data"));
+			//#endif 
+			this.clueid = this.$route.params.clueid;
+			console.log("线索对应id为", this.clueid)
+			this.init();
 		},
 		methods: {
 			showOrHideClue() {
 				var _this = this;
 				_this.showOrHide = !_this.showOrHide;
 			},
+			init(){
+				searchclues(this.clueid).then(res=>{
+					this.updateData = res.data;
+					this.ShowOA = this.staticentity.id==res.data.oa
+					console.log(res)
+				})
+			}
 		}
 	}
 </script>

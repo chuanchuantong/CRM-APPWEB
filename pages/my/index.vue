@@ -108,7 +108,12 @@
 			}
 		},
 		created() {
-			this.userinfo = JSON.parse( localStorage.getItem("data"));
+			//#ifdef APP-PLUS
+			this.userinfo =uni.getStorageSync("data")
+			//#endif
+			//#ifdef H5
+			this.userinfo = JSON.parse(localStorage.getItem("data"));
+			//#endif
 			var _this = this;
 			_this.getMyMenu();
 		},

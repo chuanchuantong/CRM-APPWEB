@@ -102,6 +102,7 @@
 	} from '../../../../api/clues.js'
 	import dictionary from '../../../../utils/dictionary.js'
 	export default {
+		 
 		data() {
 			return {
 				//线索对象
@@ -126,6 +127,10 @@
 				saveBtnLoading:false,
 				submitBtnLoading:false,
 			};
+		},
+		created() {
+			var id =this.$router.query.id;
+			console.log("aaaaa",id)
 		},
 		methods: {
 			saveclueinfo(isSave) {
