@@ -49,11 +49,15 @@
 				type: String,
 				default: ''
 			},
+			indexV:{
+				type: String,
+				default: 'home'
+			}
 		},
 		methods: {
 			BackPage() {
 				uni.navigateBack({
-					delta: 1
+					url:'main?taindex='+this.indexV
 				});
 			}
 		}

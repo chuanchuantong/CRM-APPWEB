@@ -68,7 +68,7 @@
 <style scoped lang="scss">
 	.cu-list.menu-avatar>.cu-item .content {
 		left: 20upx !important;
-		width: 100% !important;
+		// width: 100% !important;
 	}
 	
 	.cu-list.menu-avatar>.cu-item .action {

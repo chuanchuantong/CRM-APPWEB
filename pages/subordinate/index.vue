@@ -1,26 +1,26 @@
 <template>
-	<view>
+	<view class="subords">
 		<cu-custom bgColor="bg-gradual-blue">
 			<block slot="content">查看下线</block>
 		</cu-custom>
-		<view class="bg-white padding">
+		<view class="bg-white padding bgimg">
 			<view class="grid margin-bottom text-center col-3">
 				<view class="gradpadding tleft">
 					<view class="text-grey textcolor">0.00</view>
 					<view class="text-gray text-sm">
-						可提现金额（元)
+						可提现金额 
 					</view>
 				</view>
 				<view class="gradpadding tcenter">
 					<view class="text-grey textcolor">0.00</view>
 					<view class="text-gray text-sm">
-						累计赚取现金额（元)
+						累计赚取现金额 
 					</view>
 				</view>
 				<view class="gradpadding tright">
-					<view class="text-grey textcolor">3</view>
+					<view class="text-grey textcolor">{{childsCount}}</view>
 					<view class="text-gray text-sm">
-						累计邀请人（元)
+						累计邀请人
 					</view>
 				</view>
 			</view>
@@ -39,38 +39,14 @@
 		<view class="cu-card case no-card">
 			<view class="cu-item shadow">
 				<view class="cu-list menu-avatar">
-					<view class="cu-item">
+					<view class="cu-item" v-for="item in childs" :key="item.id">
 						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
 						<view class="content flex-sub">
-							<view class="text-grey">正义天使 凯尔</view>
+							<view class="text-grey">{{item.nickname}}</view>
 							<view class="text-gray text-sm flex justify-between">
-								经理
+								{{item.rolename}}
 								<view class="text-gray text-sm">
-									<text class="margin-lr-xs"></text> 2020-04-19 22:00:00
-								</view>
-							</view>
-						</view>
-					</view>
-					<view class="cu-item">
-						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
-						<view class="content flex-sub">
-							<view class="text-grey">正义天使 凯尔</view>
-							<view class="text-gray text-sm flex justify-between">
-								专员
-								<view class="text-gray text-sm">
-									<text class="margin-lr-xs"></text> 2020-04-19 22:00:00
-								</view>
-							</view>
-						</view>
-					</view>
-					<view class="cu-item">
-						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
-						<view class="content flex-sub">
-							<view class="text-grey">正义天使 凯尔</view>
-							<view class="text-gray text-sm flex justify-between">
-								人员
-								<view class="text-gray text-sm">
-									<text class="margin-lr-xs"></text> 2020-04-19 22:00:00
+									<text class="margin-lr-xs"></text> {{item.createtime==null?"":item.createtime.slice(0, 10)}}
 								</view>
 							</view>
 						</view>
@@ -84,34 +60,58 @@
 </template>
 
 <script>
+	import {getChildsByUserId} from '@/api/sysUser.js'
+	// import {formatDate} from '@/utils/utils.js'
 	export default {
+		
 		data() {
 			return {
-				
+				childs:[],
+				childsCount:0
 			};
+		}, 
+		created() {
+			this.Init()
+		},
+		methods:{
+			Init:function(){
+				getChildsByUserId().then(res=>{
+					this.childs = res.data;
+					this.childsCount = res.data.length
+				})
+			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-	.tleft {
-		width: 30%;
+	.subords{
+		margin-bottom: 240upx;
+		.bgimg{
+			background-image: url(../../static/home/bg.png);
+			color: #FFFFFF !important;
+		}
+		.tleft {
+			width: 30%;
+		}
+		
+		.tcenter {
+			width: 40%;
+		}
+		
+		.tright {
+			width: 30%;
+		}
+		
+		.gradpadding {
+			padding: 30upx 0px;
+		}
+		
+		.textcolor {
+			// color: #333333 !important;
+			font-size: 40upx;
+		}
+		
 	}
-
-	.tcenter {
-		width: 40%;
-	}
-
-	.tright {
-		width: 30%;
-	}
-
-	.gradpadding {
-		padding: 30upx 0px;
-	}
-
-	.textcolor {
-		color: #333333 !important;
-		font-size: 40upx;
-	}
+	
 </style>

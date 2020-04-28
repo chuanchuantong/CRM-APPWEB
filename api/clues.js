@@ -12,7 +12,7 @@ export function insertclue(data){
  * @param {Object} data
  */
 export function searchclues(data){
-	return http.post("/clue/selectById",data)
+	return http.get("/clue/selectById?Id="+data)
 }
 
 /**

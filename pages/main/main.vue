@@ -1,11 +1,16 @@
 <template>
 
-	<view class="content">
+	<view class="managecontent">
 		<cu-custom v-show="PageCur=='home'" bgColor="bg-gradual-blue">
 			<block slot="content">首页</block>
 		</cu-custom>
 		<cu-custom v-show="PageCur=='cluesmanage'" bgColor="bg-gradual-blue">
 			<block slot="content">线索管理</block>
+			<block slot="right">
+				<button class="cu-btn bg-green" style="margin-left:none;" @click="createclues()">
+					创建线索
+				</button>
+			</block>
 		</cu-custom>
 		<cu-custom v-show="PageCur=='component'" bgColor="bg-gradual-blue">
 			<block slot="content">用户管理</block>
@@ -15,70 +20,105 @@
 		<subordinate v-if="PageCur=='subordinate'"></subordinate>
 		<home v-if="PageCur=='home'"></home>
 		<view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" @click="NavChange" v-for="item in menuData" :data-id="item.id" :data-cur="item.menucode">
+			<view class="action" @click="NavChange" v-for="item in menuData" :key="item.id" :data-id="item.id" :data-cur="item.menucode">
 				<view class='cuIcon-cu-image'>
 					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
 				</view>
 				<view :class="PageCur==item.menucode?'text-green':'text-gray'">{{item.menuname}}</view>
 			</view>
-		<!-- 	<view class="action" @click="NavChange" data-cur="cluesmanage">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/plugin' + [PageCur=='cluesmanage'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='cluesmanage'?'text-green':'text-gray'">线索管理</view>
-			</view>
-			<view class="action" @click="NavChange" data-cur="subordinate">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/component' + [PageCur == 'subordinate'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='subordinate'?'text-green':'text-gray'">用户管理</view>
-			</view>
-			<view class="action" @click="NavChange" data-cur="myself">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/plugin' + [PageCur == 'myself'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='myself'?'text-green':'text-gray'">我的</view>
-			</view> -->
 		</view>
 	</view>
 </template>
 
 <script>
-	import {getMenu} from '@/api/appsys.js'
-	import {getUserInfo} from '@/api/login.js'
+	import {
+		getMenu
+	} from '@/api/appsys.js'
+	import {
+		getUserInfo
+	} from '@/api/login.js'
+	import {
+		selectAll
+	} from '@/api/clues.js'
+	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
 	export default {
+		mixins: [MescrollMixin], // 使用mixin 
+		computed: {
+			tabbarIndex1() {
+				return this.$tabbarUtil.tabbarIndex;
+			}
+		},
 		data() {
 			return {
 				PageCur: 'basics',
-				menuData:{},
-				id:0,
+				menuData: {},
+				id: 0,
+				TabCur: "",
+				clues: ["我的线索", "跟进线索", "分配线索"],
+				scrollTop: 0,
+				queryData: {
+					currentPage: 1,
+					pageSize: 20,
+					params: {
+
+					}
+				},
+				returnData: []
 			}
 		},
 		created() {
 			this.init();
-			getMenu({roleId:1,parentId:0}).then(res=>{
+			getMenu({
+				roleId: 1,
+				parentId: 0
+			}).then(res => {
 				this.menuData = res.data
 				console.log(res)
-				this.PageCur = res.data[0].menucode;
-				this.id=res.data[0].id;
-				
+				this.$tabbarUtil.setValue(res.data[0].menucode);
+				this.PageCur = this.$tabbarUtil.tabbarIndex
+				this.id = res.data[0].id;
+
 			});
+		},
+		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+			console.log(option); //打印出上个页面传递的参数。
 		},
 		methods: {
 			NavChange: function(e) {
-				console.log(e)
-				console.log("id为",e.currentTarget.dataset.id);
-				this.id=e.currentTarget.dataset.id;
-				
-				this.PageCur = e.currentTarget.dataset.cur;
-				console.log(this.PageCur)
+				this.id = e.currentTarget.dataset.id;
+				this.$tabbarUtil.setValue(e.currentTarget.dataset.cur);
+				console.log(this.$tabbarUtil.tabbarIndex)
+				this.PageCur = this.$tabbarUtil.tabbarIndex;
 			},
-			init:function(){
-				getUserInfo().then(res=>{
-					localStorage.setItem('data',JSON.stringify(res.data))
-					
+			init: function() {
+				getUserInfo().then(res => {
+					//#ifdef H5
+					localStorage.setItem('data', JSON.stringify(res.data))
+					//#endif
+					//#ifdef APP-PLUS
+					uni.setStorageSync("data", res.data);
+					//#endif
 				})
-				
+
+			},
+			//创建线索
+			createclues() {
+				//此时应该是创建线索去了
+				//#ifdef APP-PLUS
+				console.log("点击了路由跳转", 'createclue')
+				Router.push('createclue');
+				//#endif
+
+				//#ifdef H5
+				console.log("点击了路由跳转H5", 'createclue')
+				this.$router.push('createclue');
+				//#endif
+			},
+		},
+		watch: {
+			tabbarIndex1: function(old, newd) {
+				console.log("1111111111111111111111", old)
+				this.PageCur = newd;
 			}
 		}
 	}
@@ -150,9 +190,14 @@
 		}
 	}
 
-	.content {
+	.managecontent {
 		margin: 0;
 		padding: 0;
+
+		.cu-btn {
+			margin-right: 10upx;
+			margin-left: none !important;
+		}
 	}
 
 	.hello {
@@ -209,4 +254,3 @@
 		}
 	}
 </style>
-

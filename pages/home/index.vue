@@ -1,36 +1,52 @@
 <template>
 	<view>
-		<view class="cu-list grid col-4 no-border">
+		<view class="cu-list grid col-4 no-border bgimg">
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/zongyongjin.png"></cover-image>
+				</view>
 				<text>总佣金</text>
 			</view>
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/yitixian.png"></cover-image>
+				</view>
 				<text>已提现</text>
 			</view>
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/ketixian.png"></cover-image>
+				</view>
 				<text>可提现</text>
 			</view>
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/dengdaizhong.png"></cover-image>
+				</view>
 				<text>等待中</text>
 			</view>
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/zongdingdan.png"></cover-image>
+				</view>
 				<text>总订单</text>
 			</view>
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/zongxiaoshouticheng.png"></cover-image>
+				</view>
 				<text>总销售提成</text>
 			</view>
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/zongyaoqing.png"></cover-image>
+				</view>
 				<text>总邀请</text>
 			</view>
 			<view class="cu-item">
-				<view class="cuIcon-moneybag"></view>
+				<view class="bgimg-hg">
+					<cover-image src="@/static/home/zongtuiguangticheng.png"></cover-image>
+				</view>
 				<text>总推广佣金</text>
 			</view>
 		</view>
@@ -110,18 +126,31 @@
 	}
 </script>
 
-<style scoped lang="scss">
-	.contentclass{
+<style  lang="scss">
+	.contentclass {
 		width: 60% !important;
 		text-align: center;
 	}
+
+	.bgimg {
+		background-image: url(../../static/home/bg.png);
+		font-size: 36upx;
+		color: #FFFFFF !important;
+		.bgimg-hg {
+			width: 46upx;
+			height: 46upx;
+			margin: 0 auto;
+			margin-top: 24upx;
+		}
+	}
+
 	.positionLine {
 		height: 10upx;
 	}
 
 	.cu-list.menu-avatar>.cu-item .content {
 		left: 20upx !important;
-		width: 100% !important;
+		// width: 100% !important;
 	}
 
 	.cu-list.menu-avatar>.cu-item .action {

@@ -4,7 +4,7 @@
 			"path": "pages/login/login",
 			"style": {
 				"titleNView": false,
-				"enablePullDownRefresh": true//就是这个
+				"enablePullDownRefresh": true //就是这个
 			}
 		}, {
 			"path": "pages/login/pwd",
@@ -15,6 +15,7 @@
 			"path": "pages/my/index",
 			"style": {
 				"titleNView": false
+
 			}
 		},
 		{
@@ -46,7 +47,8 @@
 		}, {
 			"path": "pages/clues/components/myclues/index",
 			"style": {
-				"titleNView": false
+				"titleNView": false,
+				"enablePullDownRefresh": true //设置为true表示当前页面开启下拉刷新 
 			}
 		}, {
 			"path": "pages/clues/components/followupclues/index",
@@ -88,27 +90,27 @@
 			"style": {
 				"titleNView": false
 			}
+		}, {
+			"path": "pages/my/components/cashwithdrawal/cashapply/index",
+			"style": {
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/my/components/cashwithdrawal/addcashmode/index",
+			"style": {
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/my/components/cashwithdrawal/accountmanage/index",
+			"style": {
+				"titleNView": false
+			}
+		}, {
+			"path": "components/loadmore/index",
+			"style": {"titleNView": false}
 		}
-	    ,{
-            "path" : "pages/my/components/cashwithdrawal/cashapply/index",
-            "style" : {
-				"titleNView": false
-			}
-        }
         ,{
-            "path" : "pages/my/components/cashwithdrawal/addcashmode/index",
-            "style" : {
-				"titleNView": false
-			}
-        }
-        ,{
-            "path" : "pages/my/components/cashwithdrawal/accountmanage/index",
-            "style" : {
-				"titleNView": false
-			}
-        }
-        ,{
-            "path" : "components/loadmore/index",
+            "path" : "pages/my/components/data/code/index",
             "style" : {}
         }
     ],
