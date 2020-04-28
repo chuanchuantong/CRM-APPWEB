@@ -143,7 +143,7 @@
 				var rule = [];
 				if (!isSave) {
 					_this.submitBtnLoading=true;
-					_this.cluesInfo.status = dictionary.cluesStatus.submit;
+					_this.cluesInfo.cstatus = dictionary.cluesStatus.submit;
 					rule = [{
 							name: "shorthand",
 							checkType: "notnull",
@@ -245,7 +245,7 @@
 					];
 				} else {
 					_this.saveBtnLoading=true;
-					_this.cluesInfo.status = dictionary.cluesStatus.save;
+					_this.cluesInfo.cstatus = dictionary.cluesStatus.save;
 					rule = [{
 						name: "shorthand",
 						checkType: "notnull",

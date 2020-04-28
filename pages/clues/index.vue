@@ -1,20 +1,19 @@
 <template>
 	<view>
 		<view class="myCluesClass">
-			<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
-				<view class="flex text-center">
-					<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
-					 :data-id="index">
-						{{item}}
+			<view v-if="userinfo.rolecode=='ZY'">
+				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+					<view class="flex text-center">
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						 :data-id="index">
+							{{item}}
+						</view>
 					</view>
-				</view>
-			</scroll-view>
-
-			 
+				</scroll-view>
 				<myclues :returnData="returnData" v-if="TabCur=='0'"></myclues>
 				<followup v-if="TabCur=='1'"></followup>
-				<distribution v-if="TabCur=='2'"></distribution> 
-
+				<distribution v-if="TabCur=='2'"></distribution>
+			</view>
 		</view>
 
 	</view>
@@ -48,17 +47,23 @@
 		},
 		created() {
 			var _this = this;
+			//#ifdef APP-PLUS
+			this.userinfo = uni.getStorageSync("data")
+			//#endif
+			//#ifdef H5
+			this.userinfo = JSON.parse(localStorage.getItem("data"));
+			//#endif
 			_this.getCuleMenu();
-			_this.InitClues();
 		},
-		
+
 		onPageScroll: function(e) { //nvue暂不支持滚动监听，可用bindingx代替
 			console.log("滚动距离为：" + e.scrollTop);
 		},
 		data() {
 			return {
 				TabCur: 0,
-				clues: ["我的线索", "跟进线索", "分配线索"],
+				userinfo: [],
+				clues: ["我的线索", "跟进线索", "线索结果"],
 				scrollTop: 0,
 				// 下拉刷新的常用配置
 				downOption: {
@@ -94,136 +99,26 @@
 				console.log("滚动距离为：" + e.scrollTop);
 				//console.log('当前滚动条的位置:' + e.scrollTop + ', 是否向上滑:'+e.isScrollUp)
 			},
-			aaaa(e){
+			aaaa(e) {
 				console.log("昵称你擦撒撒旦撒旦撒旦撒大大")
 			},
-			InitClues(){
-				this.queryData.currentPage=1;
-				selectAll(this.queryData).then(res => {
-					console.log(res)
-					this.returnData = res.data.list;
-				})
-			}, 
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 			},
 			getCuleMenu() {
 				var _this = this;
 				console.log(_this.id)
+				let id = this.$tabbarUtil.sysUserInfo.roleid;
+				console.log("获取线索管理：", id)
 				//获取线索id
 				getMenu({
+					roleid: id,
 					parentId: parseInt(_this.id)
 				}).then(res => {
 					console.log("线索管理的获取菜单数据", res)
-
+					this.returnData = res.data
 				})
-			},
-			mescrollInit() {
-				console.log("初始化")
-			},
-			/*下拉刷新的回调, 有三种处理方式:*/
-			downCallback() {
-				// 第1种: 请求具体接口
-				// uni.request({
-				// 	url: 'xxxx',
-				// 	success: () => {
-				// 		// 请求成功,隐藏加载状态
-				// 		this.mescroll.endSuccess()
-				// 	},
-				// 	fail: () => {
-				// 		// 请求失败,隐藏加载状态
-				// 		this.mescroll.endErr()
-				// 	}
-				// })
-
-				selectAll(this.queryData).then(res => {
-					this.returnData = res.data.list;
-					this.mescroll.endSuccess()
-				})
-
-				// 第2种: 下拉刷新和上拉加载调同样的接口, 那么不用第1种方式, 直接mescroll.resetUpScroll()即可
-				//this.mescroll.resetUpScroll(); // 重置列表为第一页 (自动执行 page.num=1, 再触发upCallback方法 )
-				// 第3种: 下拉刷新什么也不处理, 可直接调用或者延时一会调用 mescroll.endSuccess() 结束即可
-				//this.mescroll.endSuccess()
-				// 若整个downCallback方法仅调用mescroll.resetUpScroll(),则downCallback方法可删 (mixins已默认)
-			},
-			/*上拉加载的回调*/
-			upCallback(page) {
-				console.log("上啦刷新", page)
-				let pageNum = page.num; // 页码, 默认从1开始
-				let pageSize = page.size; // 页长, 默认每页10条
-				this.queryData.currentPage = page.num;
-				this.queryData.pageSize = page.size;
-				selectAll(this.queryData).then(res => {
-					console.log("总页数", res.data.total)
-					if (page.num == 1) this.returnData = [];
-					console.log("源：", res.data.list)
-					this.returnData = this.returnData.concat(res.data.list);
-					console.log("返回的数据", this.returnData)
-					let totalPage = res.data.pages;
-					let curPageLen = res.data.size;
-
-					this.$nextTick(() => {
-						this.mescroll.endByPage(curPageLen, totalPage);
-					})
-				})
-				// 	uni.request({
-				// 		url: 'xxxx?pageNum=' + pageNum + '&pageSize=' + pageSize,
-				// 		success: (data) => {
-				// 			// 接口返回的当前页数据列表 (数组)
-				// 			let curPageData = data.xxx;
-				// 			// 接口返回的当前页数据长度 (如列表有26个数据,当前页返回8个,则curPageLen=8)
-				// 			let curPageLen = curPageData.length;
-				// 			// 接口返回的总页数 (如列表有26个数据,每页10条,共3页; 则totalPage=3)
-				// 			let totalPage = data.xxx;
-				// 			// 接口返回的总数据量(如列表有26个数据,每页10条,共3页; 则totalSize=26)
-				// 			let totalSize = data.xxx;
-				// 			// 接口返回的是否有下一页 (true/false)
-				// 			let hasNext = data.xxx;
-
-				// 			//设置列表数据
-				// 			if (page.num == 1) this.dataList = []; //如果是第一页需手动置空列表
-				// 			this.dataList = this.dataList.concat(curPageData); //追加新数据
-
-				// 			// 请求成功,隐藏加载状态
-				// 			//方法一(推荐): 后台接口有返回列表的总页数 totalPage
-				// 			this.mescroll.endByPage(curPageLen, totalPage);
-
-				// 			//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
-				// 			//this.mescroll.endBySize(curPageLen, totalSize); 
-
-				// 			//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
-				// 			//this.mescroll.endSuccess(curPageLen, hasNext); 
-
-				// 			//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.
-				// 			//如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据
-				// 			//如果传了hasNext,则翻到第二页即可显示无更多数据.
-				// 			//this.mescroll.endSuccess(curPageLen);
-
-				// 			// 如果数据较复杂,可等到渲染完成之后再隐藏下拉加载状态: 如
-				// 			this.$nextTick(() => {
-				// 				this.mescroll.endSuccess(curPageLen)
-				// 			})
-
-				// 			//curPageLen必传的原因:
-				// 			1. 使配置的noMoreSize 和 empty生效
-				// 			2. 判断是否有下一页的首要依据:
-				// 				当传的值小于page.size时(说明不满页了), 则一定会认为无更多数据;
-				// 			比传入的totalPage, totalSize, hasNext具有更高的判断优先级;
-				// 			3. 当传的值等于page.size时, 才会取totalPage, totalSize, hasNext判断是否有下一页
-				// 			传totalPage, totalSize, hasNext目的是避免方法四描述的小问题
-
-				// 			// 提示: 您无需额外维护页码和判断显示空布局,mescroll已自动处理好.
-				// 			// 当您发现结果和预期不一样时, 建议再认真检查以上参数是否传正确
-				// 		},
-				// 		fail: () => {
-				// 			//  请求失败,隐藏加载状态
-				// 			this.mescroll.endErr()
-				// 		}
-				// 	})
-
 			}
-
 
 		},
 		watch: {
@@ -239,22 +134,24 @@
 
 <style scoped lang="scss">
 	.myCluesClass {
+
+
 		.clueHead {
 			position: fixed;
 			z-index: 1000;
 			width: 100%;
-			 
+
 		}
 
 		.clueData {
 			width: 100%;
 			margin-top: 110upx;
+			bottom: 0.5*300upx;
 
 			.mescroll-body-content {
 				margin-top: -10px;
 			}
 
-			margin-bottom: 150upx;
 		}
 	}
 </style>

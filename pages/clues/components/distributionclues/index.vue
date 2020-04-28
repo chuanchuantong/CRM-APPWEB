@@ -70,9 +70,9 @@
 		left: 20upx !important;
 		// width: 100% !important;
 	}
-	
+	 
 	.cu-list.menu-avatar>.cu-item .action {
-		width: 140upx !important;
+		width: 240upx !important;
 	}
 	
 	.cu-list.menu-avatar>.cu-item {

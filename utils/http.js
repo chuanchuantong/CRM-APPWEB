@@ -23,7 +23,7 @@ function _reslog(res) {
 const http = axios.create({
     baseURL: 'http://localhost:6688',
     // baseURL: 'https://www.huimopei.com',
-    timeout: 6000,  // 不可超过 manifest.json 中配置 networkTimeout的超时时间
+    timeout: 60000,  // 不可超过 manifest.json 中配置 networkTimeout的超时时间
     // #ifdef H5
     withCredentials: true,
     // #endif

@@ -20,6 +20,7 @@
 					<text class="text-grey">创建线索</text>
 				</view>
 			</view>
+			<view v-if="!returnData" style="text-align: center;"> 暂无数据</view>
 		</view>
 
 	</view>
@@ -31,41 +32,31 @@
 		selectAll
 	} from '@/api/clues.js'
 	export default {
-
+		props:{
+			parmaData:[]
+		},
 		data() {
 			return {
 				queryData: {
 					currentPage: 1,
 					pageSize: 20,
 					params: {
-
+						cstatus:-1
 					}
 				},
 				returnData: [],
 				more: "more"
 			}
-		},
-		onLoad: function(options) {
-			setTimeout(function() {
-				console.log('start pulldown');
-			}, 1000);
-			uni.startPullDownRefresh();
-		},
-		onPullDownRefresh:function() {
-			//监听下拉刷新动作的执行方法，每次手动下拉刷新都会执行一次
-			console.log('refresh');
-			setTimeout(function() {
-				uni.stopPullDownRefresh(); //停止下拉刷新动画
-			}, 1000);
-		},
+		}, 
 		created() {
 			this.query();
 		},
 		methods: {
 			query() {
 				selectAll(this.queryData).then(res => {
-					console.log(res)
+					
 					this.returnData = res.data;
+					console.log(this.returnData)
 				})
 			},
 
@@ -119,7 +110,7 @@
 		}
 
 		.cu-list.menu-avatar>.cu-item .action {
-			width: 140upx !important;
+			width: 240upx !important;
 		}
 
 		.cu-list.menu-avatar>.cu-item {

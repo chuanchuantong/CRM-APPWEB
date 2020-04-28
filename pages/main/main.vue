@@ -1,8 +1,7 @@
 <template>
 
-	<view class="content">
-
-
+	<view class="content main">
+ 
 		<cu-custom v-show="PageCur=='home'" bgColor="bg-gradual-blue">
 			<block slot="content">首页</block>
 		</cu-custom>
@@ -12,11 +11,14 @@
 		<cu-custom v-show="PageCur=='component'" bgColor="bg-gradual-blue">
 			<block slot="content">用户管理</block>
 		</cu-custom>
-		<myself :id="id" v-if="PageCur=='myself'"></myself>
-		<cluesmanage :id="id" v-if="PageCur=='cluesmanage'"></cluesmanage>
-		<subordinate v-if="PageCur=='subordinate'"></subordinate>
-		<home v-if="PageCur=='home'"></home>
-		<view class="cu-bar tabbar bg-white shadow foot">
+		<view>
+			<myself :id="id" v-if="PageCur=='myself'"></myself>
+			<cluesmanage :id="id" v-if="PageCur=='cluesmanage'"></cluesmanage>
+			<subordinate v-if="PageCur=='subordinate'"></subordinate>
+			<home v-if="PageCur=='home'"></home>
+		</view>
+		<div class="entry"></div>
+		<view class="cu-bar tabbar bg-white shadow foot submit-warp">
 			<view class="action" @click="NavChange" v-for="item in menuData" :key="item.id" :data-id="item.id" :data-cur="item.menucode">
 				<view class='cuIcon-cu-image'>
 					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
@@ -37,14 +39,14 @@
 	import {
 		selectAll
 	} from '@/api/clues.js'
-	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
+	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js"; 
 	export default {
 		mixins: [MescrollMixin], // 使用mixin 
 		computed: {
 			tabbarIndex1() {
 				return this.$tabbarUtil.tabbarIndex;
 			}
-		},
+		}, 
 		data() {
 			return {
 				PageCur: 'basics',
@@ -64,28 +66,22 @@
 			}
 		},
 		created() {
+			 
 			this.init();
-			getMenu({
-				roleId: 1,
-				parentId: 0
-			}).then(res => {
-				this.menuData = res.data
-				console.log(res)
-				this.$tabbarUtil.setValue(res.data[0].menucode);
-				this.PageCur =this.$tabbarUtil.tabbarIndex
-				this.id = res.data[0].id;
-
-			});
+			
 		},
-		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
-		    console.log(option); //打印出上个页面传递的参数。
+		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+			console.log(option); //打印出上个页面传递的参数。
 		},
 		methods: {
+			 
 			NavChange: function(e) {
 				this.id = e.currentTarget.dataset.id;
 				this.$tabbarUtil.setValue(e.currentTarget.dataset.cur);
 				console.log(this.$tabbarUtil.tabbarIndex)
-				this.PageCur = this.$tabbarUtil.tabbarIndex; 
+				this.PageCur = this.$tabbarUtil.tabbarIndex;
+				console.log("roleid:",this.roleId)
+				this.getMenus(this.roleId,this.id)
 			},
 			init: function() {
 				getUserInfo().then(res => {
@@ -95,13 +91,40 @@
 					//#ifdef APP-PLUS
 					uni.setStorageSync("data", res.data);
 					//#endif
+					this.roleId = res.data.roleid;
+					this.$tabbarUtil.setInfo(res.data)
+					this.getMenu(res.data.roleid,0)
 				})
-
+			 
+			},
+			getMenus(roleid,parentid){
+				getMenu({
+					roleId: roleid,
+					parentId: parentid
+				}).then(res => {
+					//this.menuData = res.data
+					console.log(res) 
+					//this.PageCur = this.$tabbarUtil.tabbarIndex
+					//this.id = res.data[0].id;
+				
+				});
+			},
+			getMenu(roleid,parentid){
+				getMenu({
+					roleId: roleid,
+					parentId: parentid
+				}).then(res => {
+					this.menuData = res.data
+					console.log(res) 
+					this.PageCur = this.$tabbarUtil.tabbarIndex
+					//this.id = res.data[0].id;
+				
+				});
 			}
 		},
 		watch: {
 			tabbarIndex1: function(old, newd) {
-				console.log("1111111111111111111111",old)
+				console.log("1111111111111111111111", old)
 				this.PageCur = newd;
 			}
 		}
@@ -110,10 +133,21 @@
 
 
 <style lang="scss">
-	.myself {
-		width: 100%;
-		height: 160rpx;
-		background-color: white;
+	.main { 
+
+		.entry {
+			height: 0.5*300upx;
+		}
+
+		.submit-warp {
+			position: fixed;
+			bottom: var(--window-bottom);
+			left: 0;
+			right: 0;
+			height: 0.5*200upx;
+			line-height: 0.5*200upx;
+			background: #fff;
+		}
 
 		.baseInfo {
 			width: 90%;
