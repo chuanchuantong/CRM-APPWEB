@@ -107,30 +107,28 @@
 			return {
 				//线索对象
 				cluesInfo: {
-					shorthand: '',
-					source: '',
-					customername: '',
-					customeraddress: '',
-					contactinfo: '',
-					industry: '',
-					intentioncar: '',
-					needs: '',
-					budget: '',
-					isholdcash: '',
-					exitscar: '',
-					plantime: '',
-					level: '',
-					email: '',
-					status: dictionary.cluesStatus.save, //线索状态
+					shorthand: '线索1',
+					source: '来源1',
+					customername: '张三',
+					customeraddress: '北京',
+					contactinfo: '18515588888',
+					industry: 'IT',
+					intentioncar: '奔驰',
+					needs: '需求',
+					budget: '35w',
+					isholdcash: '是',
+					exitscar: 'E300',
+					plantime: '一个月',
+					level: 'A',
+					email: '12313@163.com',
+					cstatus: dictionary.cluesStatus.save, //线索状态
 				},
 				isRotate: false, //是否加载旋转
 				saveBtnLoading:false,
-				submitBtnLoading:false,
+				submitBtnLoading:false
 			};
 		},
-		created() {
-			var id =this.$router.query.id;
-			console.log("aaaaa",id)
+		created() { 
 		},
 		methods: {
 			saveclueinfo(isSave) {
@@ -257,7 +255,6 @@
 					}];
 				}
 				console.log(_this.cluesInfo)
-				return;
 				var checkRes = graceChecker.check(_this.cluesInfo, rule);
 				if (checkRes) {
 					//新增线索接口

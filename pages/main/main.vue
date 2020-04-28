@@ -12,35 +12,17 @@
 		<cu-custom v-show="PageCur=='component'" bgColor="bg-gradual-blue">
 			<block slot="content">用户管理</block>
 		</cu-custom>
-		 	<myself :id="id" v-if="PageCur=='myself'"></myself>
-			<cluesmanage :id="id" v-if="PageCur=='cluesmanage'"></cluesmanage>
-			<subordinate v-if="PageCur=='subordinate'"></subordinate>
-			<home v-if="PageCur=='home'"></home>
-		 <view class="cu-bar tabbar bg-white shadow foot">
-			<view class="action" @click="NavChange" v-for="item in menuData" :data-id="item.id" :data-cur="item.menucode">
+		<myself :id="id" v-if="PageCur=='myself'"></myself>
+		<cluesmanage :id="id" v-if="PageCur=='cluesmanage'"></cluesmanage>
+		<subordinate v-if="PageCur=='subordinate'"></subordinate>
+		<home v-if="PageCur=='home'"></home>
+		<view class="cu-bar tabbar bg-white shadow foot">
+			<view class="action" @click="NavChange" v-for="item in menuData" :key="item.id" :data-id="item.id" :data-cur="item.menucode">
 				<view class='cuIcon-cu-image'>
 					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
 				</view>
 				<view :class="PageCur==item.menucode?'text-green':'text-gray'">{{item.menuname}}</view>
 			</view>
-			<!-- 	<view class="action" @click="NavChange" data-cur="cluesmanage">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/plugin' + [PageCur=='cluesmanage'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='cluesmanage'?'text-green':'text-gray'">线索管理</view>
-			</view>
-			<view class="action" @click="NavChange" data-cur="subordinate">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/component' + [PageCur == 'subordinate'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='subordinate'?'text-green':'text-gray'">用户管理</view>
-			</view>
-			<view class="action" @click="NavChange" data-cur="myself">
-				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/plugin' + [PageCur == 'myself'?'_cur':''] + '.png'"></image>
-				</view>
-				<view :class="PageCur=='myself'?'text-green':'text-gray'">我的</view>
-			</view> -->
 		</view>
 	</view>
 </template>
@@ -228,7 +210,7 @@
 					localStorage.setItem('data', JSON.stringify(res.data))
 					//#endif
 					//#ifdef APP-PLUS
-					uni.setStorageSync("data",res.data);
+					uni.setStorageSync("data", res.data);
 					//#endif
 				})
 

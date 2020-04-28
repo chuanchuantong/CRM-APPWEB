@@ -1425,7 +1425,7 @@ button.cuIcon.lg {
 .cu-list.grid>.cu-item text {
 	display: block;
 	margin-top: 10upx;
-	color: #888;
+	/* color: #888; */
 	font-size: 26upx;
 	line-height: 40upx
 }
@@ -3888,17 +3888,17 @@ scroll-view.cu-steps .cu-item {
 	color: #a5673f;
 }
 
-.text-grey,
+/* .text-grey,
 .line-grey,
 .lines-grey {
 	color: #8799a3;
-}
+} */
 
-.text-gray,
+/* .text-gray,
 .line-gray,
 .lines-gray {
 	color: #aaaaaa;
-}
+} */
 
 .text-black,
 .line-black,
