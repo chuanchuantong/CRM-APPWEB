@@ -76,7 +76,7 @@
 				</view>
 			</view>
 			
-			<button class="cu-btn bg-white ">
+			<button class="cu-btn bg-white" @click="outLogin">
 				退出登录
 			</button>
 		</view>

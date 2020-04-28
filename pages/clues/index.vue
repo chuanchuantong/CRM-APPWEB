@@ -9,10 +9,9 @@
 					</view>
 				</view>
 			</scroll-view>
-				<myclues :returnData="returnData" v-if="TabCur=='0'"></myclues>
-				<followup v-if="TabCur=='1'"></followup>
-				<distribution v-if="TabCur=='2'"></distribution> 
-
+			<myclues :returnData="returnData" v-if="TabCur=='0'"></myclues>
+			<followup v-if="TabCur=='1'"></followup>
+			<distribution v-if="TabCur=='2'"></distribution>
 		</view>
 
 	</view>
@@ -20,9 +19,9 @@
 
 
 <script>
-	import myclues from './components/myclues/index.vue';
-	import followup from './components/followupclues/index.vue';
-	import distribution from './components/distributionclues/index.vue';
+	import myclues from './components/commissioner/myclues/index.vue';
+	import followup from './components/commissioner/followupclues/index.vue';
+	import distribution from './components/commissioner/distributionclues/index.vue';
 	import {
 		getMenu
 	} from '@/api/appsys.js'
@@ -49,7 +48,7 @@
 			_this.getCuleMenu();
 			_this.InitClues();
 		},
-		
+
 		onPageScroll: function(e) { //nvue暂不支持滚动监听，可用bindingx代替
 			console.log("滚动距离为：" + e.scrollTop);
 		},
@@ -73,13 +72,13 @@
 				console.log("滚动距离为：" + e.scrollTop);
 				//console.log('当前滚动条的位置:' + e.scrollTop + ', 是否向上滑:'+e.isScrollUp)
 			},
-			InitClues(){
-				this.queryData.currentPage=1;
+			InitClues() {
+				this.queryData.currentPage = 1;
 				selectAll(this.queryData).then(res => {
 					console.log(res)
 					this.returnData = res.data.list;
 				})
-			}, 
+			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 			},
@@ -101,7 +100,7 @@
 				console.log("点击了路由跳转", 'createclue')
 				Router.push('createclue');
 				//#endif
-			
+
 				//#ifdef H5
 				console.log("点击了路由跳转H5", 'createclue')
 				this.$router.push('createclue');
@@ -126,7 +125,7 @@
 			position: fixed;
 			z-index: 1000;
 			width: 100%;
-			 
+
 		}
 
 		.clueData {
