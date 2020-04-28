@@ -46,8 +46,8 @@
 			</view>
 		</view>
 		<view class="positionLine"></view>
-		<view class="cu-list menu sm-border">
-			<view class="cu-item arrow">
+		<view class="cu-list menu sm-border" >
+			<view class="cu-item arrow" @click="openUrl('mycode','我的二维码')">
 				<view class="content">
 					<text class="text-grey">我的邀请码</text>
 				</view>
@@ -55,7 +55,7 @@
 					<text class="text-grey text-sm">{{userInfo.incode}}</text>
 				</view>
 			</view>
-			<view class="cu-item arrow">
+			<view class="cu-item">
 				<view class="content">
 					<text class="text-grey">我的销售经理</text>
 				</view>
@@ -63,7 +63,7 @@
 					<text class="text-grey text-sm">马化腾</text>
 				</view>
 			</view>
-			<view class="cu-item arrow">
+			<view class="cu-item">
 				<view class="content">
 					<text class="text-grey">我的上线</text>
 				</view>
@@ -71,14 +71,14 @@
 					<text class="text-grey text-sm">马云</text>
 				</view>
 			</view>
-			<view class="cu-item arrow">
+			<!-- <view class="cu-item arrow">
 				<view class="content">
 					<text class="text-grey">我的提现信息</text>
 				</view>
 				<view class="action">
 					<text class="text-grey text-sm">绑定支付宝/微信</text>
 				</view>
-			</view>
+			</view> -->
 		</view>
 
 	</view>
@@ -112,13 +112,13 @@
 					}
 				});
 				//#endif
-
+console.log(content)
 				//#ifdef H5
 				this.$Router.push({
 					name: url,
 					params: {
 						title: title,
-						content: content
+						content: content,
 					}
 				});
 				//#endif

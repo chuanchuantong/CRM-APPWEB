@@ -21,9 +21,9 @@
 
 
 <script>
-	import myclues from './components/myclues/index.vue';
-	import followup from './components/followupclues/index.vue';
-	import distribution from './components/distributionclues/index.vue';
+	import myclues from './components/commissioner/myclues/index.vue';
+	import followup from './components/commissioner/followupclues/index.vue';
+	import distribution from './components/commissioner/distributionclues/index.vue';
 	import {
 		getMenu
 	} from '@/api/appsys.js'

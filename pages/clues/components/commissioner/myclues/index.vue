@@ -13,7 +13,7 @@
 				<view class="action">
 					<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
 				</view>
-			</view>
+			</view> 
 			<view class="cu-item" @click="createclues">
 				<view class="content" style="text-align: center;">
 					<text class="cuIcon-roundadd text-grey"></text>
@@ -21,7 +21,7 @@
 				</view>
 			</view>
 			<view v-if="!returnData" style="text-align: center;"> 暂无数据</view>
-		</view>
+ </view>
 
 	</view>
 </template>

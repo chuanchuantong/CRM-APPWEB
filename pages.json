@@ -45,18 +45,18 @@
 				"titleNView": false
 			}
 		}, {
-			"path": "pages/clues/components/myclues/index",
+			"path": "pages/clues/components/commissioner/myclues/index",
 			"style": {
 				"titleNView": false,
 				"enablePullDownRefresh": true //设置为true表示当前页面开启下拉刷新 
 			}
 		}, {
-			"path": "pages/clues/components/followupclues/index",
+			"path": "pages/clues/components/commissioner/followupclues/index",
 			"style": {
 				"titleNView": false
 			}
 		}, {
-			"path": "pages/clues/components/distributionclues/index",
+			"path": "pages/clues/components/commissioner/distributionclues/index",
 			"style": {
 				"titleNView": false
 			}
@@ -107,9 +107,25 @@
 			}
 		}, {
 			"path": "components/loadmore/index",
-			"style": {}
+			"style": {"titleNView": false}
 		}
-	],
+        ,{
+            "path" : "pages/my/components/data/code/index",
+            "style" : {"titleNView": false}
+        }
+		,{
+		    "path" : "pages/clues/components/administrators/followupclues/index",
+		    "style" : {"titleNView": false}
+		}
+		,{
+		    "path" : "pages/clues/components/administrators/followupclues/index",
+		    "style" : {"titleNView": false}
+		}
+        ,{
+            "path" : "pages/clues/components/administrators/cluesresult/index",
+            "style" : {"titleNView": false}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

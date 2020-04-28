@@ -1,16 +1,13 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="content">线索详情</block>
-		</cu-custom>
 
 		<view class="cu-list menu sm-border">
 			<view class="cu-item" @click="showOrHideClue()">
 				<view class="content">
 					<text class="text-grey">线索信息</text>
 				</view>
-				<view v-show="!showOrHide" class="'text-grey cuIcon-unfold" ></view>
-				<view v-show="showOrHide" class="'text-grey cuIcon-fold" ></view>
+				<view v-show="!showOrHide" class="'text-grey cuIcon-unfold"></view>
+				<view v-show="showOrHide" class="'text-grey cuIcon-fold"></view>
 			</view>
 		</view>
 		<view v-show="showOrHide">
@@ -70,7 +67,7 @@
 			<view class="cu-form-group">
 				<view class="title">邮箱</view>
 				<view>
-{{updateData.contactinfo}}
+					{{updateData.contactinfo}}
 				</view>
 			</view>
 			<view class="cu-form-group">
@@ -130,7 +127,9 @@
 
 <script>
 	import approvalInfo from '../approvalinfo/index';
-	import {searchclues} from '@/api/clues.js'
+	import {
+		searchclues
+	} from '@/api/clues.js'
 	export default {
 		components: {
 			approvalInfo
@@ -139,18 +138,20 @@
 			return {
 				clueid: 0,
 				showOrHide: false,
-				animation:'',
-				updateData:[],
-				showUserId:false,
-				showXs:false,
-				ShowOA:false,
-				staticentity:[]
+				animation: '',
+				submitBtnLoading: false,
+				animation: '',
+				updateData: [],
+				showUserId: false,
+				showXs: false,
+				ShowOA: false,
+				staticentity: []
 			};
 		},
 		created() {
 			var _this = this;
 			//#ifdef APP-PLUS
-			this.staticentity =uni.getStorageSync("data")
+			this.staticentity = uni.getStorageSync("data")
 			//#endif
 			//#ifdef H5
 			this.staticentity = JSON.parse(localStorage.getItem("data"));
@@ -164,10 +165,10 @@
 				var _this = this;
 				_this.showOrHide = !_this.showOrHide;
 			},
-			init(){
-				searchclues(this.clueid).then(res=>{
+			init() {
+				searchclues(this.clueid).then(res => {
 					this.updateData = res.data;
-					this.ShowOA = this.staticentity.id==res.data.oa
+					this.ShowOA = this.staticentity.id == res.data.oa
 					console.log(res)
 				})
 			}

@@ -48,5 +48,13 @@ const My = [{
 	meta: {
 		title: '账户管理',
 	}
+},
+{
+	path: '/pages/my/components/data/code/index',
+	name: 'mycode',
+	aliasPath: '/mycode',
+	meta: {
+		title: '我的邀请码',
+	}
 }]
 export default My

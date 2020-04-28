@@ -1,87 +1,86 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue">
-			<block slot="content">我的</block>
-		</cu-custom>
-		<view class="cu-list menu menu-avatar">
-			<view class="cu-item arrow" @click="openUrl('data')">
-				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
-				<view class="content flex-sub">
-					<view class="myname">{{userinfo.nickname}}({{userinfo.rolename}})</view>
-					<view class="text-gray text-sm flex justify-between myincode">
-						邀请码：{{userinfo.incode}}
+		<view class="mycenterclass">
+			<cu-custom bgColor="bg-gradual-blue">
+				<block slot="content">我的</block>
+			</cu-custom>
+			<view class="cu-list menu menu-avatar">
+				<view class="cu-item arrow" @click="openUrl('data')">
+					<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+					<view class="content flex-sub">
+						<view class="myname">{{userinfo.nickname}}({{userinfo.rolename}})</view>
+						<view class="text-gray text-sm flex justify-between myincode">
+							邀请码：{{userinfo.incode}}
+						</view>
 					</view>
 				</view>
 			</view>
+			
+			<view class="cu-list menu sm-border">
+				<!-- <view v-for="(menuInfo,index) in menus" :key="index" class="cu-item arrow" @click="openUrl(menuInfo.url)">
+					<view class="content"> <text class="'cuIcon-'+menuInfo.icon+' text-grey'"></text>
+						<text class="text-grey">{{menuInfo.name}}</text>
+					</view>
+					<view v-if="menuInfo.bottom" class="positionLine"></view>
+				</view> -->
+				<view class="cu-item arrow" @click="openUrl('wallet')">
+					<view class="content"> <text class="cuIcon-pay text-grey"></text>
+						<text class="text-grey">我的钱包</text>
+					</view>
+				</view>
+				<view class="cu-item arrow" @click="openUrl('accountmanage')">
+					<view class="content">
+						<text class="cuIcon-rank text-grey"></text>
+						<text class="text-grey">账户管理</text>
+					</view>
+				</view>
+				<view class="cu-item arrow" @click="openUrl('cashapply')">
+					<view class="content">
+						<text class="cuIcon-redpacket text-grey"></text>
+						<text class="text-grey">提现申请</text>
+					</view>
+				</view>
+			</view>
+			<view class="positionLine"></view>
+			<view class="cu-list menu sm-border">
+				<view class="cu-item arrow" @click="openUrl('subordinate')">
+					<view class="content">
+						<text class="cuIcon-group text-grey"></text>
+						<text class="text-grey">我的推广</text>
+					</view>
+				</view>
+			</view>
+			<view class="positionLine"></view>
+			<view class="cu-list menu sm-border">
+			
+				<view class="cu-item arrow">
+					<view class="content">
+						<text class="cuIcon-people text-grey"></text>
+						<text class="text-grey">用户管理</text>
+					</view>
+				</view>
+				<view class="cu-item arrow" @click="openUrl('cluesresult')">
+					<view class="content">
+						<text class="cuIcon-paint text-grey"></text>
+						<text class="text-grey">线索结果</text>
+					</view>
+				</view>
+			</view>
+			<view class="positionLine"></view>
+			<view class="cu-list menu sm-border">
+				<view class="cu-item arrow">
+					<view class="content">
+						<text class="cuIcon-settings text-grey"></text>
+						<text class="text-grey">设置</text>
+					</view>
+				</view>
+			</view>
+			
+			<button class="cu-btn bg-white" @click="outLogin">
+				退出登录
+			</button>
 		</view>
-		
-		<view class="cu-list menu sm-border">
-			<!-- <view v-for="(menuInfo,index) in menus" :key="index" class="cu-item arrow" @click="openUrl(menuInfo.url)">
-				<view class="content"> <text class="'cuIcon-'+menuInfo.icon+' text-grey'"></text>
-					<text class="text-grey">{{menuInfo.name}}</text>
-				</view>
-				<view v-if="menuInfo.bottom" class="positionLine"></view>
-			</view> -->
-			<view class="cu-item arrow" @click="openUrl('wallet')">
-				<view class="content"> <text class="cuIcon-pay text-grey"></text>
-					<text class="text-grey">我的钱包</text>
-				</view>
-			</view>
-			<view class="cu-item arrow" @click="openUrl('accountmanage')">
-				<view class="content">
-					<text class="cuIcon-rank text-grey"></text>
-					<text class="text-grey">账户管理</text>
-				</view>
-			</view>
-			<view class="cu-item arrow" @click="openUrl('cashapply')">
-				<view class="content">
-					<text class="cuIcon-redpacket text-grey"></text>
-					<text class="text-grey">提现申请</text>
-				</view>
-			</view>
-		</view>
-		<view class="positionLine"></view>
-		<view class="cu-list menu sm-border">
-			<view class="cu-item arrow" @click="openUrl('subordinate')">
-				<view class="content">
-					<text class="cuIcon-group text-grey"></text>
-					<text class="text-grey">我的推广</text>
-				</view>
-			</view>
-		</view>
-		<view class="positionLine"></view>
-		<view class="cu-list menu sm-border">
 
-			<view class="cu-item arrow">
-				<view class="content">
-					<text class="cuIcon-people text-grey"></text>
-					<text class="text-grey">用户管理</text>
-				</view>
-			</view>
-			<view class="cu-item arrow" @click="openUrl('cluesresult')">
-				<view class="content">
-					<text class="cuIcon-paint text-grey"></text>
-					<text class="text-grey">线索结果</text>
-				</view>
-			</view>
-		</view>
-		<view class="positionLine"></view>
-		<view class="cu-list menu sm-border">
-			<view class="cu-item arrow">
-				<view class="content">
-					<text class="cuIcon-settings text-grey"></text>
-					<text class="text-grey">设置</text>
-				</view>
-			</view>
-		</view>
-		<view class="cu-list menu sm-border">
-			<view class="cu-item arrow" @click="outLogin">
-				<view class="content">
-					<text class="cuIcon-settings text-grey"></text>
-					<text class="text-grey">退出登录</text>
-				</view>
-			</view>
-		</view>
 
 	</view>
 
@@ -96,9 +95,9 @@
 		data() {
 			return {
 				//菜单集合
-				menus:[],
-				userinfo:{}
-				
+				menus: [],
+				userinfo: {}
+
 			};
 		},
 		props: {
@@ -109,7 +108,7 @@
 		},
 		created() {
 			//#ifdef APP-PLUS
-			this.userinfo =uni.getStorageSync("data")
+			this.userinfo = uni.getStorageSync("data")
 			//#endif
 			//#ifdef H5
 			this.userinfo = JSON.parse(localStorage.getItem("data"));
@@ -160,7 +159,16 @@
 </script>
 
 <style scoped lang="scss">
-	.positionLine {
-		height: 10upx;
+	.mycenterclass{
+		.positionLine {
+			height: 10upx;
+		}
+		.cu-btn{
+			width: 80%;
+			margin: 5% 10%;
+			color: red;
+			
+		}
 	}
+
 </style>

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-	import myclues from '../../../clues/components/myclues/index.vue'
+	import myclues from '../../../clues/components/commissioner/myclues/index.vue'
 
 	export default {
 		components: {

@@ -1,9 +1,64 @@
 <template>
 	<view>
-		<view class="cu-bar bg-white solid-bottom">
-			<view class="action">
-				<text class="cuIcon-titles text-green"></text>审核记录
-			</view>
+		<view class="approvalInfoClass">
+			<view class="cu-bar bg-white solid-bottom">
+					<view class="action">
+						<text class="cuIcon-titles text-green"></text>审核记录
+					</view>
+				</view>
+				<view class="cu-timeline">
+					<view class="cu-time">昨天</view>
+					<view class="cu-item text-blue">
+						<view class="content bg-green shadow-blur">
+							<text>22:22</text> 【广州市】快件已到达地球
+						</view>
+					</view>
+					<view class="cu-time">昨天</view>
+					<view class="cu-item text-red">
+						<view class="content bg-red shadow-blur">
+							这是第一次，我家的铲屎官走了这么久。久到足足有三天！！
+						</view>
+					</view>
+				</view>
+				<view class="positionLine"></view>
+				<form>
+					<view class="cu-bar bg-white solid-bottom">
+						<view class="action">
+							<text class="cuIcon-titles text-green"></text>
+							审核信息
+						</view>
+					</view>
+					<view class="cu-form-group">
+						<view class="title"><text class="required">*</text>选择OA专员</view>
+						<picker @change="pickerChange" :value="oauserindex" :range="oausers">
+							<view class="picker">
+								{{oauserindex>-1?oausers[oauserindex]:'请选择'}}
+							</view>
+						</picker>
+					</view>
+			
+					<view class="cu-form-group">
+						<view class="title"><text class="required">*</text>客户级别</view>
+						<radio-group class="block" @change="radioChange">
+							<radio class='round blue margin-left-sm' :class="leave=='A+'?'checked':''" :checked="leave=='A+'?true:false" value="A+"></radio>A+
+							<radio class='round blue margin-left-sm' :class="leave=='A'?'checked':''" :checked="leave=='A'?true:false" value="A"></radio>A
+							<radio class='round blue margin-left-sm' :class="leave=='A-'?'checked':''" :checked="leave=='A-'?true:false" value="A-"></radio>A-
+						</radio-group>
+					</view>
+					<view class="cu-form-group">
+						<view class="title usertrait"><text class="required">*</text>客户特点</view>
+						<textarea v-model="approvalObject.usertrait" maxlength="500" placeholder="请输入客户特点"></textarea>
+					</view>
+					<view class="cu-form-group">
+						<view class="title"><text class="required">*</text>进度记录</view>
+						<picker mode="date" :value="date" start="1990-01-01" end="3000-12-31" @change="dateChange">
+							<view class="picker">
+								{{date}}
+							</view>
+						</picker>
+					</view>
+				</form>
+			
 		</view>
 		<view class="cu-timeline">
 			<view class="cu-time">昨天</view>
@@ -45,7 +100,7 @@
 				</radio-group>
 			</view>
 			<view class="cu-form-group" v-if="ShowOA">
-				<view class="title"><text class="required">*</text>客户特点</view>
+				<view class="title usertrait"><text class="required">*</text>客户特点</view>
 				<textarea maxlength="500" placeholder="请输入客户特点"></textarea>
 			</view>
 			<view class="cu-form-group" v-if="ShowOA">
@@ -86,7 +141,17 @@
 				//自定义匹配选择的OA的用户id
 				oauserinfo: {},
 				leave: '',
-				date: ''
+				date: '',
+				approvalObject:{
+					//选择的oa专员
+					oauser:-1,
+					//客户等级
+					userleave:'',
+					//客户特点
+					usertrait:'',
+					//进度记录
+					date:''
+				}
 			};
 		},
 		created() {
@@ -120,15 +185,29 @@
 			pickerChange(e) {
 				var _this = this;
 				_this.oauserindex = e.detail.value;
+				_this.approvalObject.oauser=e.detail.value;
 			},
 			radioChange(e) {
 				var _this = this;
 				_this.leave = e.detail.value;
+				_this.approvalObject.userleave=e.detail.value;
 				console.log(_this.leave)
 			},
 			dateChange(e) {
-				this.date = e.detail.value
+				var _this=this;
+				_this.date = e.detail.value;
+				_this.approvalObject.date=e.detail.value;
 			},
+			submit(){
+				var _this=this;
+				console.log("这是子组件的提交方法")
+				console.log("此处需要验证数据信息啥的")
+				console.log(_this.approvalObject)
+				uni.showToast({
+					title:"客户特点为空",
+					icon:'none',
+				})
+			}
 		}
 
 
@@ -136,22 +215,28 @@
 </script>
 
 <style scoped lang="scss">
-	.positionLine {
-		height: 10upx;
+	.approvalInfoClass{
+		.positionLine {
+			height: 10upx;
+		}
+		
+		.cu-form-group .required {
+			color: red;
+			line-height: 60upx;
+			margin-right: 10upx;
+		}
+		
+		.cu-form-group .title {
+			min-width: calc(6em + 40upx);
+			text-align: right;
+		}
+		
+		.margin-left-sm {
+			margin-right: 10upx !important;
+		}
+		.usertrait{
+			margin-top: -100upx;
+		}
 	}
 
-	.cu-form-group .required {
-		color: red;
-		line-height: 60upx;
-		margin-right: 10upx;
-	}
-
-	.cu-form-group .title {
-		min-width: calc(6em + 40upx);
-		text-align: right;
-	}
-
-	.margin-left-sm {
-		margin-right: 10upx !important;
-	}
 </style>
