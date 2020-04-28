@@ -2,7 +2,7 @@
 
 	<view>
 
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :indexV="'myclues'">
 			<block slot="content">新建线索</block>
 		</cu-custom>
 
