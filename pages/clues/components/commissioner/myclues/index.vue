@@ -14,7 +14,7 @@
 					<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
 				</view>
 			</view> 
-			<view v-if="!returnData" style="text-align: center;"> 暂无数据</view>
+			<view v-if="returnData.length<=0" style="text-align: center;"> 暂无数据</view>
  </view>
 
 	</view>
@@ -59,7 +59,7 @@
 				console.log("线索id", clueid)
 				//#ifdef APP-PLUS
 				Router.push({
-					name: 'cluesdetail',
+					name: 'createclue',
 					params: {
 						clueid: clueid
 					}
@@ -67,8 +67,8 @@
 				//#endif
 
 				//#ifdef H5
-				this.$router.push({
-					name: 'cluesdetail',
+				this.$Router.push({
+					name: 'createclue',
 					params: {
 						clueid: clueid
 					}
