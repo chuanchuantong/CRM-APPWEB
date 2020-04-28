@@ -1,12 +1,17 @@
 <template>
 
 	<view class="content main">
- 
+
 		<cu-custom v-show="PageCur=='home'" bgColor="bg-gradual-blue">
 			<block slot="content">首页</block>
 		</cu-custom>
 		<cu-custom v-show="PageCur=='cluesmanage'" bgColor="bg-gradual-blue">
 			<block slot="content">线索管理</block>
+			<block slot="right" >
+				<button class="cu-btn bg-green btnCreateClue" @click="createclues">
+					创建线索
+				</button>
+			</block>
 		</cu-custom>
 		<cu-custom v-show="PageCur=='component'" bgColor="bg-gradual-blue">
 			<block slot="content">用户管理</block>
@@ -39,14 +44,15 @@
 	import {
 		selectAll
 	} from '@/api/clues.js'
-	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js"; 
+	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
+	import Router from '@/router'
 	export default {
 		mixins: [MescrollMixin], // 使用mixin 
 		computed: {
 			tabbarIndex1() {
 				return this.$tabbarUtil.tabbarIndex;
 			}
-		}, 
+		},
 		data() {
 			return {
 				PageCur: 'basics',
@@ -66,22 +72,22 @@
 			}
 		},
 		created() {
-			 
+
 			this.init();
-			
+
 		},
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 			console.log(option); //打印出上个页面传递的参数。
 		},
 		methods: {
-			 
+
 			NavChange: function(e) {
 				this.id = e.currentTarget.dataset.id;
 				this.$tabbarUtil.setValue(e.currentTarget.dataset.cur);
 				console.log(this.$tabbarUtil.tabbarIndex)
 				this.PageCur = this.$tabbarUtil.tabbarIndex;
-				console.log("roleid:",this.roleId)
-				this.getMenus(this.roleId,this.id)
+				console.log("roleid:", this.roleId)
+				this.getMenus(this.roleId, this.id)
 			},
 			init: function() {
 				getUserInfo().then(res => {
@@ -93,32 +99,45 @@
 					//#endif
 					this.roleId = res.data.roleid;
 					this.$tabbarUtil.setInfo(res.data)
-					this.getMenu(res.data.roleid,0)
+					this.getMenu(res.data.roleid, 0)
 				})
-			 
+
 			},
-			getMenus(roleid,parentid){
+			//创建线索
+			createclues() {
+				//此时应该是创建线索去了
+				//#ifdef APP-PLUS
+				console.log("点击了路由跳转", 'createclue')
+				Router.push('createclue');
+				//#endif
+
+				//#ifdef H5
+				console.log("点击了路由跳转H5", 'createclue')
+				this.$router.push('createclue');
+				//#endif
+			},
+			getMenus(roleid, parentid) {
 				getMenu({
 					roleId: roleid,
 					parentId: parentid
 				}).then(res => {
 					//this.menuData = res.data
-					console.log(res) 
+					console.log(res)
 					//this.PageCur = this.$tabbarUtil.tabbarIndex
 					//this.id = res.data[0].id;
-				
+
 				});
 			},
-			getMenu(roleid,parentid){
+			getMenu(roleid, parentid) {
 				getMenu({
 					roleId: roleid,
 					parentId: parentid
 				}).then(res => {
 					this.menuData = res.data
-					console.log(res) 
+					console.log(res)
 					this.PageCur = this.$tabbarUtil.tabbarIndex
 					//this.id = res.data[0].id;
-				
+
 				});
 			}
 		},
@@ -133,7 +152,12 @@
 
 
 <style lang="scss">
-	.main { 
+	.main {
+		.btnCreateClue {
+			text-align: right;
+			position: absolute;
+			right: 10upx;
+		}
 
 		.entry {
 			height: 0.5*300upx;

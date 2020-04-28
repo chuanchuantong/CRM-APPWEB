@@ -1,5 +1,6 @@
 <template>
 	<view>
+
 		<view class="approvalInfoClass">
 			<view class="cu-bar bg-white solid-bottom">
 					<view class="action">

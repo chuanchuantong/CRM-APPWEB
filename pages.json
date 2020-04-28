@@ -118,13 +118,33 @@
 		    "style" : {"titleNView": false}
 		}
 		,{
-		    "path" : "pages/clues/components/administrators/followupclues/index",
+		    "path" : "pages/clues/components/administrators/distributionclues/index",
 		    "style" : {"titleNView": false}
 		}
         ,{
             "path" : "pages/clues/components/administrators/cluesresult/index",
             "style" : {"titleNView": false}
-        }
+        },
+		{
+		    "path" : "pages/clues/components/oaspecialist/distributionclues/index",
+		    "style" : {"titleNView": false}
+		}
+		,{
+		    "path" : "pages/clues/components/oaspecialist/cluesresult/index",
+		    "style" : {"titleNView": false}
+		},
+		{
+		    "path" : "pages/clues/components/marnager/followupclues/index",
+		    "style" : {"titleNView": false}
+		}
+		,{
+		    "path" : "pages/clues/components/marnager/distributionclues/index",
+		    "style" : {"titleNView": false}
+		}
+		,{
+		    "path" : "pages/clues/components/marnager/cluesresult/index",
+		    "style" : {"titleNView": false}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

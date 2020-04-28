@@ -1,6 +1,12 @@
 <template>
 	<view>
-		管理员的线索结果页面
+		<view class="adminCluesResult">
+			<view class="bottom_cu">
+				管理员的线索结果页面
+			</view>
+
+		</view>
+
 	</view>
 </template>
 
@@ -8,12 +14,17 @@
 	export default {
 		data() {
 			return {
-				
+
 			};
 		}
 	}
 </script>
 
-<style lang="scss">
-
+<style scoped lang="scss">
+	.adminCluesResult {
+		.bottom_cu {
+			margin-bottom: 120px;
+			padding-top: 110upx;
+		}
+	}
 </style>

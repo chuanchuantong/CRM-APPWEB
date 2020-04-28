@@ -1,6 +1,11 @@
 <template>
 	<view>
-		OA专员
+		<view class="oaCluesResult">
+			<view class="bottom_cu">
+				OA专员
+			</view>
+		</view>
+
 	</view>
 </template>
 
@@ -8,12 +13,17 @@
 	export default {
 		data() {
 			return {
-				
+
 			};
 		}
 	}
 </script>
 
-<style lang="scss">
-
+<style scoped lang="scss">
+	.oaCluesResult {
+		.bottom_cu {
+			margin-bottom: 120px;
+			padding-top: 110upx;
+		}
+	}
 </style>

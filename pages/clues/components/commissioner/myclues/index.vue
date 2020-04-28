@@ -14,12 +14,6 @@
 					<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
 				</view>
 			</view> 
-			<view class="cu-item" @click="createclues">
-				<view class="content" style="text-align: center;">
-					<text class="cuIcon-roundadd text-grey"></text>
-					<text class="text-grey">创建线索</text>
-				</view>
-			</view>
 			<view v-if="!returnData" style="text-align: center;"> 暂无数据</view>
  </view>
 
@@ -60,19 +54,7 @@
 				})
 			},
 
-			//创建线索
-			createclues() {
-				//此时应该是创建线索去了
-				//#ifdef APP-PLUS
-				console.log("点击了路由跳转", 'createclue')
-				Router.push('createclue');
-				//#endif
 
-				//#ifdef H5
-				console.log("点击了路由跳转H5", 'createclue')
-				this.$router.push('createclue');
-				//#endif
-			},
 			openUrl(clueid) {
 				console.log("线索id", clueid)
 				//#ifdef APP-PLUS

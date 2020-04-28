@@ -56,7 +56,10 @@
 		left: 20upx !important;
 		// width: 100% !important;
 	}
-	 
+	 .bottom_cu {
+	 	margin-bottom: 120px;
+	 	padding-top: 110upx;
+	 }
 	.cu-list.menu-avatar>.cu-item .action {
 		width: 240upx !important;
 	}
