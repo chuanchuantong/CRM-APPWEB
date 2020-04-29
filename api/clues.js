@@ -22,3 +22,10 @@ export function searchclues(data){
 export function selectAll(data){
 	return http.post("/clue/selectAll",data)
 }
+
+/**
+ * XS查询销售经理待分线索
+ */
+export function selectByXSF(){
+	return http.post("/clue/selectByXSF");
+}

@@ -123,7 +123,7 @@
 		</view>
 
 		<approvalInfo :showXs="showXs" :ShowOA="ShowOA" :clueid="clueid"></approvalInfo>
-
+<div class="entry"></div>
 	</view>
 </template>
 
@@ -139,7 +139,7 @@
 		data() {
 			return {
 				clueid: 0,
-				showOrHide: false,
+				showOrHide: true,
 				animation: '',
 				submitBtnLoading: false,
 				animation: '',
@@ -147,19 +147,28 @@
 				showUserId: false,
 				showXs: false,
 				ShowOA: false,
-				staticentity: []
+				showADMIN:false,
+				staticentity: [],
+				rolecode:''
 			};
 		},
 		created() {
-			var _this = this;
+			var _this = this; 
 			//#ifdef APP-PLUS
 			this.staticentity = uni.getStorageSync("data")
 			//#endif
 			//#ifdef H5
 			this.staticentity = JSON.parse(localStorage.getItem("data"));
 			//#endif 
-			this.clueid = this.$route.params.clueid;
-			console.log("线索对应id为", this.clueid)
+			this.clueid = this.$Route.query.clueid;
+			console.log("线索对应id为", this.$route)
+			console.log(this.staticentity.rolecode)
+			if(this.staticentity.rolecode=='OA'){
+				this.ShowOA = true;
+			}
+			if(this.staticentity.rolecode=='XS'){
+				this.showXs = true;
+			}
 			this.init();
 		},
 		methods: {
@@ -182,5 +191,8 @@
 	.cu-form-group .title {
 		min-width: calc(6em + 40upx);
 		text-align: right;
+	}
+	.entry {
+		height: 0.5*300upx !important;
 	}
 </style>

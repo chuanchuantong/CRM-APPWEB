@@ -25,6 +25,7 @@
 		<div class="entry"></div>
 		<view class="cu-bar tabbar bg-white shadow foot submit-warp">
 			<view class="action" @click="NavChange" v-for="item in menuData" :key="item.id" :data-id="item.id" :data-cur="item.menucode">
+				<uni-badge text="3" type="error" size="small" class="posbadge"></uni-badge>
 				<view class='cuIcon-cu-image'>
 					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
 				</view>
@@ -46,6 +47,7 @@
 	} from '@/api/clues.js'
 	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
 	import Router from '@/router'
+	import uniBadge from "@/components/uni-badge/uni-badge.vue"
 	export default {
 		mixins: [MescrollMixin], // 使用mixin 
 		computed: {
@@ -53,6 +55,7 @@
 				return this.$tabbarUtil.tabbarIndex;
 			}
 		},
+		components:{uniBadge},
 		data() {
 			return {
 				PageCur: 'basics',
@@ -158,7 +161,17 @@
 			position: absolute;
 			right: 10upx;
 		}
-
+.cu-bar.tabbar .action .cuIcon-cu-image uni-image{
+	    width: 19px;
+	    height: 19px;
+	    display: inline-block;
+	    margin-bottom: 3px;
+}
+.posbadge{
+	position: absolute;
+	    top: -5px;
+	    right: 9px;
+}
 		.entry {
 			height: 0.5*300upx;
 		}

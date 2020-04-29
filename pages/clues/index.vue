@@ -14,10 +14,10 @@
 				<followup v-if="TabCur=='1'"></followup>
 				<distribution v-if="TabCur=='2'"></distribution>
 			</view>
-			<view v-if="userinfo.rolecode=='MANAGER'">
+			<view v-if="userinfo.rolecode=='XS'">
 				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
 					<view class="flex text-center">
-						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in cluesXS" :key="index" @tap="tabSelect"
 						 :data-id="index">
 							{{item}}
 						</view>
@@ -42,7 +42,7 @@
 			<view v-if="userinfo.rolecode=='ADMIN'">
 				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
 					<view class="flex text-center">
-						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in cluesAdmin" :key="index" @tap="tabSelect"
 						 :data-id="index">
 							{{item}}
 						</view>
@@ -117,7 +117,7 @@
 			this.userinfo = JSON.parse(localStorage.getItem("data"));
 			//#endif
 			_this.getCuleMenu();
-			this.userinfo.rolecode="ZY"
+			//this.userinfo.rolecode="ZY"
 			// this.userinfo.rolecode="MANAGER"
 			// this.userinfo.rolecode="OA"
 			// this.userinfo.rolecode="ADMIN"
@@ -130,6 +130,8 @@
 				TabCur: 0,
 				userinfo: [],
 				clues: ["我的草稿","跟踪线索", "线索结果"],
+				cluesXS: ["分配线索","跟踪线索", "线索结果"],
+				cluesAdmin: ["确认线索", "线索结果"],
 				scrollTop: 0,
 				returnData: [],
 				

@@ -61,7 +61,7 @@
 				//#ifdef H5
 				this.$router.push({
 					name: 'cluesdetail',
-					params: {
+					query: {
 						clueid: clueid
 					}
 				});

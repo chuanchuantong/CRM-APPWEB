@@ -13,9 +13,9 @@
 				<view class="action">
 					<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
 				</view>
-			</view> 
+			</view>
 			<view v-if="returnData.length<=0" style="text-align: center;"> 暂无数据</view>
- </view>
+		</view>
 
 	</view>
 </template>
@@ -26,8 +26,8 @@
 		selectAll
 	} from '@/api/clues.js'
 	export default {
-		props:{
-			parmaData:[]
+		props: {
+			parmaData: []
 		},
 		data() {
 			return {
@@ -35,20 +35,20 @@
 					currentPage: 1,
 					pageSize: 20,
 					params: {
-						cstatus:-1
+						cstatus: -1
 					}
 				},
 				returnData: [],
 				more: "more"
 			}
-		}, 
+		},
 		created() {
 			this.query();
 		},
 		methods: {
 			query() {
 				selectAll(this.queryData).then(res => {
-					
+
 					this.returnData = res.data;
 					console.log(this.returnData)
 				})
@@ -59,18 +59,26 @@
 				console.log("线索id", clueid)
 				//#ifdef APP-PLUS
 				Router.push({
-					name: 'createclue',
+					name: 'clueinfo',
 					params: {
 						clueid: clueid
+					},
+					animation: {
+						animationType: 'slide-in-top',
+						animationDuration: 500
 					}
 				});
 				//#endif
 
 				//#ifdef H5
 				this.$Router.push({
-					name: 'createclue',
+					name: 'clueinfo',
 					params: {
 						clueid: clueid
+					},
+					animation: {
+						animationType: 'slide-in-top',
+						animationDuration: 500
 					}
 				});
 				//#endif
