@@ -1,6 +1,8 @@
 <template>
 	<view>
-
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+			<block slot="content">线索审核</block>
+		</cu-custom>
 		<view class="cu-list menu sm-border">
 			<view class="cu-item" @click="showOrHideClue()">
 				<view class="content">

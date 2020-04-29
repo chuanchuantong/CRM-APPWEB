@@ -167,7 +167,7 @@
 			width: 80%;
 			margin: 5% 10%;
 			color: red;
-			
+			height: 100upx;
 		}
 	}
 

@@ -1,6 +1,6 @@
 <template>
 
-	<view>
+	<view class="createClue">
 
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :indexV="'myclues'">
 			<block slot="content">新建线索</block>
@@ -60,8 +60,8 @@
 				<input v-model="cluesInfo.intentioncar" placeholder="请输入意向车型" name="input"></input>
 			</view>
 			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>需求</view>
-				<input v-model="cluesInfo.needs" placeholder="请输入需求" name="input"></input>
+				<view class="title usertrait"><text class="required">*</text>需求</view>
+				<textarea v-model="cluesInfo.needs" maxlength="500" placeholder="请输入需求"></textarea>
 			</view>
 			<view class="cu-form-group">
 
@@ -98,15 +98,17 @@
 <script>
 	var graceChecker = require("@/js_sdk/graceui-dataChecker/graceChecker.js")
 	import {
-		insertclue
+		insertclue,
+		searchclues
 	} from '../../../../api/clues.js'
 	import dictionary from '../../../../utils/dictionary.js'
 	export default {
-		 
+
 		data() {
 			return {
 				//线索对象
 				cluesInfo: {
+					id: -1,
 					shorthand: '线索1',
 					source: '来源1',
 					customername: '张三',
@@ -124,11 +126,24 @@
 					cstatus: dictionary.cluesStatus.save, //线索状态
 				},
 				isRotate: false, //是否加载旋转
-				saveBtnLoading:false,
-				submitBtnLoading:false
+				saveBtnLoading: false,
+				submitBtnLoading: false,
 			};
 		},
-		created() { 
+		created() {
+			var _this = this;
+			var id = _this.$Route.query.clueid;
+			if (id) {
+				_this.cluesInfo.id = id;
+				searchclues(id).then(response => {
+					if (response.code == 200) {
+						_this.cluesInfo=response.data;
+						console.log("ghjkhj",_this.cluesInfo)
+					}
+				}).finally(response => {
+					console.log("获取线索信息失败",response)
+				})
+			}
 		},
 		methods: {
 			saveclueinfo(isSave) {
@@ -139,10 +154,10 @@
 					return false;
 				}
 				_this.isRotate = true;
-				
+
 				var rule = [];
 				if (!isSave) {
-					_this.submitBtnLoading=true;
+					_this.submitBtnLoading = true;
 					_this.cluesInfo.cstatus = dictionary.cluesStatus.submit;
 					rule = [{
 							name: "shorthand",
@@ -244,7 +259,7 @@
 						},
 					];
 				} else {
-					_this.saveBtnLoading=true;
+					_this.saveBtnLoading = true;
 					_this.cluesInfo.cstatus = dictionary.cluesStatus.save;
 					rule = [{
 						name: "shorthand",
@@ -259,8 +274,8 @@
 				if (checkRes) {
 					//新增线索接口
 					insertclue(_this.cluesInfo).then(response => {
-						_this.saveBtnLoading=false;
-						_this.submitBtnLoading=false;
+						_this.saveBtnLoading = false;
+						_this.submitBtnLoading = false;
 						_this.isRotate = false;
 						if (response.code != 200) {
 							uni.showToast({
@@ -285,13 +300,13 @@
 							}
 						});
 					}).finally(response => {
-						_this.saveBtnLoading=false;
-						_this.submitBtnLoading=false;
+						_this.saveBtnLoading = false;
+						_this.submitBtnLoading = false;
 						_this.isRotate = false
 					})
 				} else {
-					_this.saveBtnLoading=false;
-					_this.submitBtnLoading=false;
+					_this.saveBtnLoading = false;
+					_this.submitBtnLoading = false;
 					_this.isRotate = false;
 					uni.showToast({
 						title: graceChecker.error,
@@ -304,25 +319,30 @@
 </script>
 
 <style scoped lang="scss">
+	.createClue {
+		.usertrait {
+			margin-top: -96upx;
+		}
 
-	.cu-btn {
-		width: 40% !important;
-		margin-top: 10px !important;
-		margin-bottom: 10px !important;
-	}
+		.cu-btn {
+			width: 40% !important;
+			margin-top: 10px !important;
+			margin-bottom: 10px !important;
+		}
 
-	.cu-form-group .title {
-		min-width: calc(6em + 40upx);
-		text-align: right;
-	}
+		.cu-form-group .title {
+			min-width: calc(6em + 40upx);
+			text-align: right;
+		}
 
-	.cu-form-group .required {
-		color: red;
-		line-height: 60upx;
-		margin-right: 10upx;
-	}
+		.cu-form-group .required {
+			color: red;
+			line-height: 60upx;
+			margin-right: 10upx;
+		}
 
-	.cu-bar.btn-group uni-button {
-		max-width: none !important;
+		.cu-bar.btn-group uni-button {
+			max-width: none !important;
+		}
 	}
 </style>

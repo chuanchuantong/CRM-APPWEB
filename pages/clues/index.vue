@@ -14,6 +14,44 @@
 				<followup v-if="TabCur=='1'"></followup>
 				<distribution v-if="TabCur=='2'"></distribution>
 			</view>
+			<view v-if="userinfo.rolecode=='MANAGER'">
+				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+					<view class="flex text-center">
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						 :data-id="index">
+							{{item}}
+						</view>
+					</view>
+				</scroll-view>
+				<managerclues :returnData="returnData" v-if="TabCur=='2'"></managerclues>
+				<managerfollowup v-if="TabCur=='1'"></managerfollowup>
+				<managerdistribution v-if="TabCur=='0'"></managerdistribution>
+			</view>
+			<view v-if="userinfo.rolecode=='OA'">
+				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+					<view class="flex text-center">
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						 :data-id="index">
+							{{item}}
+						</view>
+					</view>
+				</scroll-view>
+				<oaclues :returnData="returnData" v-if="TabCur=='0'"></oaclues>
+				<oadistribution v-if="TabCur=='1'"></oadistribution>
+			</view>
+			<view v-if="userinfo.rolecode=='ADMIN'">
+				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+					<view class="flex text-center">
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						 :data-id="index">
+							{{item}}
+						</view>
+					</view>
+				</scroll-view>
+				<admindistribution v-if="TabCur=='0'"></admindistribution>
+				<adminfollowup v-if="TabCur=='1'"></adminfollowup>
+				<adminclues :returnData="returnData" v-if="TabCur=='2'"></adminclues>
+			</view>
 		</view>
 
 	</view>
@@ -21,9 +59,22 @@
 
 
 <script>
+	//销售专员组件
 	import myclues from './components/commissioner/myclues/index.vue';
 	import followup from './components/commissioner/followupclues/index.vue';
 	import distribution from './components/commissioner/distributionclues/index.vue';
+	//经理组件
+	import managerclues from './components/marnager/cluesresult/index.vue';
+	import managerfollowup from './components/marnager/followupclues/index.vue';
+	import managerdistribution from './components/marnager/distributionclues/index.vue';
+	//OA专员组件
+	import oaclues from './components/oaspecialist/cluesresult/index.vue';
+	import oadistribution from './components/oaspecialist/distributionclues/index.vue';
+	//管理员组件
+	import adminclues from './components/administrators/cluesresult/index.vue';
+	import adminfollowup from './components/administrators/followupclues/index.vue';
+	import admindistribution from './components/administrators/distributionclues/index.vue';
+	
 	import {
 		getMenu
 	} from '@/api/appsys.js'
@@ -41,9 +92,21 @@
 			}
 		},
 		components: {
+			//oa专员组件
 			myclues,
 			followup,
-			distribution
+			distribution,
+			//经理组件
+			managerclues,
+			managerfollowup,
+			managerdistribution,
+			//OA专员组件
+			oaclues,
+			oadistribution,
+			//管理员组件
+			adminclues,
+			adminfollowup,
+			admindistribution,
 		},
 		created() {
 			var _this = this;
@@ -54,8 +117,11 @@
 			this.userinfo = JSON.parse(localStorage.getItem("data"));
 			//#endif
 			_this.getCuleMenu();
+			this.userinfo.rolecode="ZY"
+			// this.userinfo.rolecode="MANAGER"
+			// this.userinfo.rolecode="OA"
+			// this.userinfo.rolecode="ADMIN"
 		},
-
 		onPageScroll: function(e) { //nvue暂不支持滚动监听，可用bindingx代替
 			console.log("滚动距离为：" + e.scrollTop);
 		},
@@ -63,44 +129,16 @@
 			return {
 				TabCur: 0,
 				userinfo: [],
-				clues: ["我的线索", "跟进线索", "线索结果"],
+				clues: ["我的草稿","跟踪线索", "线索结果"],
 				scrollTop: 0,
-				// 下拉刷新的常用配置
-				downOption: {
-					use: true, // 是否启用下拉刷新; 默认true
-					auto: true, // 是否在初始化完毕之后自动执行下拉刷新的回调; 默认true
-					native: false // 启用系统自带的下拉组件,默认false;仅mescroll-body生效,mescroll-uni无效(native: true, 则需在pages.json中配置 "enablePullDownRefresh": true)
-				},
-				// 上拉加载的常用配置
-				upOption: {
-					use: true, // 是否启用上拉加载; 默认true
-					auto: true, // 是否在初始化完毕之后自动执行上拉加载的回调; 默认true
-					page: {
-						num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
-						size: 20 // 每页数据的数量,默认10
-					},
-					noMoreSize: 5, // 配置列表的总数量要大于等于5条才显示'-- END --'的提示
-					empty: {
-						tip: '暂无相关数据'
-					}
-				},
-				queryData: {
-					currentPage: 1,
-					pageSize: 20,
-					params: {
-
-					}
-				},
-				returnData: []
+				returnData: [],
+				
 			};
 		},
 		methods: {
 			onPageScroll(e) { //nvue暂不支持滚动监听，可用bindingx代替
 				console.log("滚动距离为：" + e.scrollTop);
 				//console.log('当前滚动条的位置:' + e.scrollTop + ', 是否向上滑:'+e.isScrollUp)
-			},
-			aaaa(e) {
-				console.log("昵称你擦撒撒旦撒旦撒旦撒大大")
 			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;

@@ -1,5 +1,6 @@
 <template>
 	<view>
+
 		<view class="approvalInfoClass">
 			<view class="cu-bar bg-white solid-bottom">
 					<view class="action">
@@ -101,7 +102,7 @@
 			</view>
 			<view class="cu-form-group" v-if="ShowOA">
 				<view class="title usertrait"><text class="required">*</text>客户特点</view>
-				<textarea maxlength="500" placeholder="请输入客户特点"></textarea>
+				<textarea v-model="approvalObject.usertrait" maxlength="500" placeholder="请输入客户特点"></textarea>
 			</view>
 			<view class="cu-form-group" v-if="ShowOA">
 				<view class="title"><text class="required">*</text>进度记录</view>
