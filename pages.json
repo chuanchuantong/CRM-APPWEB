@@ -153,6 +153,10 @@
 		    "path" : "pages/clues/components/marnager/cluesresult/index",
 		    "style" : {"titleNView": false}
 		}
+        ,{
+            "path" : "pages/my/components/cashwithdrawal/list/index",
+            "style" : {"titleNView": false}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

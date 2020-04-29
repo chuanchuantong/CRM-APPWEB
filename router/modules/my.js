@@ -56,5 +56,13 @@ const My = [{
 	meta: {
 		title: '我的邀请码',
 	}
+},
+{
+	path: '/pages/my/components/cashwithdrawal/list/index',
+	name: 'cashlist',
+	aliasPath: '/cashlist',
+	meta: {
+		title: '提现记录',
+	}
 }]
 export default My
