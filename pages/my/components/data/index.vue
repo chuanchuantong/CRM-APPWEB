@@ -46,7 +46,7 @@
 			</view>
 		</view>
 		<view class="positionLine"></view>
-		<view class="cu-list menu sm-border" >
+		<view class="cu-list menu sm-border">
 			<view class="cu-item arrow" @click="openUrl('mycode','我的二维码')">
 				<view class="content">
 					<text class="text-grey">我的邀请码</text>
@@ -99,10 +99,10 @@
 			};
 		},
 		created() {
-			this.userInfo = JSON.parse( localStorage.getItem("data"));
+			this.userInfo = JSON.parse(localStorage.getItem("data"));
 		},
 		methods: {
-			openUrl(url, title, content) { 
+			openUrl(url, title, content) {
 				//#ifdef APP-PLUS
 				Router.push({
 					name: url,
@@ -112,7 +112,6 @@
 					}
 				});
 				//#endif
-console.log(content)
 				//#ifdef H5
 				this.$Router.push({
 					name: url,
