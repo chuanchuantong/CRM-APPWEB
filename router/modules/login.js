@@ -21,5 +21,19 @@ const Login = [{
 	meta: {
 		title: '线索管理',
 	}
-}]
+}, {
+	path: '/pages/login/scan',
+	name: 'scan',
+	aliasPath: '/scan',
+	isauth: true,
+	meta: {
+		title: '扫码',
+	}}, {
+	path: '/pages/login/text',
+	name: 'text',
+	aliasPath: '/text',
+	isauth: true,
+	meta: {
+		title: '扫码',
+	}}]
 export default Login

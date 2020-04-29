@@ -3,6 +3,7 @@ import App from './App'
 import Router from './router'
 Vue.config.productionTip = false
 import tabbarUtil from '@/utils/utils.js' 
+Vue.prototype.$eventHub = new Vue(); 
 //新增的上啦和下拉加载更多组件
 // 在main.js注册全局组件
 import MescrollBody from "@/components/mescroll-uni/mescroll-body.vue"
@@ -11,7 +12,9 @@ Vue.component('mescroll-body', MescrollBody)
 Vue.component('mescroll-uni', MescrollUni)
 
 Vue.prototype.$tabbarUtil = tabbarUtil
+import scan from './components/scan.vue'
 
+Vue.component('scan',scan)
 
 import {
 	RouterMount

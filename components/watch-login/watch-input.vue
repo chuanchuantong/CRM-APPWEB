@@ -28,7 +28,7 @@
 		<image v-if="isScan"
 			class="img cuIcon" 
 			:class="'cuIcon-scan'" 
-			@tap="showScan"
+			@click="showScan"
 		></image>
 		<!-- #endif -->
 		
@@ -50,7 +50,8 @@
 				showPassword: false, //是否显示明文
 				second: 0, //倒计时
 				isRunCode: false, //是否开始倒计时
-				radio:'A'
+				radio:'A',
+				code:''
 			}
 		},
 		props:{
@@ -109,13 +110,18 @@
 			},
 			showScan(){
 				// 允许从相机和相册扫码
+				
 				uni.scanCode({
 				    success: function (res) {
 				        console.log('条码类型：' + res.scanType);
 				        console.log('条码内容：' + res.result);
-						this.$emit('scan', res.result)
+						this.code = res.result
+						this.$eventHub.$emit("scan-listener", {
+							result: res.result
+						});
 				    }
 				});
+				this.$emit('scan', this.code)
 			},
 			onInput(e) {  
 				//传出值

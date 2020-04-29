@@ -125,6 +125,13 @@
             "path" : "pages/clues/components/administrators/cluesresult/index",
             "style" : {"titleNView": false}
         }
+        ,{
+            "path" : "pages/login/scan",
+            "style" : {}
+        },{
+            "path" : "pages/login/text",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

@@ -7,6 +7,7 @@ function _reqlog(req) {
     if (process.env.NODE_ENV === 'development') {
         console.log("请求地址：" + req.url, req.data || req.params)
     }
+	
     //TODO 调接口异步写入日志数据库
 }
 
@@ -21,8 +22,8 @@ function _reslog(res) {
 
 // 创建自定义接口服务实例
 const http = axios.create({
-    baseURL: 'http://localhost:6688',
-    // baseURL: 'https://www.huimopei.com',
+    // baseURL: 'http://localhost:6688',
+    baseURL: 'https://www.huimopei.com',
     timeout: 60000,  // 不可超过 manifest.json 中配置 networkTimeout的超时时间
     // #ifdef H5
     withCredentials: true,
@@ -46,7 +47,9 @@ http.interceptors.request.use(config => {
 
 // 拦截器 在请求之后拦截
 http.interceptors.response.use(response => {
+	console.log(response)
     _reslog(response)
+	
     // code...
     // 获取cookie
     // let headerStr = JSON.stringify(response.headers)
@@ -57,8 +60,29 @@ http.interceptors.response.use(response => {
             // data: cookie.split(';')[0]
         // })
     // }
+	
     return response.data
 }, error => {
+	if(error.response){
+		console.log(error.response)
+		if(error.response.status==500){
+			uni.showToast({
+				title: "登录超时，请重新登录",
+				icon: "none"
+			});
+			uni.removeStorageSync("Token")
+			//#ifdef APP-PLUS 
+			Router.push({
+				name: 'login'
+			});
+			//#endif
+			
+			//#ifdef H5 
+			this.$router.push("/");
+			//#endif
+			return
+		}
+	} 
 	uni.showToast({
 		title: error.message,
 		icon: "none"

@@ -1,20 +1,23 @@
 <template>
 	<view class="reg">
 		<!-- 头部logo -->
-
+		<view v-if="isScan">
+		<scan  @getCode="getScanCode" />
+		</view>
 		<view class="content">
 			<view class="header">
 				<image :src="logoImage"></image>
 			</view>
+
 			<!-- 主体表单 -->
 			<view class="main">
 				<wInput name="name" type="text" maxlength="11" placeholder="昵称" @input="getnickname"></wInput>
-				<wInput name="name" type="text" maxlength="11" placeholder="登录名" @input="getname"></wInput>
+				<wInput name="loginname" type="text" maxlength="11" placeholder="登录名" @input="getname"></wInput>
 				<wInput name="pwd" type="password" maxlength="11" placeholder="密码" @input="getpwd1"></wInput>
 				<wInput name="pwd" type="password" maxlength="11" placeholder="确认密码" @input="getpwd2"></wInput>
-				<wInput name="pwd" type="text" maxlength="11" placeholder="邮箱" @input="getemail"></wInput>
-				<wInput name="pwd" type="text" maxlength="6" isScan="true" placeholder="邀请码" @input="getfcode" @scan="getfcode"></wInput>
-				<wInput name="name" type="radio" maxlength="11" placeholder="用户名" @input="getsex"></wInput>
+				<wInput name="email" type="text" maxlength="11" placeholder="邮箱" @input="getemail"></wInput>
+				<wInput name="incode" type="text" maxlength="6" isScan="true" placeholder="邀请码" @input="getfcode" @scan="getScanCode"></wInput>
+				<wInput name="sex" type="radio" maxlength="11" placeholder="用户名" @input="getsex"></wInput>
 			</view>
 			<wButton text="注册并登录" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
 		</view>
@@ -35,7 +38,7 @@
 			return {
 				//logo图片 base64
 				logoImage: '../../static/login/1240.png',
-				
+
 				formData: {
 					nickname: '',
 					email: '',
@@ -45,9 +48,12 @@
 					incode: '',
 					pwd1: '',
 					pwd2: '',
+					
 				},
 				isRotate: false, //是否加载旋转
-				isModal: false
+				isModal: false,
+				isScan: false,
+				incode:''
 			};
 		},
 		components: {
@@ -74,6 +80,29 @@
 				// 	// error
 				// }
 			},
+			// //获取扫码控件
+			// getScanCode(val) {
+			// 	this.isScan=true;
+			// 	console.log(val)
+			// 	this.incode = val
+			// 	if(val){
+			// 		this.isScan = false
+			// 	}
+			// 	//this.isScan=false;
+			// },
+			onLoad() {
+				// #ifdef APP-PLUS
+				this.$eventHub.$on('portrait-primary', function(data) {
+					console.log(data);
+					this.text = data;
+				});
+				// #endif
+			},
+			onBackPress() {
+				// #ifdef APP-PLUS
+				plus.screen.lockOrientation('portrait-primary')
+				// #endif
+			},
 			getnickname(e) {
 				_this.formData.nickname = e
 			},
@@ -85,6 +114,7 @@
 				_this.formData.email = e
 			},
 			getfcode(e) {
+				console.log(e)
 				_this.formData.incode = e
 			},
 			getsex(e) {
@@ -159,13 +189,13 @@
 						_this.isRotate = false
 						console.log(res.data)
 						if (res.code != 200) {
-							if(res.code==404){
+							if (res.code == 404) {
 								uni.showToast({
 									title: res.msg,
 									icon: "none"
 								});
 								return
-							}else{
+							} else {
 								uni.showToast({
 									title: '注册失败',
 									icon: "none"
@@ -231,6 +261,16 @@
 					title: '...'
 				});
 			}
+		},
+		watch:{
+			incode:{
+			   handler(newName, oldName) {
+			      console.log('obj.a changed');
+				  this.isScan = false
+			    },
+			    immediate: true,
+			    deep: true
+}
 		}
 	}
 </script>
