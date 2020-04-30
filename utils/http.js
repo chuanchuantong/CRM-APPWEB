@@ -1,5 +1,5 @@
 import axios from '@/js_sdk/gangdiedao-uni-axios'
-
+import Router from '@/router'
 /**
  * 请求接口日志记录
  */
@@ -22,8 +22,8 @@ function _reslog(res) {
 
 // 创建自定义接口服务实例
 const http = axios.create({
-	// baseURL: 'http://localhost:6688',
-	baseURL: 'https://www.huimopei.com',
+	baseURL: 'http://localhost:6688',
+	// baseURL: 'https://www.huimopei.com',
 	timeout: 60000, // 不可超过 manifest.json 中配置 networkTimeout的超时时间
 	// #ifdef H5
 	withCredentials: true,
@@ -52,7 +52,10 @@ http.interceptors.request.use(config => {
 // 拦截器 在请求之后拦截
 http.interceptors.response.use(response => {
 	uni.hideLoading();
-	console.log(response)
+	console.log("拦截器",response)
+
+	
+	
 	_reslog(response)
 
 	// code...
@@ -70,23 +73,35 @@ http.interceptors.response.use(response => {
 }, error => {
 	uni.hideLoading();
 	if (error.response) {
-		console.log(error.response)
+		// console.log(error.response)
+		// if (error.response.status == 500) {
+		// 	uni.showToast({
+		// 		title: "登录超时，请重新登录",
+		// 		icon: "none"
+		// 	});
+			
+		// }
 		if (error.response.status == 500) {
-			uni.showToast({
-				title: "登录超时，请重新登录",
-				icon: "none"
-			});
-			uni.removeStorageSync("Token")
-			//#ifdef APP-PLUS 
-			Router.push({
-				name: 'login'
-			});
-			//#endif
-
-			//#ifdef H5 
-			this.$Router.push("/");
-			//#endif
-			return
+			uni.showModal({
+				title:"系统提示",
+				content:"登录超时请重新登录",
+				confirmText:"确定",
+				showCancel:false,
+				success:function(){
+					 uni.removeStorageSync("Token")
+					//#ifdef APP-PLUS 
+					Router.push({
+						name: 'login'
+					});
+					//#endif
+					
+					//#ifdef H5 
+					Router.push("/");
+					//#endif
+					return
+				}
+			})
+			
 		}
 		console.log(error.response.status)
 		if (error.response.status == 404) {

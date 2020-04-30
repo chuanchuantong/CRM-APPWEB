@@ -30,10 +30,10 @@
 				<view class="title"><text class="required">*</text>客户姓名</view>
 				<input v-model="cluesInfo.customername" placeholder="请输入客户姓名" name="input"></input>
 			</view>
-			<view class="cu-form-group">
+			<!-- <view class="cu-form-group">
 				<view class="title"><text class="required">*</text>客户级别</view>
 				<input v-model="cluesInfo.level" placeholder="请输入客户级别" name="input"></input>
-			</view>
+			</view> -->
 			<view class="cu-form-group">
 				<view class="title"><text class="required">*</text>客户行业</view>
 				<input v-model="cluesInfo.industry" placeholder="请输入客户行业" name="input"></input>
@@ -42,10 +42,10 @@
 				<view class="title"><text class="required">*</text>联系方式</view>
 				<input v-model="cluesInfo.contactinfo" placeholder="请输入联系方式" name="input"></input>
 			</view>
-			<view class="cu-form-group">
+			<!-- <view class="cu-form-group">
 				<view class="title"><text class="required">*</text>邮箱</view>
 				<input v-model="cluesInfo.email" placeholder="请输入邮箱" name="input"></input>
-			</view>
+			</view> -->
 			<view class="cu-form-group">
 				<view class="title"><text class="required">*</text>地址</view>
 				<input v-model="cluesInfo.customeraddress" placeholder="请输入地址" name="input"></input>
@@ -243,20 +243,20 @@
 							required: true,
 							errorMsg: "请输入计划提车时间"
 						},
-						{
-							name: "level",
-							checkType: "notnull",
-							checkRule: "",
-							required: true,
-							errorMsg: "请输入客户级别"
-						},
-						{
-							name: "email",
-							checkType: "notnull",
-							checkRule: "",
-							required: true,
-							errorMsg: "请输入邮箱"
-						},
+						// {
+						// 	name: "level",
+						// 	checkType: "notnull",
+						// 	checkRule: "",
+						// 	required: true,
+						// 	errorMsg: "请输入客户级别"
+						// },
+						// {
+						// 	name: "email",
+						// 	checkType: "notnull",
+						// 	checkRule: "",
+						// 	required: true,
+						// 	errorMsg: "请输入邮箱"
+						// },
 					];
 				} else {
 					_this.saveBtnLoading = true;

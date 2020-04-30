@@ -15,7 +15,7 @@
             "waiting" : true,
             "autoclose" : true,
             "delay" : 0
-        }, 
+        },
         /* 模块配置 */
         "modules" : {
             "Push" : {}

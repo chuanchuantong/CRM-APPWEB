@@ -59,9 +59,9 @@
 				//#endif
 
 				//#ifdef H5
-				this.$router.push({
+				this.$Router.push({
 					name: 'cluesdetail',
-					query: {
+					params: {
 						clueid: clueid
 					}
 				});

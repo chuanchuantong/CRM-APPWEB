@@ -36,3 +36,11 @@ export function selectByXSF(){
 export function selectByXSG(){
 	return http.post("/clue/selectByXSG");
 }
+
+/**
+ * 更新线索信息
+ * @param {Object} data
+ */
+export function update(data){
+	return http.post("/clue/update",data);
+}

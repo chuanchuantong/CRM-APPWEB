@@ -24,6 +24,7 @@
 	import {
 		selectByXSG
 	} from '@/api/clues.js'
+	import Router from '@/router'
 	export default {
 		data() {
 			return {

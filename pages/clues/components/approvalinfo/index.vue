@@ -30,7 +30,7 @@
 				<view class="title usertrait"><text class="required">*</text>客户特点</view>
 				<textarea v-model="approvalObject.usertrait" maxlength="500" placeholder="请输入客户特点"></textarea>
 			</view>
-			<view class="cu-form-group" v-if="ShowOA">
+			<view class="cu-form-group">
 				<view class="title"><text class="required">*</text>进度记录</view>
 				<picker mode="date" :value="date" start="1990-01-01" end="3000-12-31" @change="dateChange">
 					<view class="picker">

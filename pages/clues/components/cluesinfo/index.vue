@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="clueinfo">
 
 
 		<scroll-view scroll-y class="DrawerPage" :class="modalName=='viewModal'?'show':''">
@@ -51,12 +51,12 @@
 						{{updateData.customername}}
 					</view>
 				</view>
-				<view class="cu-form-group">
+				<!-- 	<view class="cu-form-group">
 					<view class="title">客户级别</view>
 					<view>
 						{{updateData.level}}
 					</view>
-				</view>
+				</view> -->
 				<view class="cu-form-group">
 					<view class="title">客户行业</view>
 					<view>
@@ -69,12 +69,12 @@
 						{{updateData.contactinfo}}
 					</view>
 				</view>
-				<view class="cu-form-group">
+				<!-- <view class="cu-form-group">
 					<view class="title">邮箱</view>
 					<view>
 						{{updateData.contactinfo}}
 					</view>
-				</view>
+				</view> -->
 				<view class="cu-form-group">
 					<view class="title">地址</view>
 					<view>
@@ -124,13 +124,30 @@
 				</view>
 
 			</view>
+			<view class="cu-bar bg-white solid-bottom">
+				<view class="action">
+					<text class="cuIcon-titles text-green"></text>
+					提交进度
+				</view>
+			</view>
+			<view class="cu-timeline jindu">
+				<view>
+					<evan-steps :active="1">
+						<evan-step :title="item.remarks" v-for="item in messages" description="item.remarks"></evan-step>
+						<evan-step title="第二步" description="详情详情详情详情"></evan-step>
+						<evan-step icon="home" title="自定义icon" description="详情详情详情详情"></evan-step>
+					</evan-steps>
+				</view>
+			</view>
 			<approvalInfo :userName='userName' @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA" :clueid="clueid"></approvalInfo>
 			<div class="entry"></div>
-
+			<button class="cu-btn block bg-blue margin-tb-sm lg btnLo" @click="submit">
+				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
 		</scroll-view>
 		<view class="DrawerClose" :class="modalName=='viewModal'?'show':''" @tap="hideModal">
 			<text class="cuIcon-pullright"></text>
 		</view>
+
 		<scroll-view scroll-y class="DrawerWindow" :class="modalName=='viewModal'?'show':''">
 			<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
 				<view class="search">
@@ -145,12 +162,11 @@
 							</view>
 						</view>
 					</view>
-
 				</view>
-
-				<view class="cu-item" @tap="hideModal" :data-name="'小明(CODE'+index+')'" v-for="(item,index) in 20" :key="index">
+				<view class="cu-item" @tap="hideModal" :data-name="item.nickname" :data-id="item.id" v-for="(item,index) in userOAs"
+				 :key="index">
 					<view class="content">
-						<text class="text-grey">小明(CODE{{index}})</text>
+						<text class="text-grey">{{item.nickname}}({{item.usercode}})</text>
 					</view>
 				</view>
 			</view>
@@ -161,12 +177,23 @@
 
 <script>
 	import approvalInfo from '../approvalinfo/index';
+	import EvanSteps from '@/components/evan-steps/evan-steps.vue'
+	import EvanStep from '@/components/evan-steps/evan-step.vue'
 	import {
-		searchclues
+		selectByOA
+	} from '@/api/sysUser.js'
+	import {
+		searchclues,
+		update
 	} from '@/api/clues.js'
+	import {
+		getMessagesByClueId
+	} from '@/api/message.js'
 	export default {
 		components: {
-			approvalInfo
+			approvalInfo,
+			EvanSteps,
+			EvanStep
 		},
 		data() {
 			return {
@@ -183,7 +210,11 @@
 				staticentity: [],
 				rolecode: '',
 				modalName: null,
-				userName: ''
+				userName: '',
+				userOAs: [],
+				oa: 0,
+				isLoad: false,
+				messages: []
 			};
 		},
 		created() {
@@ -203,9 +234,21 @@
 			if (this.staticentity.rolecode == 'XS') {
 				this.showXs = true;
 			}
+			getMessagesByClueId({userId:this.clueid}).then(res => {
+				this.messages = res.data;
+			})
 			this.init();
+			this.biandOA();
 		},
 		methods: {
+			submit() {
+				update(this.updateData).then(res => {
+					uni.navigateBack({
+						delta: 1,
+						animationType: "pop-out"
+					})
+				})
+			},
 			showOrHideClue() {
 				var _this = this;
 				_this.showOrHide = !_this.showOrHide;
@@ -216,6 +259,7 @@
 					this.ShowOA = this.staticentity.id == res.data.oa
 					console.log(res)
 				})
+				
 			},
 			showModal(target) {
 				console.log('父组件接收的值', target)
@@ -223,7 +267,8 @@
 			},
 			hideModal(e) {
 				this.modalName = null;
-this.userName=e.currentTarget.dataset.name;
+				this.userName = e.currentTarget.dataset.name;
+				this.updateData.oaid = e.currentTarget.dataset.id;
 			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
@@ -231,12 +276,38 @@ this.userName=e.currentTarget.dataset.name;
 			},
 			searchUser() {
 				console.log('点击了搜索用户')
+			},
+			biandOA() {
+				selectByOA().then(res => {
+					this.userOAs = res.data
+				})
 			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
+	.clueinfo {
+		.btnLo {
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+		}
+
+		.cu-timeline>.cu-item>.content {
+			padding: 6upx 30upx 30upx 30upx;
+		}
+
+		.lastApproval {
+			margin-bottom: 30upx;
+		}
+
+		.jindu {
+			padding-left: 100upx;
+			padding-top: 20upx;
+		}
+	}
+
 	page {
 		background-image: var(--gradualBlue);
 		width: 100vw;
