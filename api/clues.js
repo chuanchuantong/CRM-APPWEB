@@ -29,3 +29,10 @@ export function selectAll(data){
 export function selectByXSF(){
 	return http.post("/clue/selectByXSF");
 }
+
+/**
+ * 查询跟踪线索
+ */
+export function selectByXSG(){
+	return http.post("/clue/selectByXSG");
+}

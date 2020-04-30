@@ -31,7 +31,7 @@
 			console.log("我的二维码", this)
 			this.title = this.$Route.query.title;
 			var data = uni.getStorageSync('data');
-			var userInfo = JSON.parse(data);
+			var userInfo = data;
 			this.codeUrl = userInfo.qRCodeUrl;
 			this.code = userInfo.incode;
 			console.log(userInfo.qRCodeUrl)

@@ -99,7 +99,12 @@
 			};
 		},
 		created() {
-			this.userInfo = JSON.parse( localStorage.getItem("data"));
+			//#ifdef APP-PLUS
+			this.userInfo = uni.getStorageSync("data")
+			//#endif
+			//#ifdef H5
+			this.userInfo = JSON.parse(localStorage.getItem("data"));
+			//#endif
 		},
 		methods: {
 			openUrl(url, title, content) { 

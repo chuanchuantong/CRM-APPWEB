@@ -59,12 +59,12 @@
 				console.log("线索id", clueid)
 				//#ifdef APP-PLUS
 				Router.push({
-					name: 'clueinfo',
+					name: 'createclue',
 					params: {
 						clueid: clueid
 					},
 					animation: {
-						animationType: 'slide-in-top',
+						animationType: 'slide-in-right',
 						animationDuration: 500
 					}
 				});
@@ -72,12 +72,12 @@
 
 				//#ifdef H5
 				this.$Router.push({
-					name: 'clueinfo',
+					name: 'createclue',
 					params: {
 						clueid: clueid
 					},
 					animation: {
-						animationType: 'slide-in-top',
+						animationType: 'slide-in-right',
 						animationDuration: 500
 					}
 				});

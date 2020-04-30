@@ -2,70 +2,71 @@
 	<view>
 		<view class="managerCluesFollow">
 			<view class="cu-list  menu-avatar bottom_cu">
-				经理跟进线索页面
-				<view class="cu-item">
+				<view class="cu-item" @click="openUrl(item.id)" v-for="(item , index) in XSGData" :key="item.id">
 					<view class="content">
 						<view class="text-sm flex">
 							<view class="text-cut">
-								跟进线索内容1
+								{{item.shorthand}}
 							</view>
 						</view>
 					</view>
 					<view class="action">
-						<view class="text-xs">2020-04-19</view>
+						<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
 					</view>
 				</view>
-				<view class="cu-item">
-					<view class="content">
-						<view class="text-sm flex">
-							<view class="text-cut">
-								跟进线索内容2
-							</view>
-						</view>
-					</view>
-					<view class="action">
-						<view class="text-xs">2020-04-19</view>
-					</view>
-				</view>
-				<view class="cu-item">
-					<view class="content">
-						<view class="text-sm flex">
-							<view class="text-cut">
-								跟进线索内容2
-							</view>
-						</view>
-					</view>
-					<view class="action">
-						<view class="text-xs">2020-04-19</view>
-					</view>
-				</view>
-				<view class="cu-item">
-					<view class="content">
-						<view class="text-sm flex">
-							<view class="text-cut">
-								跟进线索内容3
-							</view>
-						</view>
-					</view>
-					<view class="action">
-						<view class="text-xs">2020-04-19</view>
-					</view>
-				</view>
-				
+				<view  style="text-align: center;"> 暂无数据</view>
 			</view>
-			
 		</view>
-		
-
 	</view>
 </template>
 
 <script>
+	import {
+		selectByXSG
+	} from '@/api/clues.js'
 	export default {
 		data() {
 			return {
-				
+				XSGData:[]
 			};
+		},
+		created(){
+			this.initData();
+		},
+		methods: {
+			initData() {
+				selectByXSG().then(res => {
+					this.XSGData = res.data
+				})
+			},
+			openUrl(clueid){
+				console.log("线索id", clueid)
+				//#ifdef APP-PLUS
+				Router.push({
+					name: 'cluesdetail',
+					params: {
+						clueid: clueid
+					},
+					animation: {
+						animationType: 'slide-in-top',
+						animationDuration: 500
+					}
+				});
+				//#endif
+				
+				//#ifdef H5
+				this.$Router.push({
+					name: 'cluesdetail',
+					params: {
+						clueid: clueid
+					},
+					animation: {
+						animationType: 'slide-in-top',
+						animationDuration: 500
+					}
+				});
+				//#endif
+			}
 		}
 	}
 </script>
