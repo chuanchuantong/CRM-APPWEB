@@ -19,7 +19,7 @@
 				</view>
 				<text>可提现</text>
 			</view>
-			<view class="cu-item">
+			<view class="cu-item" @click="openUrl('cashlist')">
 				<view class="bgimg-hg">
 					<cover-image src="@/static/home/dengdaizhong.png"></cover-image>
 				</view>
@@ -121,12 +121,22 @@
 			return {};
 		},
 		methods: {
+			openUrl(url) {
+				//#ifdef APP-PLUS
+				console.log("点击了路由跳转", url)
+				Router.push(url);
+				//#endif
 
+				//#ifdef H5
+				console.log("点击了路由跳转H5", url)
+				this.$router.push(url);
+				//#endif
+			}
 		}
 	}
 </script>
 
-<style  lang="scss">
+<style lang="scss">
 	.contentclass {
 		width: 60% !important;
 		text-align: center;
@@ -136,6 +146,7 @@
 		background-image: url(../../static/home/bg.png);
 		font-size: 36upx;
 		color: #FFFFFF !important;
+
 		.bgimg-hg {
 			width: 46upx;
 			height: 46upx;
