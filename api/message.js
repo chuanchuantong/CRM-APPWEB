@@ -5,7 +5,7 @@ import http from '../utils/http.js'
  * @param {Object} data
  */
 export function getMessagesByClueId(data){
-	return http.post("/message/getMessagesByClueId",data)
+	return http.get("/message/getMessagesByClueId?clueId="+data)
 }
 
 /**

@@ -23,6 +23,7 @@
 	import {
 		selectAll
 	} from '@/api/clues.js'
+	import Router from '@/router'
 	export default {
 
 		data() {
@@ -54,6 +55,10 @@
 					name: 'cluesdetail',
 					params: {
 						clueid: clueid
+					},
+					animation: {
+						animationType: 'slide-in-right',
+						animationDuration: 500
 					}
 				});
 				//#endif
@@ -63,6 +68,10 @@
 					name: 'cluesdetail',
 					params: {
 						clueid: clueid
+					},
+					animation: {
+						animationType: 'slide-in-right',
+						animationDuration: 500
 					}
 				});
 				//#endif

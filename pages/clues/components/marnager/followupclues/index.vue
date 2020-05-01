@@ -49,7 +49,7 @@
 						clueid: clueid
 					},
 					animation: {
-						animationType: 'slide-in-top',
+						animationType: 'slide-in-right',
 						animationDuration: 500
 					}
 				});
@@ -62,7 +62,7 @@
 						clueid: clueid
 					},
 					animation: {
-						animationType: 'slide-in-top',
+						animationType: 'slide-in-right',
 						animationDuration: 500
 					}
 				});

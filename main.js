@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import App from './App'
 import Router from './router'
+import moment from 'moment/moment'
+Vue.filter('moment', function (value, formatString) {
+    formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
+return moment(value).format(formatString);
+
+}); 
 Vue.config.productionTip = false
 import tabbarUtil from '@/utils/utils.js' 
 Vue.prototype.$eventHub = new Vue(); 

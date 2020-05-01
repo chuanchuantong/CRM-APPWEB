@@ -103,6 +103,13 @@ http.interceptors.response.use(response => {
 			})
 			
 		}
+		if (error.response.status == 502) {
+			uni.showToast({
+				title: "服务器异常",
+				icon: "none"
+			});
+			
+		}
 		console.log(error.response.status)
 		if (error.response.status == 404) {
 			uni.showToast({

@@ -132,10 +132,9 @@
 			</view>
 			<view class="cu-timeline jindu">
 				<view>
-					<evan-steps :active="1">
-						<evan-step :title="item.remarks" v-for="item in messages" description="item.remarks"></evan-step>
-						<evan-step title="第二步" description="详情详情详情详情"></evan-step>
-						<evan-step icon="home" title="自定义icon" description="详情详情详情详情"></evan-step>
+					<evan-steps :active="messages.length-1">
+						<evan-step :title="item.remarks" v-for="item in messages" :description="item.createtime |moment"></evan-step>
+						
 					</evan-steps>
 				</view>
 			</view>
@@ -234,7 +233,7 @@
 			if (this.staticentity.rolecode == 'XS') {
 				this.showXs = true;
 			}
-			getMessagesByClueId({userId:this.clueid}).then(res => {
+			getMessagesByClueId(this.clueid).then(res => {
 				this.messages = res.data;
 			})
 			this.init();

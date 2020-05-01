@@ -24,6 +24,7 @@
 	import {
 		selectByXSF
 	} from '@/api/clues.js'
+	import Router from '@/router'
 	export default {
 		data() {
 			return {
@@ -48,7 +49,7 @@
 						clueid: clueid
 					},
 					animation: {
-						animationType: 'slide-in-top',
+						animationType: 'slide-in-right',
 						animationDuration: 500
 					}
 				});
@@ -61,7 +62,7 @@
 						clueid: clueid
 					},
 					animation: {
-						animationType: 'slide-in-top',
+						animationType: 'slide-in-right',
 						animationDuration: 500
 					}
 				});
