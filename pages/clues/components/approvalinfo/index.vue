@@ -1,6 +1,6 @@
 <template>
 	<view class="approvalInfoClass">
- 
+
 		<view class="positionLine"></view>
 		<form>
 			<view class="cu-bar bg-white solid-bottom" v-if="showXs">
@@ -9,13 +9,13 @@
 					审核信息
 				</view>
 			</view>
-			<view class="cu-form-group" v-if="showXs">
+			<view class="cu-form-group" @click="showModal" v-if="showXs">
 				<view class="title"><text class="required">*</text>选择OA专员</view>
-				<picker @change="pickerChange" :value="oauserindex" :range="oausers">
-					<view class="picker">
-						{{oauserindex>-1?oausers[oauserindex]:'请选择'}}
-					</view>
-				</picker>
+				
+				<view class="action">
+					{{userName!=''?userName:'请选择'}}
+					<text class="cuIcon-right"></text>
+				</view>
 			</view>
 
 			<view class="cu-form-group" v-if="ShowOA">
@@ -38,6 +38,8 @@
 					</view>
 				</picker>
 			</view>
+
+
 		</form>
 	</view>
 </template>
@@ -48,15 +50,19 @@
 			clueid: {
 				type: [Number],
 				default: -1
-			}, 
-			showXs:{
-				type:[Boolean,String],
-				default:false
 			},
-			ShowOA:{
-				type:[Boolean,String],
-				default:false
-				}
+			showXs: {
+				type: [Boolean, String],
+				default: false
+			},
+			ShowOA: {
+				type: [Boolean, String],
+				default: false
+			},
+			userName:{
+				type: [String],
+				default: ''
+			}
 		},
 		data() {
 			return {
@@ -68,16 +74,16 @@
 				oauserinfo: {},
 				leave: '',
 				date: '',
-				approvalObject:{
+				approvalObject: {
 					//选择的oa专员
-					oauser:-1,
+					oauser: -1,
 					//客户等级
-					userleave:'',
+					userleave: '',
 					//客户特点
-					usertrait:'',
+					usertrait: '',
 					//进度记录
-					date:''
-				}
+					date: ''
+				},
 			};
 		},
 		created() {
@@ -103,36 +109,40 @@
 			//处理日期
 			var dateInfo = new Date();
 			var year = dateInfo.getFullYear();
-			var month=((dateInfo.getMonth() + 1)>10?(dateInfo.getMonth() + 1):'0'+(dateInfo.getMonth() + 1));
-			var date=dateInfo.getDate();
-			_this.date=year+'-'+month+'-'+date;
+			var month = ((dateInfo.getMonth() + 1) > 10 ? (dateInfo.getMonth() + 1) : '0' + (dateInfo.getMonth() + 1));
+			var date = dateInfo.getDate();
+			_this.date = year + '-' + month + '-' + date;
 		},
 		methods: {
 			pickerChange(e) {
 				var _this = this;
 				_this.oauserindex = e.detail.value;
-				_this.approvalObject.oauser=e.detail.value;
+				_this.approvalObject.oauser = e.detail.value;
 			},
 			radioChange(e) {
 				var _this = this;
 				_this.leave = e.detail.value;
-				_this.approvalObject.userleave=e.detail.value;
+				_this.approvalObject.userleave = e.detail.value;
 				console.log(_this.leave)
 			},
 			dateChange(e) {
-				var _this=this;
+				var _this = this;
 				_this.date = e.detail.value;
-				_this.approvalObject.date=e.detail.value;
+				_this.approvalObject.date = e.detail.value;
 			},
-			submit(){
-				var _this=this;
+			submit() {
+				var _this = this;
 				console.log("这是子组件的提交方法")
 				console.log("此处需要验证数据信息啥的")
 				console.log(_this.approvalObject)
 				uni.showToast({
-					title:"客户特点为空",
-					icon:'none',
+					title: "客户特点为空",
+					icon: 'none',
 				})
+			},
+			showModal() {
+				var _this = this;
+				this.$emit("showModal", 'viewModal')
 			}
 		}
 
@@ -141,28 +151,34 @@
 </script>
 
 <style scoped lang="scss">
-	.approvalInfoClass{
+	.approvalInfoClass {
 		.positionLine {
 			height: 10upx;
 		}
-		
+
 		.cu-form-group .required {
 			color: red;
 			line-height: 60upx;
 			margin-right: 10upx;
 		}
-		
+
 		.cu-form-group .title {
 			min-width: calc(6em + 40upx);
 			text-align: right;
 		}
-		
+
 		.margin-left-sm {
 			margin-right: 10upx !important;
 		}
-		.usertrait{
+
+		.usertrait {
 			margin-top: -100upx;
 		}
-	}
 
+
+
+
+
+
+	}
 </style>

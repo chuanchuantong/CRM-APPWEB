@@ -157,6 +157,13 @@
             "path" : "pages/my/components/cashwithdrawal/list/index",
             "style" : {"titleNView": false}
         }
+<<<<<<< HEAD
+=======
+        ,{
+            "path" : "pages/my/components/cashwithdrawal/cashdetail/index",
+            "style" : {"titleNView": false}
+        }
+>>>>>>> e07cc24033a2a6b1ea849be1167568c2f69fe805
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

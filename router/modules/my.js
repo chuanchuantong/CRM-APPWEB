@@ -62,7 +62,19 @@ const My = [{
 	name: 'cashlist',
 	aliasPath: '/cashlist',
 	meta: {
+<<<<<<< HEAD
 		title: '提现记录',
+=======
+		title: '提现列表',
+	}
+},
+{
+	path: '/pages/my/components/cashwithdrawal/cashdetail/index',
+	name: 'cashdetail',
+	aliasPath: '/cashdetail',
+	meta: {
+		title: '提现详情',
+>>>>>>> e07cc24033a2a6b1ea849be1167568c2f69fe805
 	}
 }]
 export default My
