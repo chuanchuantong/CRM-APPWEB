@@ -7,7 +7,16 @@ const dictionary ={
 		complete:2,//完成
 		fail:3,//失败
 	},
-	
+	payMethodStatus:{
+		"1":"银行卡",
+		"2":"微信",
+		"3":"支付宝"
+	},
+	capitalStatus:{
+		"0":"等待中",
+		"1":"已完成",
+		"2":"失败"
+	}
 	
 }
 
