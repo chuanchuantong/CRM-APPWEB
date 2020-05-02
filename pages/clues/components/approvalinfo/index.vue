@@ -3,13 +3,13 @@
 
 		<view class="positionLine"></view>
 		<form>
-			<view class="cu-bar bg-white solid-bottom" v-if="showXs">
+			<view class="cu-bar bg-white solid-bottom" v-if="showXs||updateData.cstatus>0">
 				<view class="action">
 					<text class="cuIcon-titles text-green"></text>
 					审核信息
 				</view>
 			</view>
-			<view class="cu-form-group" @click="showModal" v-if="showXs">
+			<view class="cu-form-group" @click="showModal" v-if="showXs&&updateData.cstatus==0">
 				<view class="title"><text class="required">*</text>选择OA专员</view>
 				
 				<view class="action">
@@ -17,27 +17,34 @@
 					<text class="cuIcon-right"></text>
 				</view>
 			</view>
+			<view class="cu-form-group"  v-if="updateData.cstatus>0">
+				<view class="title">OA专员</view>
+				
+				<view class="action">
+				{{updateData.oaname}}
+				</view>
+			</view>
 
 			<view class="cu-form-group" v-if="ShowOA">
 				<view class="title"><text class="required">*</text>客户级别</view>
 				<radio-group class="block" @change="radioChange">
-					<radio class='round blue margin-left-sm' :class="leave=='A+'?'checked':''" :checked="leave=='A+'?true:false" value="A+"></radio>A+
-					<radio class='round blue margin-left-sm' :class="leave=='A'?'checked':''" :checked="leave=='A'?true:false" value="A"></radio>A
-					<radio class='round blue margin-left-sm' :class="leave=='A-'?'checked':''" :checked="leave=='A-'?true:false" value="A-"></radio>A-
+					<radio class='round blue margin-left-sm' :class="updateData.level=='A+'?'checked':''" :checked="leave=='A+'?true:false" value="A+"></radio>A+
+					<radio class='round blue margin-left-sm' :class="updateData.level=='A'?'checked':''" :checked="leave=='A'?true:false" value="A"></radio>A
+					<radio class='round blue margin-left-sm' :class="updateData.level=='A-'?'checked':''" :checked="leave=='A-'?true:false" value="A-"></radio>A-
 				</radio-group>
 			</view>
 			<view class="cu-form-group" v-if="ShowOA">
 				<view class="title usertrait"><text class="required">*</text>客户特点</view>
-				<textarea v-model="approvalObject.usertrait" maxlength="500" placeholder="请输入客户特点"></textarea>
+				<textarea v-model="updateData.custyles" maxlength="500" placeholder="请输入客户特点"></textarea>
 			</view>
-			<view class="cu-form-group">
+			<!-- <view class="cu-form-group" v-if="ShowOA">
 				<view class="title"><text class="required">*</text>进度记录</view>
 				<picker mode="date" :value="date" start="1990-01-01" end="3000-12-31" @change="dateChange">
 					<view class="picker">
 						{{date}}
 					</view>
 				</picker>
-			</view>
+			</view> -->
 
 
 		</form>
@@ -62,6 +69,10 @@
 			userName:{
 				type: [String],
 				default: ''
+			},
+			updateData:{
+				type: [Object, Array],
+				default: ()=>{}
 			}
 		},
 		data() {
@@ -122,7 +133,7 @@
 			radioChange(e) {
 				var _this = this;
 				_this.leave = e.detail.value;
-				_this.approvalObject.userleave = e.detail.value;
+				_this.updateData.level = e.detail.value;
 				console.log(_this.leave)
 			},
 			dateChange(e) {

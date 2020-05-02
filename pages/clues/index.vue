@@ -30,7 +30,7 @@
 			<view v-if="userinfo.rolecode=='OA'">
 				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
 					<view class="flex text-center">
-						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in cluesOA" :key="index" @tap="tabSelect"
 						 :data-id="index">
 							{{item}}
 						</view>
@@ -132,6 +132,7 @@
 				clues: ["我的草稿","跟踪线索", "线索结果"],
 				cluesXS: ["分配线索","跟踪线索", "线索结果"],
 				cluesAdmin: ["确认线索", "线索结果"],
+				cluesOA: ["线索跟进", "线索结果"],
 				scrollTop: 0,
 				returnData: [],
 				

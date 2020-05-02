@@ -124,21 +124,42 @@
 				</view>
 
 			</view>
-			<view class="cu-bar bg-white solid-bottom">
+			<view v-if="updateData.cstatus>-1">
+				<view class="cu-bar bg-white solid-bottom">
+					<view class="action">
+						<text class="cuIcon-titles text-green"></text>
+						订单信息
+					</view>
+				</view>
+				<view class="cu-form-group">
+					<view class="title">订单状态</view>
+					<view>
+						{{updateData.plantime}}
+					</view>
+				</view>
+				<view class="cu-form-group">
+					<view class="title">销售提成</view>
+					<view>
+						{{updateData.plantime}}
+					</view>
+				</view>
+			</view>
+			<view class="cu-bar bg-white solid-bottom" v-if="updateData.cstatus!=-1">
 				<view class="action">
 					<text class="cuIcon-titles text-green"></text>
 					提交进度
 				</view>
 			</view>
-			<view class="cu-timeline jindu">
+			<view class="cu-timeline jindu" v-if="updateData.cstatus!=-1">
 				<view>
 					<evan-steps :active="messages.length-1">
 						<evan-step :title="item.remarks" v-for="item in messages" :description="item.createtime |moment"></evan-step>
-						
+
 					</evan-steps>
 				</view>
 			</view>
-			<approvalInfo :userName='userName' @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA" :clueid="clueid"></approvalInfo>
+			<approvalInfo :userName='userName' :updateData="updateData" @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA"
+			 :clueid="clueid"></approvalInfo>
 			<div class="entry"></div>
 			<button class="cu-btn block bg-blue margin-tb-sm lg btnLo" @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
@@ -241,6 +262,12 @@
 		},
 		methods: {
 			submit() {
+				if (this.staticentity.rolecode == 'OA') {
+					this.updateData.cstatus = 2;
+				}
+				if (this.staticentity.rolecode == 'XS') {
+					this.updateData.cstatus = 1;
+				}
 				update(this.updateData).then(res => {
 					uni.navigateBack({
 						delta: 1,
@@ -253,12 +280,19 @@
 				_this.showOrHide = !_this.showOrHide;
 			},
 			init() {
+
 				searchclues(this.clueid).then(res => {
 					this.updateData = res.data;
-					this.ShowOA = this.staticentity.id == res.data.oa
+					if (this.staticentity.rolecode == 'OA' && this.updateData.cstatus == 3) {
+						this.ShowOA = true;
+					}
+					if (this.staticentity.rolecode == 'XS' && this.updateData.cstatus == 2) {
+						this.showXs = false;
+					}
+					//this.ShowOA = this.staticentity.id == res.data.oa
 					console.log(res)
 				})
-				
+
 			},
 			showModal(target) {
 				console.log('父组件接收的值', target)
