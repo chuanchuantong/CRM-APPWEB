@@ -36,7 +36,7 @@
 		},
 		methods: {
 			initData() {
-				selectByXSF().then(res => {
+				selectByXSF(1).then(res => {
 					this.resultXSData = res.data
 				})
 			},

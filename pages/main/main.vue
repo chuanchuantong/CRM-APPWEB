@@ -7,7 +7,7 @@
 		</cu-custom>
 		<cu-custom v-show="PageCur=='cluesmanage'" bgColor="bg-gradual-blue">
 			<block slot="content">线索管理</block>
-			<block slot="right" >
+			<block slot="right" v-if="this.sysuser.rolecode == 'ZY'">
 				<button class="cu-btn bg-green btnCreateClue" @click="createclues">
 					创建线索
 				</button>
@@ -71,7 +71,8 @@
 
 					}
 				},
-				returnData: []
+				returnData: [],
+				sysuser:[]
 			}
 		},
 		created() {
@@ -101,6 +102,7 @@
 					uni.setStorageSync("data", res.data);
 					//#endif
 					this.roleId = res.data.roleid;
+					this.sysuser = res.data;
 					this.$tabbarUtil.setInfo(res.data)
 					this.getMenu(res.data.roleid, 0)
 				})

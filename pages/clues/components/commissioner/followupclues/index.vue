@@ -21,7 +21,7 @@
 
 <script>
 	import {
-		selectAll
+		selectByGZXS
 	} from '@/api/clues.js'
 	import Router from '@/router'
 	export default {
@@ -43,7 +43,7 @@
 		},
 		methods: {
 			queryIn() {
-				selectAll(this.queryData).then(res => {
+				selectByGZXS().then(res => {
 					this.GzData = res.data;
 					console.log(this.GzData)
 				})

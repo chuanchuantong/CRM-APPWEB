@@ -15,6 +15,10 @@ export function searchclues(data){
 	return http.get("/clue/selectById?Id="+data)
 }
 
+export function selectByGZXS(){
+	return http.post("/clue/selectByGZXS")
+}
+
 /**
  * 分页获取当前用户的线索
  * @param {Object} data
