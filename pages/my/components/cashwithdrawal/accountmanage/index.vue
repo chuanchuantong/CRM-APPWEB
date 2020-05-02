@@ -43,7 +43,10 @@
 				payMethods: []
 			};
 		},
-		created() {
+		// created() {
+			
+		// },
+		onShow() {
 			//获取提现方式列表
 			var _this = this;
 			console.log("提现列表页面")
