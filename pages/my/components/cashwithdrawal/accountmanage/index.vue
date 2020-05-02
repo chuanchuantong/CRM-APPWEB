@@ -63,6 +63,7 @@
 						});
 						return;
 					}
+					_this.payMethods=[];
 					for (var i = 0; i < response.data.length; i++) {
 						var info = response.data[i];
 						if (info.status == 1) {
