@@ -91,7 +91,7 @@
 				</button>
 			</view>
 		</form>
-
+<div class="entry"></div>
 	</view>
 </template>
 

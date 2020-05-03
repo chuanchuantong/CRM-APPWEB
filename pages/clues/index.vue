@@ -37,7 +37,8 @@
 					</view>
 				</scroll-view>
 				<oaclues :returnData="returnData" v-if="TabCur=='0'"></oaclues>
-				<oadistribution v-if="TabCur=='1'"></oadistribution>
+				<oadistribution v-if="TabCur=='2'"></oadistribution>
+				<oafollowup v-if="TabCur=='1'"></oafollowup>
 			</view>
 			<view v-if="userinfo.rolecode=='ADMIN'">
 				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
@@ -70,6 +71,7 @@
 	//OA专员组件
 	import oaclues from './components/oaspecialist/cluesresult/index.vue';
 	import oadistribution from './components/oaspecialist/distributionclues/index.vue';
+	import oafollowup from './components/oaspecialist/followupclues/index.vue';
 	//管理员组件
 	import adminclues from './components/administrators/cluesresult/index.vue';
 	import adminfollowup from './components/administrators/followupclues/index.vue';
@@ -103,6 +105,7 @@
 			//OA专员组件
 			oaclues,
 			oadistribution,
+			oafollowup,
 			//管理员组件
 			adminclues,
 			adminfollowup,
@@ -132,7 +135,7 @@
 				clues: ["我的草稿","跟踪线索", "线索结果"],
 				cluesXS: ["分配线索","跟踪线索", "线索结果"],
 				cluesAdmin: ["确认线索", "线索结果"],
-				cluesOA: ["线索跟进", "线索结果"],
+				cluesOA: ["线索跟进","跟踪线索", "线索结果"],
 				scrollTop: 0,
 				returnData: [],
 				

@@ -3,49 +3,56 @@
 		<view class="cu-list grid col-4 no-border bgimg">
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/zongyongjin.png"></cover-image>
+					0.00
 				</view>
 				<text>总佣金</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/yitixian.png"></cover-image>
+					<!-- <cover-image src="@/static/home/yitixian.png"></cover-image> -->
+					0.00
 				</view>
 				<text>已提现</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/ketixian.png"></cover-image>
+					<!-- <cover-image src="@/static/home/ketixian.png"></cover-image> -->
+					200
 				</view>
 				<text>可提现</text>
 			</view>
 			<view class="cu-item" @click="openUrl('cashlist')">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/dengdaizhong.png"></cover-image>
+					<!-- <cover-image src="@/static/home/dengdaizhong.png"></cover-image> -->
+					0.00
 				</view>
 				<text>等待中</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/zongdingdan.png"></cover-image>
+					<!-- <cover-image src="@/static/home/zongdingdan.png"></cover-image> -->
+					10
 				</view>
 				<text>总订单</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/zongxiaoshouticheng.png"></cover-image>
+					<!-- <cover-image src="@/static/home/zongxiaoshouticheng.png"></cover-image> -->
+					0.00
 				</view>
 				<text>总销售提成</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/zongyaoqing.png"></cover-image>
+					<!-- <cover-image src="@/static/home/zongyaoqing.png"></cover-image> -->
+					1
 				</view>
 				<text>总邀请</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					<cover-image src="@/static/home/zongtuiguangticheng.png"></cover-image>
+					<!-- <cover-image src="@/static/home/zongtuiguangticheng.png"></cover-image> -->
+					0.00
 				</view>
 				<text>总推广佣金</text>
 			</view>
@@ -148,8 +155,8 @@
 		color: #FFFFFF !important;
 
 		.bgimg-hg {
-			width: 46upx;
-			height: 46upx;
+			// width: 46upx;
+			// height: 46upx;
 			margin: 0 auto;
 			margin-top: 24upx;
 		}

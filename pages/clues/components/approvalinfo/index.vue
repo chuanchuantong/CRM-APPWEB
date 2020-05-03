@@ -18,14 +18,24 @@
 				</view>
 			</view>
 			<view class="cu-form-group"  v-if="updateData.cstatus>0">
-				<view class="title">OA专员</view>
-				
+				<view class="title">OA专员</view> 
 				<view class="action">
 				{{updateData.oaname}}
 				</view>
 			</view>
+			<view class="cu-form-group"  v-if="updateData.cstatus>1">
+				<view class="title">客户级别</view> 
+				<view class="action">
+				{{updateData.level}}
+				</view>
+			</view>
+			<view class="cu-form-group"  v-if="updateData.cstatus>1">
+				<view class="title usertrait">客户特点 </view> 
+			 
+				<textarea v-model="updateData.custyles"></textarea> 
+			</view>
 
-			<view class="cu-form-group" v-if="ShowOA">
+			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
 				<view class="title"><text class="required">*</text>客户级别</view>
 				<radio-group class="block" @change="radioChange">
 					<radio class='round blue margin-left-sm' :class="updateData.level=='A+'?'checked':''" :checked="leave=='A+'?true:false" value="A+"></radio>A+
@@ -33,7 +43,7 @@
 					<radio class='round blue margin-left-sm' :class="updateData.level=='A-'?'checked':''" :checked="leave=='A-'?true:false" value="A-"></radio>A-
 				</radio-group>
 			</view>
-			<view class="cu-form-group" v-if="ShowOA">
+			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
 				<view class="title usertrait"><text class="required">*</text>客户特点</view>
 				<textarea v-model="updateData.custyles" maxlength="500" placeholder="请输入客户特点"></textarea>
 			</view>
