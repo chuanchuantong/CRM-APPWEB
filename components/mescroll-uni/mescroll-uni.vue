@@ -257,7 +257,7 @@
 						vm.downLoadType = 4; // 结束下拉 (自定义mescroll组件时,此行不可删)
 						vm.downHight = 0; // 设置下拉区域的高度 (自定义mescroll组件时,此行不可删)
 					},
-					// 派发下拉刷新的回调
+					//派发下拉刷新的回调
 					callback: function(mescroll) {
 						vm.$emit('down', mescroll)
 					}

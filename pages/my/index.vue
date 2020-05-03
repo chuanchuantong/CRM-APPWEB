@@ -53,7 +53,7 @@
 			<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
 			
-				<view class="cu-item arrow">
+				<view class="cu-item arrow" @click="openUrl('usermanage')">
 					<view class="content">
 						<text class="cuIcon-people text-grey"></text>
 						<text class="text-grey">用户管理</text>

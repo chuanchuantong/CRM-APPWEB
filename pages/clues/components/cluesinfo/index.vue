@@ -198,7 +198,7 @@
 				</view>
 			</view>
 		</scroll-view>
-<div class="entry"></div>
+		<div class="entry"></div>
 	</view>
 </template>
 
@@ -333,9 +333,11 @@
 			width: 100%;
 			bottom: 0;
 		}
-.entry {
+
+		.entry {
 			height: 0.5*300upx;
 		}
+
 		.cu-timeline>.cu-item>.content {
 			padding: 6upx 30upx 30upx 30upx;
 		}

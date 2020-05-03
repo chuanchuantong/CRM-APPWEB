@@ -112,8 +112,13 @@
 				isRotate: false,
 			};
 		},
+		onShow() {
+			var _this=this;
+			_this.willCashMoney=null;
+			_this.disabled=_this.isNullOrEmpty(_this.willCashMoney);
+		},
 		watch: {
-			willCashMoney(newValue, oldValue) {
+			'willCashMoney':function(newValue, oldValue) {
 				var _this = this;
 				if (newValue > _this.currentSurplusMoney) {
 					_this.disabled = true;
@@ -124,10 +129,15 @@
 				}
 			}
 		},
+		onLoad() {
+			console.log("加载本页面是")
+		},
 		created() {
+			console.log("跳转到本页面")
 			var _this = this;
+			_this.willCashMoney=null;
+			_this.disabled=_this.isNullOrEmpty(_this.willCashMoney);
 			_this.getPayMethodList();
-
 		},
 		methods: {
 			//提现提交申请
@@ -146,7 +156,6 @@
 				_this.capitalApply.amount = _this.willCashMoney;
 				_this.capitalApply.remaamount = (_this.currentSurplusMoney - _this.willCashMoney);
 				_this.capitalApply.paytype = _this.selectCashModeInfo.id;
-				console.log("申请提现信息为",_this.capitalApply)
 				capitalApply(_this.capitalApply).then(response => {
 					_this.submitBtnLoading = false;
 					_this.isRotate = false;
@@ -292,6 +301,9 @@
 		.cu-modal {
 			.modeNumber {
 				font-size: 24upx !important;
+			}
+			.cu-dialog{
+				padding-bottom: 100upx;
 			}
 		}
 	}
