@@ -25,7 +25,7 @@
 		<div class="entry"></div>
 		<view class="cu-bar tabbar bg-white shadow foot submit-warp">
 			<view class="action" @click="NavChange" v-for="item in menuData" :key="item.id" :data-id="item.id" :data-cur="item.menucode">
-				<uni-badge text="3" type="error" size="small" class="posbadge"></uni-badge>
+				<!-- <uni-badge text="3" type="error" size="small" class="posbadge"></uni-badge> -->
 				<view class='cuIcon-cu-image'>
 					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
 				</view>
@@ -183,8 +183,8 @@
 			bottom: var(--window-bottom);
 			left: 0;
 			right: 0;
-			height: 0.5*200upx;
-			line-height: 0.5*200upx;
+			height: 0.5*250upx;
+			line-height: 0.5*250upx;
 			background: #fff;
 		}
 

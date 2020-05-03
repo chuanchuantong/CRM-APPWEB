@@ -19,6 +19,9 @@
 		width: 100%;
 
 		background-color: $uni-bg-color;
+		.entry {
+					height: 0.5*300upx;
+				}
 	}
 	
 	

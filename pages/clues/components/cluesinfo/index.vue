@@ -161,7 +161,14 @@
 			<approvalInfo :userName='userName' :updateData="updateData" @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA"
 			 :clueid="clueid"></approvalInfo>
 			<div class="entry"></div>
-			<button class="cu-btn block bg-blue margin-tb-sm lg btnLo" @click="submit">
+			<button v-if="(this.staticentity.rolecode == 'ZY' && updateData.cstatus==-1) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
+			 @click="submit">
+				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
+			<button v-if="(this.staticentity.rolecode == 'XS' && updateData.cstatus==0) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
+			 @click="submit">
+				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
+			<button v-if="(this.staticentity.rolecode == 'OA' && updateData.cstatus==1) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
+			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
 		</scroll-view>
 		<view class="DrawerClose" :class="modalName=='viewModal'?'show':''" @tap="hideModal">
@@ -191,7 +198,7 @@
 				</view>
 			</view>
 		</scroll-view>
-
+<div class="entry"></div>
 	</view>
 </template>
 
@@ -326,7 +333,9 @@
 			width: 100%;
 			bottom: 0;
 		}
-
+.entry {
+			height: 0.5*300upx;
+		}
 		.cu-timeline>.cu-item>.content {
 			padding: 6upx 30upx 30upx 30upx;
 		}

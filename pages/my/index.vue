@@ -41,7 +41,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="positionLine"></view>
+		<!-- 	<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
 				<view class="cu-item arrow" @click="openUrl('subordinate')">
 					<view class="content">
@@ -49,7 +49,7 @@
 						<text class="text-grey">我的推广</text>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
 			
@@ -66,7 +66,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="positionLine"></view>
+		<!-- 	<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
 				<view class="cu-item arrow">
 					<view class="content">
@@ -74,7 +74,7 @@
 						<text class="text-grey">设置</text>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			
 			<button class="cu-btn bg-white" @click="outLogin">
 				退出登录
