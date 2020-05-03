@@ -28,22 +28,22 @@
 					<text class="text-grey text-sm">{{userInfo.email}}</text>
 				</view>
 			</view>
-			<view class="cu-item arrow" @click="openUrl('updatedata','更改手机',userInfo.phone)">
+			<!-- <view class="cu-item arrow" @click="openUrl('updatedata','更改手机',userInfo.phone)">
 				<view class="content">
 					<text class="text-grey">手机</text>
 				</view>
 				<view class="action">
 					<text class="text-grey text-sm">{{userInfo.phone}}</text>
 				</view>
-			</view>
-			<view class="cu-item arrow" @click="openUrl('updatedata','更改手机',userInfo.loginpwd)">
+			</view> -->
+<!-- 			<view class="cu-item arrow" @click="openUrl('updatedata','更改密码',userInfo.loginpwd)">
 				<view class="content">
 					<text class="text-grey">密码</text>
 				</view>
 				<view class="action">
 					<text class="text-grey text-sm">修改密码</text>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="positionLine"></view>
 		<view class="cu-list menu sm-border" >
@@ -92,8 +92,8 @@
 			return {
 				userInfo: {
 					nickname: '小明明',
-					loginpwd: '123456',
-					phone: '15287699085',
+					// loginpwd: '123456',
+					// phone: '15287699085',
 					email: 'xiaomingming@qq.com'
 				}
 			};

@@ -233,7 +233,7 @@
 					},
 					// 派发上拉加载的回调
 					callback: function(mescroll) {
-						console.log("派发上拉")
+						// console.log("派发上拉")
 						vm.$emit('up', mescroll);
 					}
 				}
