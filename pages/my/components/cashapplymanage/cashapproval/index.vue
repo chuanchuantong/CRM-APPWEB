@@ -6,7 +6,6 @@
 		<view class="detail">
 			<view class="cu-card case btnBottom">
 				<view class="cu-item shadow">
-
 					<view class="cashDeatil">
 						<view class="money">
 							￥{{detailInfo.amount}}
@@ -16,8 +15,6 @@
 						</view>
 
 					</view>
-
-
 					<view class="cu-bar bg-white solid-bottom">
 						<view class="action">
 							<text class="cuIcon-titles text-green"></text>
@@ -43,24 +40,6 @@
 						</view>
 						<view class="text-xs">{{detailInfo.payeename}}</view>
 					</view>
-					<!-- <view class="cu-bar bg-white solid-bottom">
-						<view class="action">
-							<text class="cuIcon-titles text-green"></text>
-							提现进度
-						</view>
-					</view>
-					<view class="cu-timeline">
-						<view class="cu-item text-blue cuIcon-radioboxfill">
-							<view class="content">
-								已提交至财务等待打款
-							</view>
-						</view>
-						<view class="cu-item lastApproval cuIcon-radioboxfill" :class="detailInfo.capitalStatus==1?'text-blue':''">
-							<view class="content">
-								已完成
-							</view>
-						</view>
-					</view> -->
 					<view class="cu-bar bg-white solid-bottom">
 						<view class="action">
 							<text class="cuIcon-titles text-green"></text>
@@ -89,10 +68,11 @@
 
 <script>
 	import {
-		selectCapitalApplyDetail
+		selectCapitalApplyDetail,
+		updateCashApproval
 	} from '@/api/pay.js'
 	import dictionary from '@/utils/dictionary.js';
-		import Router from '@/router'
+	import Router from '@/router'
 	export default {
 		data() {
 			return {
@@ -103,13 +83,18 @@
 				isRotate: false, //是否加载旋转
 				agreeBtnLoading: false,
 				rejectBtnLoading: false,
-				payMethodStatus:dictionary.payMethodStatus,
+				payMethodStatus: dictionary.payMethodStatus,
+				saveInfo: {
+					applyId: 0,
+					remark: '',
+					status: 0
+				},
 			};
 		},
 		created() {
 			var _this = this;
-			var cashid = _this.$Route.query.cashid;
-			_this.loadApplyInfo(cashid);
+			_this.saveInfo.applyId = _this.$Route.query.cashid;
+			_this.loadApplyInfo(_this.saveInfo.applyId);
 		},
 		methods: {
 			loadApplyInfo(id) {
@@ -132,9 +117,46 @@
 			},
 			updatecashapply(applyState) {
 				var _this = this;
+				if (_this.isRotate) {
+					return;
+				}
 				_this.isRotate = true;
-				_this.agreeBtnLoading = true;
-				_this.rejectBtnLoading = true;
+				_this.saveInfo.remark = _this.remark;
+				_this.saveInfo.status = applyState;
+				if (applyState == 1) {
+					_this.agreeBtnLoading = true;
+				}
+				if (applyState == 2) {
+					_this.rejectBtnLoading = true;
+				}
+				console.log("需要提交的数据为", _this.saveInfo)
+				updateCashApproval(_this.saveInfo).then(response => {
+					console.log("修改是否成功", response)
+					if (response.code != 200) {
+						uni.showToast({
+							title: '数据加载失败，请稍后重试',
+							icon: "none"
+						});
+						_this.rejectBtnLoading = false;
+						_this.agreeBtnLoading = false;
+						_this.isRotate = true;
+						return;
+					}
+					uni.showToast({
+						title: '保存成功',
+						icon: "none",
+						success: function() {
+							// #ifdef H5
+							_this.$router.push("approvallist")
+							//#endif
+							//#ifdef APP-PLUS
+							Router.push({
+								name: 'approvallist'
+							});
+							// #endif
+						}
+					});
+				});
 				console.log("修改后的状态为", applyState);
 				console.log("当前填写的备注为", _this.remark);
 			}
@@ -191,9 +213,10 @@
 			.btnClass {
 				height: 100upx;
 			}
-			.contentClass{
-				.title{
-					height: 100upx;
+
+			.contentClass {
+				.title {
+					height: 140upx;
 				}
 			}
 		}

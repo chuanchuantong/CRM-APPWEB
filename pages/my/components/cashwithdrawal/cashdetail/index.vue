@@ -51,7 +51,17 @@
 							</view>
 						</view>
 					</view>
-
+					<view v-if="detailInfo.remark!=''&&detailInfo.remark!=null" class="cu-bar bg-white solid-bottom">
+						<view class="action">
+							<text class="cuIcon-titles text-green"></text>
+							备注信息
+						</view>
+					</view>
+					<view v-if="detailInfo.remark!=''&&detailInfo.remark!=null" class="cu-form-group">
+						<view class="title usertrait">备注</view>
+						<view>{{detailInfo.remark}}</view>
+						<!-- <textarea v-model="remark" maxlength="500" placeholder="请输入备注"></textarea> -->
+					</view>
 				</view>
 			</view>
 		</view>
@@ -101,6 +111,7 @@
 						console.log()
 						_this.bankText = dictionary.payMethodStatus[response.data.payMethodType] + "(" + response.data.account + ")";
 					}
+					console.log(_this.detailInfo)
 				})
 			}
 		}

@@ -38,6 +38,7 @@
 		},
 		created() {
 			var _this = this;
+			console.log("加载提现管理数据的createdList")
 			_this.loadCapitalList();
 		},
 		filters: {
@@ -51,8 +52,10 @@
 		methods: {
 			loadCapitalList() {
 				var _this = this;
-
+				_this.capitalList=[];
+				console.log("提现管理的加载数据")
 				selectCapitalApply().then(response => {
+					
 					if (response.code != 200) {
 						uni.showToast({
 							title: '数据加载失败，请稍后重试',

@@ -52,3 +52,18 @@ export function selectCapitalApplyDetail(data){
 export function capitalApply(data){
 	return http.post("/capitalApply/insert",data)
 }
+
+/**
+ * 获取管理员提现记录
+ */
+export function selectCashList(){
+	return http.post("/capitalApply/selectCashList")
+}
+
+/**
+ * 管理员修改提现状态
+ */
+export function updateCashApproval(data){
+	console.log("审核提交的信息为",data)
+	return http.post("/capitalApply/updateCashApproval",data)
+}
