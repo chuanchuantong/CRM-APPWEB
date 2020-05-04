@@ -1,6 +1,6 @@
 <template>
 	<view class="userDetail">
-		
+
 		<scroll-view scroll-y class="DrawerPage" :class="modalName=='viewModal'?'show':''">
 			<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 				<block slot="content">权限设置</block>
@@ -29,12 +29,24 @@
 						<text class="text-grey text-sm">{{xsName==''?'请选择':xsName}}</text>
 					</view>
 				</view>
-				<view class="cu-item arrow" @click="showModal" data-id="3" data-target="viewModal">
+				<!-- <view class="cu-form-group">
+					<view class="title">权限组</view>
+					<picker @change="PickerChange" :value="index" :range="picker">
+						<view class="picker">
+							{{index>-1?picker[index]:'禁止换行，超出容器部分会以 ... 方式截断'}}
+						</view>
+					</picker>
+				</view> -->
+				<view class="cu-item arrow">
 					<view class="content">
-						<text class="text-grey">OA</text>
+						<text class="text-grey">权限组</text>
 					</view>
 					<view class="action">
-						<text class="text-grey text-sm">{{oaName==''?'请选择':oaName}}</text>
+						<picker @change="PickerChange" :value="index" :range="picker">
+							<view class="picker">
+								{{index>-1?picker[index]:'请选择'}}
+							</view>
+						</picker>
 					</view>
 				</view>
 				<view class="cu-item">
@@ -45,14 +57,14 @@
 						<switch @change="isEnabled" :class="isDelete?'checked':''" :checked="isDelete"></switch>
 					</view>
 				</view>
-			
+
 			</view>
-			
+
 		</scroll-view>
 		<view class="DrawerClose" :class="modalName=='viewModal'?'show':''" @tap="hideModal">
 			<text class="cuIcon-pullright"></text>
 		</view>
-		
+
 		<scroll-view scroll-y class="DrawerWindow" :class="modalName=='viewModal'?'show':''">
 			<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
 				<view class="search">
@@ -68,19 +80,14 @@
 						</view>
 					</view>
 				</view>
-				<view v-if="currentid==2" data-type="2" data-name="销售人员1" class="cu-item" @tap="hideModal">
+				<view data-name="销售人员1" class="cu-item" @tap="hideModal">
 					<view class="content">
 						<text class="text-grey">销售人员1(001)</text>
 					</view>
 				</view>
-				<view v-if="currentid==3" data-type="3" data-name="oa人员1" class="cu-item" @tap="hideModal">
-					<view class="content">
-						<text class="text-grey">oa人员1(001)</text>
-					</view>
-				</view>
 			</view>
 		</scroll-view>
-		
+
 	</view>
 </template>
 
@@ -88,43 +95,40 @@
 	export default {
 		data() {
 			return {
-				submitBtnLoading:false,
-				userName:'',
-				modalName:'',
-				currentid:0,
-				isDelete:false,
-				userList:[],
-				userid:[],
-				currenttype:0,
-				xsName:'',
-				oaName:'',
+				index: -1,
+				picker: ['喵喵喵', '汪汪汪', '哼唧哼唧'],
+				submitBtnLoading: false,
+				userName: '',
+				modalName: '',
+				currentid: 0,
+				isDelete: false,
+				userList: [],
+				userid: [],
+				currenttype: 0,
+				xsName: '',
+				oaName: '',
 			};
 		},
 		methods: {
+			PickerChange(e) {
+				this.index = e.detail.value;
+				console.log("当前选中的权限组为",this.index)
+			},
 			isEnabled(e) {
 				this.isDelete = e.detail.value
 			},
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target;
-				this.currentid=e.currentTarget.dataset.id;
+				this.currentid = e.currentTarget.dataset.id;
 			},
 			hideModal(e) {
 				this.modalName = null;
-				this.currenttype=e.currentTarget.dataset.type;
-				console.log("this.currenttype的值为",this.currenttype)
-				if(this.currenttype==2){
-					this.xsName=e.currentTarget.dataset.name;
-				}
-				else if(this.currenttype==3){
-					this.oaName=e.currentTarget.dataset.name;
-				}
+				console.log("this.currenttype的值为", this.currenttype)
+				this.xsName = e.currentTarget.dataset.name;
 			},
-			save(){
-				var _this=this;
-				console.log("保存数据为",_this.isDelete);
-				console.log("保存数据为",_this.xsName);
-				console.log("保存数据为",_this.oaName);
-				
+			save() {
+				var _this = this;
+
 			}
 		}
 	}
@@ -135,15 +139,21 @@
 		.positionLine {
 			height: 10upx;
 		}
+
 		.buttonRight {
 			margin-right: 10upx;
 		}
+
+		.text-sm {
+			font-size: 28upx;
+		}
+
 		page {
 			background-image: var(--gradualBlue);
 			width: 100vw;
 			overflow: hidden;
 		}
-		
+
 		.DrawerPage {
 			position: fixed;
 			width: 100vw;
@@ -152,14 +162,14 @@
 			background-color: #f1f1f1;
 			transition: all 0.4s;
 		}
-		
+
 		.DrawerPage.show {
 			transform: scale(0.9, 0.9);
 			left: 85vw;
 			box-shadow: 0 0 60upx rgba(0, 0, 0, 0.2);
 			transform-origin: 0;
 		}
-		
+
 		.DrawerWindow {
 			position: absolute;
 			width: 85vw;
@@ -172,13 +182,13 @@
 			transition: all 0.4s;
 			padding: 100upx 0;
 		}
-		
+
 		.DrawerWindow.show {
 			transform: scale(1, 1) translateX(0%);
 			opacity: 1;
 			pointer-events: all;
 		}
-		
+
 		.DrawerClose {
 			position: absolute;
 			width: 40vw;
@@ -197,14 +207,14 @@
 			pointer-events: none;
 			transition: all 0.4s;
 		}
-		
+
 		.DrawerClose.show {
 			opacity: 1;
 			pointer-events: all;
 			width: 15vw;
 			color: #fff;
 		}
-		
+
 		.DrawerPage .cu-bar.tabbar .action button.cuIcon {
 			width: 64upx;
 			height: 64upx;
@@ -212,20 +222,20 @@
 			margin: 0;
 			display: inline-block;
 		}
-		
+
 		.DrawerPage .cu-bar.tabbar .action .cu-avatar {
 			margin: 0;
 		}
-		
+
 		.DrawerPage .nav {
 			flex: 1;
 		}
-		
+
 		.DrawerPage .nav .cu-item.cur {
 			border-bottom: 0;
 			position: relative;
 		}
-		
+
 		.DrawerPage .nav .cu-item.cur::after {
 			content: "";
 			width: 10upx;
@@ -238,11 +248,11 @@
 			right: 0;
 			margin: auto;
 		}
-		
+
 		.DrawerPage .cu-bar.tabbar .action {
 			flex: initial;
 		}
-		
+
 		.cu-form-group .title {
 			min-width: calc(6em + 40upx);
 			text-align: right;
