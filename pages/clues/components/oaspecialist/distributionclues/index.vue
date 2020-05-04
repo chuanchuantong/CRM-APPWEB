@@ -23,7 +23,7 @@
 <script>
 	import Router from '@/router'
 	import {
-		selectByXSF
+		selectClueResult
 	} from '@/api/clues.js'
 	export default {
 		props: {
@@ -47,7 +47,7 @@
 		},
 		methods: {
 			query() {
-				selectByXSF(2).then(res => {
+				selectClueResult().then(res => {
 					this.resultOAData = res.data
 				})
 			},

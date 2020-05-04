@@ -145,15 +145,21 @@
 
 <style>
 	@import "colorui/main.css";
-	@import "colorui/icon.css";
-
+	@import "colorui/icon.css"; 
+	/* .cu-list.menu-avatar>.cu-item .content {left: 40upx;}
+	.cu-list.menu-avatar>.cu-item .content.flex-sub {
+	    width: calc(100% - 40px);
+	}
+	*{
+		color: $uni-text-color;
+	} */
 	.nav-list {
 		display: flex;
 		flex-wrap: wrap;
 		padding: 0px 40upx 0px;
 		justify-content: space-between;
 	}
-
+	
 	.nav-li {
 		padding: 30upx;
 		border-radius: 12upx;
