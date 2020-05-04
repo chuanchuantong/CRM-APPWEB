@@ -17,12 +17,9 @@
 				</view>
 			</view>
 		</view>
-				<view class="positionLine"></view>
+		<view class="positionLine"></view>
 		<view class="cu-list  menu-avatar">
-			<view class="cu-item"
-			 v-for="(userInfo,index) in userList"
-			  :key="index"
-			  @click="openUrl(index)">
+			<view class="cu-item" v-for="(userInfo,index) in userList" :key="index" @click="openUrl(index)">
 				<view class="content">
 					<text class="text-grey">{{userInfo.nickname+index}}({{userInfo.usercode+index}})</text>
 				</view>
@@ -106,6 +103,7 @@
 		.positionLine {
 			height: 10upx;
 		}
+
 		.cu-list.menu-avatar>.cu-item .content {
 			left: 20upx !important;
 			// width: 100% !important;

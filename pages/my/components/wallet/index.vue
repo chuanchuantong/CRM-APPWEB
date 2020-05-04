@@ -70,7 +70,6 @@
 		filters: {
 			'formatTime': function(value) {
 				var _this = this;
-				console.log(value)
 				if (value != undefined && value != null && value != '') {
 					return value.split('T')[0];
 				}

@@ -15,7 +15,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<view class="cu-list menu sm-border">
 				<!-- <view v-for="(menuInfo,index) in menus" :key="index" class="cu-item arrow" @click="openUrl(menuInfo.url)">
 					<view class="content"> <text class="'cuIcon-'+menuInfo.icon+' text-grey'"></text>
@@ -41,7 +41,7 @@
 					</view>
 				</view>
 			</view>
-		<!-- 	<view class="positionLine"></view>
+			<!-- 	<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
 				<view class="cu-item arrow" @click="openUrl('subordinate')">
 					<view class="content">
@@ -52,7 +52,7 @@
 			</view> -->
 			<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
-			
+
 				<view class="cu-item arrow" @click="openUrl('usermanage')">
 					<view class="content">
 						<text class="cuIcon-people text-grey"></text>
@@ -66,7 +66,16 @@
 					</view>
 				</view>
 			</view>
-		<!-- 	<view class="positionLine"></view>
+			<view class="positionLine"></view>
+			<view v-if="userinfo.rolecode=='ADMIN'" class="cu-list menu sm-border">
+				<view class="cu-item arrow" @click="openUrl('approvallist')">
+					<view class="content">
+						<text class="cuIcon-moneybag text-grey"></text>
+						<text class="text-grey">提现管理</text>
+					</view>
+				</view>
+			</view>
+			<!-- 	<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
 				<view class="cu-item arrow">
 					<view class="content">
@@ -75,7 +84,7 @@
 					</view>
 				</view>
 			</view> -->
-			
+
 			<button class="cu-btn bg-white" @click="outLogin">
 				退出登录
 			</button>
@@ -159,16 +168,16 @@
 </script>
 
 <style scoped lang="scss">
-	.mycenterclass{
+	.mycenterclass {
 		.positionLine {
 			height: 10upx;
 		}
-		.cu-btn{
+
+		.cu-btn {
 			width: 80%;
 			margin: 5% 10%;
 			color: red;
 			height: 100upx;
 		}
 	}
-
 </style>
