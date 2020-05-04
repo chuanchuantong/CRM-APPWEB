@@ -129,11 +129,7 @@
 				}
 			}
 		},
-		onLoad() {
-			console.log("加载本页面是")
-		},
 		created() {
-			console.log("跳转到本页面")
 			var _this = this;
 			_this.willCashMoney=null;
 			_this.disabled=_this.isNullOrEmpty(_this.willCashMoney);

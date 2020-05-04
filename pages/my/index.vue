@@ -51,19 +51,27 @@
 					</view>
 				</view>
 			</view> -->
-			<view class="positionLine"></view>
-			<view class="cu-list menu sm-border">
-
-				<view class="cu-item arrow">
+			<view v-if="userinfo.rolecode=='ADMIN'" class="positionLine"></view>
+			<view v-if="userinfo.rolecode=='ADMIN'" class="cu-list menu sm-border">
+				<view class="cu-item arrow" @click="openUrl('usermanage')">
 					<view class="content">
 						<text class="cuIcon-people text-grey"></text>
 						<text class="text-grey">用户管理</text>
 					</view>
 				</view>
-				<view class="cu-item arrow" @click="openUrl('cluesresult')">
+				<!-- <view class="cu-item arrow" @click="openUrl('cluesresult')">
 					<view class="content">
 						<text class="cuIcon-paint text-grey"></text>
 						<text class="text-grey">线索结果</text>
+					</view>
+				</view> -->
+			</view>
+			<view class="positionLine"></view>
+			<view class="cu-list menu sm-border">
+				<view class="cu-item arrow" @click="openUrl('approvallist')">
+					<view class="content">
+						<text class="cuIcon-moneybag text-grey"></text>
+						<text class="text-grey">提现管理</text>
 					</view>
 				</view>
 			</view>
@@ -98,7 +106,7 @@
 				//菜单集合
 				menus: [],
 				userinfo: {},
-				img:''
+				img: ''
 
 			};
 		},
