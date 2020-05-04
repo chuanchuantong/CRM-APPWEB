@@ -27,6 +27,14 @@ export function selectAll(data){
 	return http.post("/clue/selectAll",data)
 }
 
+export function selectAllResult(data){
+	return http.post("/clue/selectAllResult",data)
+}
+
+export function selectClueResult(){
+	return http.post("/clue/selectClueResult")
+}
+
 /**
  * XS查询销售经理待分线索
  */

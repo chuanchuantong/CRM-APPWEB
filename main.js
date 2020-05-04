@@ -7,6 +7,33 @@ Vue.filter('moment', function (value, formatString) {
 return moment(value).format(formatString);
 
 }); 
+
+	 /**
+     * 生成一个姓名的头像图片（Base64）
+     * @param {stirng} name 用户的名（最多两个字）
+     */
+    Vue.prototype.$userHead = name => {
+      const num = parseInt(Math.random() * 100);
+      const index = num % 10;
+      const bg = '#0081FF';
+      const w = 96;
+      const h = 96;
+	const fisname = name.slice(0,1);
+      const can = document.createElement("canvas");
+      can.width = w;
+      can.height = h;
+      const _ctxt = can.getContext("2d");
+      _ctxt.fillStyle = bg;
+      _ctxt.fillRect(0, 0, w, h);
+      _ctxt.font = "bold 40px 苹方";
+      _ctxt.fillStyle = "#FFF";
+      _ctxt.textAlign = "center";
+      _ctxt.textBaseline = "middle";
+      _ctxt.fillText(fisname, w / 2, h / 2);
+      return can.toDataURL();
+    };
+
+
 Vue.config.productionTip = false
 import tabbarUtil from '@/utils/utils.js' 
 Vue.prototype.$eventHub = new Vue(); 

@@ -6,11 +6,12 @@
 			</cu-custom>
 			<view class="cu-list menu menu-avatar">
 				<view class="cu-item arrow" @click="openUrl('data')">
-					<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+					<view class="cu-avatar round lg" :style="'background-image:url('+img+');'"></view>
 					<view class="content flex-sub">
 						<view class="myname">{{userinfo.nickname}}({{userinfo.rolename}})</view>
-						<view class="text-gray text-sm flex justify-between myincode">
-							邀请码：{{userinfo.incode}}
+						<view class="text-gray text-sm  myincode">
+							邀请码：<span style="font-weight: bold;">{{userinfo.incode}}</span>
+							<!-- <span @click="paste(userinfo.incode)" class="cuIcon-copy"></span> -->
 						</view>
 					</view>
 				</view>
@@ -53,7 +54,7 @@
 			<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
 
-				<view class="cu-item arrow" @click="openUrl('usermanage')">
+				<view class="cu-item arrow">
 					<view class="content">
 						<text class="cuIcon-people text-grey"></text>
 						<text class="text-grey">用户管理</text>
@@ -63,15 +64,6 @@
 					<view class="content">
 						<text class="cuIcon-paint text-grey"></text>
 						<text class="text-grey">线索结果</text>
-					</view>
-				</view>
-			</view>
-			<view class="positionLine"></view>
-			<view v-if="userinfo.rolecode=='ADMIN'" class="cu-list menu sm-border">
-				<view class="cu-item arrow" @click="openUrl('approvallist')">
-					<view class="content">
-						<text class="cuIcon-moneybag text-grey"></text>
-						<text class="text-grey">提现管理</text>
 					</view>
 				</view>
 			</view>
@@ -105,7 +97,8 @@
 			return {
 				//菜单集合
 				menus: [],
-				userinfo: {}
+				userinfo: {},
+				img:''
 
 			};
 		},
@@ -123,9 +116,16 @@
 			this.userinfo = JSON.parse(localStorage.getItem("data"));
 			//#endif
 			var _this = this;
+			this.img = this.$userHead(this.userinfo.nickname);
 			_this.getMyMenu();
 		},
 		methods: {
+
+			paste(value) {
+				uni.setClipboardData({
+					data: value
+				});
+			},
 			//跳转页面
 			openUrl(url) {
 				//#ifdef APP-PLUS

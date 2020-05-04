@@ -40,9 +40,13 @@
 			<view class="cu-item shadow">
 				<view class="cu-list menu-avatar">
 					<view class="cu-item" v-for="item in childs" :key="item.id">
-						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+						<view class="cu-avatar round lg" :style="'background-image:url('+item.img+');'"></view>
 						<view class="content flex-sub">
-							<view class="text-grey">{{item.nickname}}</view>
+							<view class="text-grey text-sm flex justify-between">{{item.nickname}}({{item.usercode}})
+							<view class="text-gray text-sm">
+								<text class="margin-lr-xs"></text><span style="font-weight: bold;">0元</span>
+							</view>
+							</view>
 							<view class="text-gray text-sm flex justify-between">
 								{{item.rolename}}
 								<view class="text-gray text-sm">
@@ -77,6 +81,9 @@
 			Init:function(){
 				getChildsByUserId().then(res=>{
 					this.childs = res.data;
+					this.childs.forEach(s=>{
+						s.img = this.$userHead(s.nickname)
+					})
 					this.childsCount = res.data.length
 				})
 			}

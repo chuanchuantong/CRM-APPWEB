@@ -124,7 +124,7 @@
 				</view>
 
 			</view>
-			<view v-if="updateData.cstatus>-1">
+			<view v-if="updateData.cstatus>-1 && updateData.cstatus!=2">
 				<view class="cu-bar bg-white solid-bottom">
 					<view class="action">
 						<text class="cuIcon-titles text-green"></text>
@@ -134,13 +134,39 @@
 				<view class="cu-form-group">
 					<view class="title">订单状态</view>
 					<view>
-						{{updateData.plantime}}
+						{{picker[updateData.cstatus-2]}}
 					</view>
 				</view>
 				<view class="cu-form-group">
 					<view class="title">销售提成</view>
-					<view>
-						{{updateData.plantime}}
+					<view class="money">
+						<text>￥</text>
+						{{updateData.royalty}}
+					</view>
+				</view>
+			</view>
+			<view v-if="this.staticentity.rolecode == 'ADMIN' && updateData.cstatus==2">
+				<view class="cu-bar bg-white solid-bottom">
+					<view class="action">
+						<text class="cuIcon-titles text-green"></text>
+						订单信息
+					</view>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>订单状态</view>
+					<view> 
+						<picker @change="SelectChange" :value="Selectindex" :range="picker">
+							<view class="picker">
+								{{Selectindex>0?picker[Selectindex]:'请选择'}}
+							</view>
+						</picker>
+					</view>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>销售提成</view>
+					<view class="money">
+						<text class="symbol">￥</text>
+						<input v-model="updateData.royalty" focus="true" placeholder="销售提成" type="number"></input>
 					</view>
 				</view>
 			</view>
@@ -152,9 +178,8 @@
 			</view>
 			<view class="cu-timeline jindu" v-if="updateData.cstatus!=-1">
 				<view>
-					<evan-steps :active="messages.length-1">
-						<evan-step :title="item.remarks" v-for="item in messages" :description="item.createtime |moment"></evan-step>
-
+					<evan-steps :active="updateData.cstatus>2?messages.length:messages.length-1">
+						<evan-step :title="item.remarks" v-for="item in messages" :description="item.createtime |moment"></evan-step> 
 					</evan-steps>
 				</view>
 			</view>
@@ -168,6 +193,9 @@
 			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
 			<button v-if="(this.staticentity.rolecode == 'OA' && updateData.cstatus==1) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
+			 @click="submit">
+				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
+			<button v-if="(this.staticentity.rolecode == 'ADMIN' && updateData.cstatus==2) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
 			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
 		</scroll-view>
@@ -224,6 +252,8 @@
 		},
 		data() {
 			return {
+				Selectindex: 0,
+				picker: ['请选择','成功','失败'],
 				clueid: 0,
 				showOrHide: true,
 				animation: '',
@@ -275,6 +305,27 @@
 				if (this.staticentity.rolecode == 'XS') {
 					this.updateData.cstatus = 1;
 				}
+				if (this.staticentity.rolecode == 'ADMIN') {
+					if(this.Selectindex<1){
+						uni.showToast({
+							title:"订单状态不能为空",
+							icon:"none"
+						})
+						return;
+					}
+					if(this.updateData.royalty==null||this.updateData.royalty<0){
+						uni.showToast({
+							title:"销售提成填写有误",
+							icon:"none"
+						})
+						return;
+					}
+					
+					if(this.Selectindex==1)
+					this.updateData.cstatus = 3;
+					if(this.Selectindex==2)
+					this.updateData.cstatus = 4;
+				}
 				update(this.updateData).then(res => {
 					uni.navigateBack({
 						delta: 1,
@@ -300,6 +351,10 @@
 					console.log(res)
 				})
 
+			},
+			SelectChange(e){
+				this.Selectindex = e.detail.value
+				console.log(this.Selectindex)
 			},
 			showModal(target) {
 				console.log('父组件接收的值', target)
@@ -334,6 +389,10 @@
 			bottom: 0;
 		}
 
+		.required {
+			color: red;
+		}
+
 		.entry {
 			height: 0.5*300upx;
 		}
@@ -356,6 +415,20 @@
 		background-image: var(--gradualBlue);
 		width: 100vw;
 		overflow: hidden;
+	}
+
+	.money {
+		font-size: 30upx;
+		display: flex;
+
+		.symbol {
+			margin-top: 13upx;
+		}
+
+		uni-input {
+			font-size: 30upx;
+			height: 2.4em !important;
+		}
 	}
 
 	.DrawerPage {
