@@ -86,7 +86,7 @@
 				getChildsByUserId().then(res=>{
 					this.childs = res.data;
 					this.childs.forEach(s=>{
-						s.img = this.$userHead(s.nickname),
+						//s.img = this.$userHead(s.nickname),
 						amount+= parseFloat(s.amount==null?0:s.amount),
 						console.log(amount)
 					})

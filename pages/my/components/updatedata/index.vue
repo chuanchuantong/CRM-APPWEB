@@ -25,6 +25,7 @@
 	import {
 		getUserInfo
 	} from '@/api/login.js'
+			import Router from '@/router'
 	export default {
 		data() {
 			return {

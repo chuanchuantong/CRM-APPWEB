@@ -14,7 +14,7 @@
 						<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
 					</view>
 				</view>
-				<view style="text-align: center;"> 暂无数据</view>
+			<!-- 	<view style="text-align: center;"> 暂无数据</view> -->
 			</view>
 		</view>
 	</view>

@@ -115,7 +115,7 @@
 				
 				if (checkRes) {
 					
-					  
+					  uni.removeStorageSync("Token")
 					login(_this.formData).then(res => {
 						_this.isRotate = false
 						console.log(res.data)

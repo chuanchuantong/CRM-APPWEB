@@ -66,8 +66,8 @@
 					</view>
 				</view> -->
 			</view>
-			<view class="positionLine"></view>
-			<view class="cu-list menu sm-border">
+			<view v-if="userinfo.rolecode=='ADMIN'" class="positionLine"></view>
+			<view v-if="userinfo.rolecode=='ADMIN'" class="cu-list menu sm-border">
 				<view class="cu-item arrow" @click="openUrl('approvallist')">
 					<view class="content">
 						<text class="cuIcon-moneybag text-grey"></text>
@@ -124,7 +124,7 @@
 			this.userinfo = JSON.parse(localStorage.getItem("data"));
 			//#endif
 			var _this = this;
-			this.img = this.$userHead(this.userinfo.nickname);
+			//this.img = this.$userHead(this.userinfo.nickname);
 			_this.getMyMenu();
 		},
 		methods: {

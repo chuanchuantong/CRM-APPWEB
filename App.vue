@@ -153,6 +153,9 @@
 	*{
 		color: $uni-text-color;
 	} */
+	.entry {
+		height: 0.5*300upx;
+	}
 	.nav-list {
 		display: flex;
 		flex-wrap: wrap;

@@ -119,6 +119,9 @@
 				})
 				selectMessage().then(res=>{
 					let count=0
+					if(res.data==null){
+						return
+					}
 					res.data.forEach(s=>{
 						if(s.isReadly==0){
 							count+=1

@@ -71,6 +71,7 @@
 						</view>
 					</view>
 				</radio-group>
+				<div class="entry"></div>
 			</view>
 		</view>
 	</view>
@@ -82,6 +83,7 @@
 		getPayMethods,
 		capitalApply
 	} from '@/api/pay.js';
+	import {queryAmountByUserId} from '@/api/money.js'
 	import dictionary from '@/utils/dictionary.js'
 	export default {
 		data() {
@@ -132,10 +134,14 @@
 		created() {
 			var _this = this;
 			_this.willCashMoney=null;
+			queryAmountByUserId().then(res=>{
+				this.currentSurplusMoney = res.data.amount;
+			})
 			_this.disabled=_this.isNullOrEmpty(_this.willCashMoney);
 			_this.getPayMethodList();
 		},
 		methods: {
+			
 			//提现提交申请
 			submitCash() {
 				var _this = this;
