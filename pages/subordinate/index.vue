@@ -6,15 +6,15 @@
 		<view class="bg-white padding bgimg">
 			<view class="grid margin-bottom text-center col-3">
 				<view class="gradpadding tleft">
-					<view class="text-grey textcolor">0.00</view>
+					<view class="text-grey textcolor">{{keAmount}}</view>
 					<view class="text-gray text-sm">
-						可提现金额 
+						可提现金额(元) 
 					</view>
 				</view>
 				<view class="gradpadding tcenter">
-					<view class="text-grey textcolor">0.00</view>
+					<view class="text-grey textcolor">{{childsAmount}}</view>
 					<view class="text-gray text-sm">
-						累计赚取现金额 
+						累计返佣金额(元)
 					</view>
 				</view>
 				<view class="gradpadding tright">
@@ -44,7 +44,7 @@
 						<view class="content flex-sub">
 							<view class="text-grey text-sm flex justify-between">{{item.nickname}}({{item.usercode}})
 							<view class="text-gray text-sm">
-								<text class="margin-lr-xs"></text><span style="font-weight: bold;">0元</span>
+								<text class="margin-lr-xs"></text><span style="font-weight: bold;">{{item.amount==null?0.00:item.amount}}元</span>
 							</view>
 							</view>
 							<view class="text-gray text-sm flex justify-between">
@@ -65,13 +65,16 @@
 
 <script>
 	import {getChildsByUserId} from '@/api/sysUser.js'
+	import {queryAmountByUserId} from '@/api/money.js'
 	// import {formatDate} from '@/utils/utils.js'
 	export default {
 		
 		data() {
 			return {
 				childs:[],
-				childsCount:0
+				childsCount:0,
+				childsAmount:0,
+				keAmount:0
 			};
 		}, 
 		created() {
@@ -79,12 +82,19 @@
 		},
 		methods:{
 			Init:function(){
+				let amount=0
 				getChildsByUserId().then(res=>{
 					this.childs = res.data;
 					this.childs.forEach(s=>{
-						s.img = this.$userHead(s.nickname)
+						s.img = this.$userHead(s.nickname),
+						amount+= parseFloat(s.amount==null?0:s.amount),
+						console.log(amount)
 					})
 					this.childsCount = res.data.length
+					this.childsAmount = amount
+				})
+				queryAmountByUserId().then(res=>{
+					this.keAmount = res.data.amount;
 				})
 			}
 		}

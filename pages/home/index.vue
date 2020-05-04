@@ -3,56 +3,56 @@
 		<view class="cu-list grid col-4 no-border bgimg">
 			<view class="cu-item">
 				<view class="bgimg-hg">
-					0.00
+					{{homeEntity.amountCon}}
 				</view>
 				<text>总佣金</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/yitixian.png"></cover-image> -->
-					0.00
+					{{homeEntity.amountApply}}
 				</view>
 				<text>已提现</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/ketixian.png"></cover-image> -->
-					200
+					{{homeEntity.preAmount}}
 				</view>
 				<text>可提现</text>
 			</view>
 			<view class="cu-item" @click="openUrl('cashlist')">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/dengdaizhong.png"></cover-image> -->
-					0.00
+					{{homeEntity.amountLoad}}
 				</view>
 				<text>等待中</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/zongdingdan.png"></cover-image> -->
-					10
+					{{homeEntity.clueCount}}
 				</view>
 				<text>总订单</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/zongxiaoshouticheng.png"></cover-image> -->
-					0.00
+					{{homeEntity.amountTC}}
 				</view>
 				<text>总销售提成</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/zongyaoqing.png"></cover-image> -->
-					1
+					{{homeEntity.userCount}}
 				</view>
 				<text>总邀请</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/zongtuiguangticheng.png"></cover-image> -->
-					0.00
+					{{homeEntity.amountTG}}
 				</view>
 				<text>总推广佣金</text>
 			</view>
@@ -123,11 +123,22 @@
 </template>
 
 <script>
+	import {queryHomeAmount} from '@/api/money.js'
 	export default {
 		data() {
-			return {};
+			return {
+				homeEntity:{}
+			};
+		},
+		created() {
+			this.init()
 		},
 		methods: {
+			init(){
+				queryHomeAmount().then(res=>{
+					this.homeEntity = res.data
+				})
+			},
 			openUrl(url) {
 				//#ifdef APP-PLUS
 				console.log("点击了路由跳转", url)
