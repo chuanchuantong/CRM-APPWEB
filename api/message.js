@@ -15,4 +15,17 @@ export function getMessagesByClueId(data){
 export function getMessagesByUserId(){
 	return http.post("/message/getMessagesByUserId")
 }
- 
+
+/**
+ * 获取首页消息信息
+ */
+export function selectMessage(){
+	return http.post("/tm/selectMess")
+}
+
+/**
+ * 获取首页消息信息
+ */
+export function update(data){
+	return http.post("/tm/update",data)
+}

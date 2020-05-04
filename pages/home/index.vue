@@ -68,55 +68,19 @@
 					时间
 				</view>
 			</view>
-			<view class="cu-item">
+			<view class="cu-item" v-for="(item,index) in messData" :key="index" :style="item.isReadly==0?'color:#333333':'color:#666666'" @click="read(item)">
 				<view class="content">
 					<view class="text-sm flex">
 						<view class="text-cut">
-							获得来自XXX的推广￥200
+							{{item.content}}
 						</view>
 					</view>
 				</view>
 				<view class="action">
-					<view class="text-xs">2020-04-19</view>
+					<view class="text-xs"> {{item.createtime==null?"":item.createtime.slice(0, 10)}}</view>
 				</view>
-			</view>
-			<view class="cu-item">
-				<view class="content">
-					<view class="text-sm flex">
-						<view class="text-cut">
-							￥100元提现成功
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-xs">2020-04-19</view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="content">
-					<view class="text-sm flex">
-						<view class="text-cut">
-							￥100元提现成功
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-xs">2020-04-19</view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="content">
-					<view class="text-sm flex">
-						<view class="text-cut">
-							￥100元提现成功
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-xs">2020-04-19</view>
-				</view>
-			</view>
-
+			</view> 
+			<view v-if="messData.length<=0" style="text-align: center;"> 暂无数据</view>
 		</view>
 
 	</view>
@@ -124,10 +88,12 @@
 
 <script>
 	import {queryHomeAmount} from '@/api/money.js'
+	import {selectMessage,update} from '@/api/message.js'
 	export default {
 		data() {
 			return {
-				homeEntity:{}
+				homeEntity:{},
+				messData:[]
 			};
 		},
 		created() {
@@ -137,6 +103,9 @@
 			init(){
 				queryHomeAmount().then(res=>{
 					this.homeEntity = res.data
+				});
+				selectMessage().then(res=>{
+					this.messData = res.data
 				})
 			},
 			openUrl(url) {
@@ -149,6 +118,19 @@
 				console.log("点击了路由跳转H5", url)
 				this.$router.push(url);
 				//#endif
+			},
+			read(e){
+				uni.showModal({
+					title:e.title,
+					content:e.content,
+					showCancel:false,
+					confirmText:'已读',
+					success:function(res){
+						update({isReadly:1,id:e.id}).then(res=>{
+							
+						})
+					}
+				})
 			}
 		}
 	}

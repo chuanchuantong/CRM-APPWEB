@@ -25,7 +25,7 @@
 		<div class="entry"></div>
 		<view class="cu-bar tabbar bg-white shadow foot submit-warp">
 			<view class="action" @click="NavChange" v-for="item in menuData" :key="item.id" :data-id="item.id" :data-cur="item.menucode">
-				<!-- <uni-badge text="3" type="error" size="small" class="posbadge"></uni-badge> -->
+				<uni-badge v-show=" item.menucode=='home'" :text="tabCount" type="error" size="small" class="posbadge"></uni-badge>
 				<view class='cuIcon-cu-image'>
 					<image :src="PageCur==item.menucode?item.biconurl:item.iconurl"></image>
 				</view>
@@ -45,6 +45,7 @@
 	import {
 		selectAll
 	} from '@/api/clues.js'
+	import {selectMessage} from '@/api/message.js'
 	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
 	import Router from '@/router'
 	import uniBadge from "@/components/uni-badge/uni-badge.vue"
@@ -72,7 +73,8 @@
 					}
 				},
 				returnData: [],
-				sysuser:[]
+				sysuser:[],
+				tabCount:0
 			}
 		},
 		created() {
@@ -83,8 +85,7 @@
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 			console.log(option); //打印出上个页面传递的参数。
 		},
-		methods: {
-
+		methods: { 
 			NavChange: function(e) {
 				this.id = e.currentTarget.dataset.id;
 				this.$tabbarUtil.setValue(e.currentTarget.dataset.cur);
@@ -92,6 +93,16 @@
 				this.PageCur = this.$tabbarUtil.tabbarIndex;
 				console.log("roleid:", this.roleId)
 				this.getMenus(this.roleId, this.id)
+				selectMessage().then(res=>{
+					let count=0
+					res.data.forEach(s=>{
+						if(s.isReadly==0){
+							count+=1
+						}
+					})
+					this.tabCount=count
+					console.log("Count",count)
+				})
 			},
 			init: function() {
 				getUserInfo().then(res => {
@@ -106,7 +117,17 @@
 					this.$tabbarUtil.setInfo(res.data)
 					this.getMenu(res.data.roleid, 0)
 				})
-
+				selectMessage().then(res=>{
+					let count=0
+					res.data.forEach(s=>{
+						if(s.isReadly==0){
+							count+=1
+						}
+					})
+					this.tabCount=count
+					console.log("Count",count)
+				})
+				
 			},
 			//创建线索
 			createclues() {
