@@ -72,5 +72,45 @@ const My = [{
 	meta: {
 		title: '提现详情',
 	}
+},
+{
+	path: '/pages/my/components/usermanage/index',
+	name: 'usermanage',
+	aliasPath: '/usermanage',
+	meta: {
+		title: '用户管理',
+	}
+},
+{
+	path: '/pages/my/components/usermanage/list/index',
+	name: 'userlist',
+	aliasPath: '/userlist',
+	meta: {
+		title: '选择用户',
+	}
+},
+{
+	path: '/pages/my/components/usermanage/detail/index',
+	name: 'userdetail',
+	aliasPath: '/userdetail',
+	meta: {
+		title: '用户设置',
+	}
+},
+{
+	path: '/pages/my/components/cashapplymanage/index',
+	name: 'approvallist',
+	aliasPath: '/approvallist',
+	meta: {
+		title: '提现管理',
+	}
+},
+{
+	path: '/pages/my/components/cashapplymanage/cashapproval/index',
+	name: 'cashapproval',
+	aliasPath: '/cashapproval',
+	meta: {
+		title: '提现审核',
+	}
 }]
 export default My

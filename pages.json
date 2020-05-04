@@ -161,6 +161,26 @@
             "path" : "pages/my/components/cashwithdrawal/cashdetail/index",
             "style" : {"titleNView": false}
         }
+        ,{
+            "path" : "pages/my/components/usermanage/index",
+            "style" : {"titleNView": false}
+        }
+        ,{
+            "path" : "pages/my/components/usermanage/list/index",
+            "style" : {"titleNView": false}
+        }
+        ,{
+            "path" : "pages/my/components/usermanage/detail/index",
+            "style" : {"titleNView": false}
+        }
+        ,{
+            "path" : "pages/my/components/cashapplymanage/index",
+            "style" : {"titleNView": false}
+        }
+        ,{
+            "path" : "pages/my/components/cashapplymanage/cashapproval/index",
+            "style" : {"titleNView": false}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

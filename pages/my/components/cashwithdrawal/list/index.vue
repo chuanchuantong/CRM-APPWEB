@@ -1,69 +1,4 @@
-<template> 
-	<view class="cashList">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="content">提现</block>
-		</cu-custom>
-		<view class="positionLine"></view>
-		<view class="cu-list  menu-avatar">
-			<view class="cu-item">
-				<view class="contentclass content">
-					内容
-				</view>
-				<view class="action" style="width: 20%;text-align: center;">
-					时间
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="content">
-					<view class="text-sm flex">
-						<view class="text-cut">
-							获得来自XXX的推广￥200
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-xs">2020-04-19</view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="content">
-					<view class="text-sm flex">
-						<view class="text-cut">
-							￥100元提现成功
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-xs">2020-04-19</view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="content">
-					<view class="text-sm flex">
-						<view class="text-cut">
-							￥100元提现成功
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-xs">2020-04-19</view>
-				</view>
-			</view>
-			<view class="cu-item">
-				<view class="content">
-					<view class="text-sm flex">
-						<view class="text-cut">
-							￥100元提现成功
-						</view>
-					</view>
-				</view>
-				<view class="action">
-					<view class="text-xs">2020-04-19</view>
-				</view>
-			</view>
-		
-		</view>
-		 
+<template>
 	<view class="cashList">
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="content">提现列表</block>
@@ -84,8 +19,7 @@
 				</view>
 			</view>
 		</view>
- 
-	</view>
+
 	</view>
 </template>
 
@@ -99,17 +33,15 @@
 			return {
 				capitalList: [],
 				statusObject: dictionary.capitalStatus,
-			}; 
+			};
 		},
 		created() {
 			var _this = this;
-			console.log("状态对象为", _this.statusObject);
 			_this.loadCapitalList();
 		},
 		filters: {
-			'formatTime':function(value) {
-				var _this=this;
-				console.log(value)
+			'formatTime': function(value) {
+				var _this = this;
 				if (value != undefined && value != null && value != '') {
 					return value.split('T')[0];
 				}
@@ -118,6 +50,7 @@
 		methods: {
 			loadCapitalList() {
 				var _this = this;
+
 				selectCapitalApply().then(response => {
 					if (response.code != 200) {
 						uni.showToast({
@@ -149,32 +82,12 @@
 					}
 				});
 				//#endif
-			} 
+			}
 		},
-		methods:{
-			openUrl(url,cashid){
-				//#ifdef APP-PLUS
-				Router.push({
-					name: url,
-					params: {
-						cashid: cashid
-					}
-				});
-				//#endif
-				//#ifdef H5
-				this.$Router.push({
-					name: url,
-					params: {
-						cashid: cashid,
-					}
-				});
-				//#endif
-			} 
-		}
 	}
 </script>
 
-<style scoped lang="scss">  
+<style scoped lang="scss">
 	.cashList {
 
 		.conetnt {
@@ -200,6 +113,6 @@
 
 		.cu-list.menu-avatar>.cu-item .flex .text-cut {
 			max-width: 566upx !important;
-		} 
+		}
 	}
 </style>
