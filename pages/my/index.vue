@@ -60,12 +60,12 @@
 						<text class="text-grey">用户管理</text>
 					</view>
 				</view>
-				<view class="cu-item arrow" @click="openUrl('cluesresult')">
+				<!-- <view class="cu-item arrow" @click="openUrl('cluesresult')">
 					<view class="content">
 						<text class="cuIcon-paint text-grey"></text>
 						<text class="text-grey">线索结果</text>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<!-- 	<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">

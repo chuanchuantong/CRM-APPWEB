@@ -62,11 +62,7 @@
 							icon: "none"
 						});
 						return;
-<<<<<<< HEAD
 					}
-=======
-					}
->>>>>>> 78883005a4a6363d2416659fd5a03f42e66f0fba
 					_this.payMethods=[];
 					for (var i = 0; i < response.data.length; i++) {
 						var info = response.data[i];

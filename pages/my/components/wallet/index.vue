@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
 	<view class="myWallet">
-=======
-	<view class="mywallet">
->>>>>>> 78883005a4a6363d2416659fd5a03f42e66f0fba
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="content">我的钱包</block>
 		</cu-custom>
@@ -81,7 +77,6 @@
 	} from '@/api/pay.js';
 	export default {
 		data() {
-<<<<<<< HEAD
 			return {
 				capitalList: [],
 				statusObject: dictionary.capitalStatus,
@@ -136,11 +131,6 @@
 				});
 				//#endif
 			}
-=======
-			return {
-				capitalList: [],
-				statusObject: dictionary.capitalStatus,
-			};
 		},
 		created() {
 			var _this = this;
@@ -155,9 +145,8 @@
 			}
 		},
 		methods: {
-loadCapitalList() {
+			loadCapitalList() {
 				var _this = this;
->>>>>>> 78883005a4a6363d2416659fd5a03f42e66f0fba
 
 				selectCapitalApply().then(response => {
 					if (response.code != 200) {
@@ -191,12 +180,11 @@ loadCapitalList() {
 				});
 				//#endif
 			}
-		
+
 		}
 	}
 </script>
 
-<<<<<<< HEAD
 <style scoped lang="scss">
 	.myWallet {
 
@@ -238,42 +226,5 @@ loadCapitalList() {
 		.cu-list.menu-avatar>.cu-item .flex .text-cut {
 			max-width: 566upx !important;
 		}
-=======
-<style scoped lang="scss">
-	.mywallet{
-		.positionLine {
-			height: 10upx;
-		}
-		
-		.cu-list.menu-avatar>.cu-item .content {
-			left: 20upx !important;
-			// width: 100% !important;
-		}
-		
-		.cu-list.menu-avatar>.cu-item .action {
-			width: 140upx !important;
-		}
-		
-		.cu-list.menu-avatar>.cu-item {
-			height: 100upx !important;
-		}
-		
-		.cu-list.menu-avatar>.cu-item .flex .text-cut {
-			max-width: 566upx !important;
-		}
-		.gradpadding {
-			padding: 30upx 0px;
-			width: 25% !important;
-		}
-		
-		.textcolor {
-			color: #333333 !important;
-			font-size: 40upx;
-		}
-		.fontsize{
-			font-size: 26upx;
-		}
->>>>>>> 78883005a4a6363d2416659fd5a03f42e66f0fba
 	}
-
 </style>
