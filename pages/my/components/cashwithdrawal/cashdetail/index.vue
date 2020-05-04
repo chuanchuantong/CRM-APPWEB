@@ -40,7 +40,7 @@
 								已提交至财务等待打款
 							</view>
 						</view>
-						<view v-if="detailInfo.capitalStatus!=2"  class="cu-item lastApproval cuIcon-radioboxfill" :class="detailInfo.capitalStatus==1?'text-blue':''">
+						<view v-if="detailInfo.capitalStatus!=2" class="cu-item lastApproval cuIcon-radioboxfill" :class="detailInfo.capitalStatus==1?'text-blue':''">
 							<view class="content">
 								已完成
 							</view>
@@ -63,6 +63,7 @@
 		selectCapitalApplyDetail
 	} from '@/api/pay.js'
 	import dictionary from '@/utils/dictionary.js';
+	import Router from '@/router'
 	export default {
 		data() {
 			return {
@@ -136,4 +137,3 @@
 		}
 	}
 </style>
-

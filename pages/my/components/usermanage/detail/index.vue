@@ -18,7 +18,7 @@
 						<text class="text-grey">用户名称</text>
 					</view>
 					<view class="action">
-						<text class="text-grey text-sm">小明明</text>
+						<text class="text-grey text-sm">{{userName}}</text>
 					</view>
 				</view>
 				<view class="cu-item arrow" @click="showModal" data-id="2" data-target="viewModal">
@@ -26,17 +26,9 @@
 						<text class="text-grey">销售经理</text>
 					</view>
 					<view class="action">
-						<text class="text-grey text-sm">{{xsName==''?'请选择':xsName}}</text>
+						<text class="text-grey text-sm">{{selectXSManager.nickName==''?'请选择':selectXSManager.nickName}}</text>
 					</view>
 				</view>
-				<!-- <view class="cu-form-group">
-					<view class="title">权限组</view>
-					<picker @change="PickerChange" :value="index" :range="picker">
-						<view class="picker">
-							{{index>-1?picker[index]:'禁止换行，超出容器部分会以 ... 方式截断'}}
-						</view>
-					</picker>
-				</view> -->
 				<view class="cu-item arrow">
 					<view class="content">
 						<text class="text-grey">权限组</text>
@@ -57,9 +49,7 @@
 						<switch @change="isEnabled" :class="isDelete?'checked':''" :checked="isDelete"></switch>
 					</view>
 				</view>
-
 			</view>
-
 		</scroll-view>
 		<view class="DrawerClose" :class="modalName=='viewModal'?'show':''" @tap="hideModal">
 			<text class="cuIcon-pullright"></text>
@@ -72,7 +62,7 @@
 						<view class="cu-bar search bg-white">
 							<view class="search-form round">
 								<text class="cuIcon-search"></text>
-								<input v-model="userName" type="text" placeholder="请输入人员名称" confirm-type="search"></input>
+								<input v-model="requestInfo.userName" type="text" placeholder="请输入人员名称" confirm-type="search"></input>
 							</view>
 							<view class="action">
 								<button @click="searchUser" class="cu-btn bg-green shadow-blur round">搜索</button>
@@ -80,9 +70,10 @@
 						</view>
 					</view>
 				</view>
-				<view data-name="销售人员1" class="cu-item" @tap="hideModal">
+				<view v-for="(userInfo,index) in userList" :key="index" :data-id="userInfo.id" :data-index="index" :data-name="userInfo.nickname"
+				 class="cu-item" @tap="hideModal">
 					<view class="content">
-						<text class="text-grey">销售人员1(001)</text>
+						<text class="text-grey">{{userInfo.nickname}}({{userInfo.usercode}})</text>
 					</view>
 				</view>
 			</view>
@@ -92,27 +83,114 @@
 </template>
 
 <script>
+	import {
+		selectUserByRoleId,
+		selectRoleList,
+		queryUserXS,
+		updateRoleStatus
+	} from '@/api/sysUser.js';
+	import Router from '@/router'
 	export default {
 		data() {
 			return {
 				index: -1,
-				picker: ['喵喵喵', '汪汪汪', '哼唧哼唧'],
+				picker: [],
 				submitBtnLoading: false,
 				userName: '',
 				modalName: '',
 				currentid: 0,
 				isDelete: false,
 				userList: [],
-				userid: [],
 				currenttype: 0,
-				xsName: '',
-				oaName: '',
+				requestInfo: {
+					roleId: 1,
+					userName: ''
+				},
+				selectXSManager: {
+					userId: 0,
+					nickName: "",
+				},
+				//权限集合
+				authorizeList: [],
+				managerObject: {},
+				userid: 0,
+				roleid: 0,
+				saveInfo: {
+					isdeleted: 0,
+					leveid: 0,
+					roleid: 0,
+					userid: 0
+				},
+				isRotate: false
 			};
 		},
+		created() {
+			var _this = this;
+			_this.userName = _this.$route.params.nickname;
+			_this.userid = _this.$route.params.userid;
+			_this.roleid = _this.$route.params.roleid;
+			_this.loadXSName();
+			_this.loadUserList();
+			_this.loadRoleList();
+		},
 		methods: {
+			loadXSName() {
+				var _this = this;
+				queryUserXS(_this.userid).then(response => {
+					if (response.code != 200) {
+						uni.showToast({
+							title: '数据加载异常请稍后再试',
+							icon: "none"
+						});
+						return;
+					}
+					if (response.data != null) {
+						_this.selectXSManager.nickName = response.data.nickName;
+						_this.selectXSManager.userId = response.data.userId;
+					}
+				})
+			},
+			loadUserList() {
+				var _this = this;
+				selectUserByRoleId(_this.requestInfo).then(response => {
+					if (response.code != 200) {
+						uni.showToast({
+							title: '数据加载异常请稍后再试',
+							icon: "none"
+						});
+						return;
+					}
+					_this.userList = response.data;
+				})
+			},
+
+			loadRoleList() {
+				var _this = this;
+				selectRoleList().then(response => {
+					if (response.code != 200) {
+						uni.showToast({
+							title: '数据加载异常请稍后再试',
+							icon: "none"
+						});
+						return;
+					}
+					for (let i = 0; i < response.data.length; i++) {
+						var info = response.data[i];
+						_this.$set(_this.managerObject, i, info.id)
+						_this.picker.push(info.rolename);
+						if (_this.roleid == info.id) {
+							_this.index = i;
+						}
+					}
+				})
+			},
+			searchUser() {
+				var _this = this;
+				_this.loadUserList();
+			},
 			PickerChange(e) {
 				this.index = e.detail.value;
-				console.log("当前选中的权限组为",this.index)
+				console.log("当前选中的权限组为", this.index)
 			},
 			isEnabled(e) {
 				this.isDelete = e.detail.value
@@ -122,13 +200,57 @@
 				this.currentid = e.currentTarget.dataset.id;
 			},
 			hideModal(e) {
-				this.modalName = null;
-				console.log("this.currenttype的值为", this.currenttype)
-				this.xsName = e.currentTarget.dataset.name;
+				var _this = this;
+				_this.modalName = null;
+				_this.selectXSManager.nickName = e.currentTarget.dataset.name;
+				_this.selectXSManager.userId = e.currentTarget.dataset.id;
+				var index = e.currentTarget.dataset.index;
+				var index = e.currentTarget.dataset.id;
+				console.log("选中的销售经理id为", _this.selectXSManager)
 			},
 			save() {
 				var _this = this;
-
+				if (_this.isRotate) {
+					return;
+				}
+				_this.isRotate = true;
+				if (_this.selectXSManager == null || _this.selectXSManager.nickName == '') {
+					uni.showToast({
+						title: '请选择销售经理',
+						icon: "none"
+					});
+					_this.isRotate = false;
+					return;
+				}
+				_this.saveInfo.userid = _this.userid;
+				_this.saveInfo.roleid = _this.roleid;
+				_this.saveInfo.isdeleted = _this.isDelete ? 0 : 1;
+				_this.saveInfo.leveid = _this.selectXSManager.userId;
+				console.log("需要传输的对象值为", _this.saveInfo)
+				updateRoleStatus(_this.saveInfo).then(response => {
+					if (response.code != 200) {
+						uni.showToast({
+							title: '数据保存异常请稍后再试',
+							icon: "none"
+						});
+						_this.isRotate = false;
+						return;
+					}
+					uni.showToast({
+						title: '保存成功',
+						icon: "none",
+						success: function() {
+							// #ifdef H5
+							_this.$router.push("usermanage")
+							//#endif
+							//#ifdef APP-PLUS
+							Router.push({
+								name: 'usermanage'
+							});
+							// #endif
+						}
+					});
+				})
 			}
 		}
 	}

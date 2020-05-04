@@ -20,14 +20,14 @@
 					<text class="text-grey text-sm">{{userInfo.nickname}}</text>
 				</view>
 			</view>
-			<view class="cu-item arrow" @click="openUrl('updatedata','更改邮箱',userInfo.email)">
+			<!-- <view class="cu-item arrow" @click="openUrl('updatedata','更改邮箱',userInfo.email)">
 				<view class="content">
 					<text class="text-grey">邮箱</text>
 				</view>
 				<view class="action">
 					<text class="text-grey text-sm">{{userInfo.email}}</text>
 				</view>
-			</view>
+			</view> -->
 			<!-- <view class="cu-item arrow" @click="openUrl('updatedata','更改手机',userInfo.phone)">
 				<view class="content">
 					<text class="text-grey">手机</text>
@@ -94,11 +94,19 @@
 					nickname: '小明明',
 					// loginpwd: '123456',
 					// phone: '15287699085',
-					email: 'xiaomingming@qq.com'
+					// email: 'xiaomingming@qq.com'
 				}
 			};
 		},
 		created() {
+			//#ifdef APP-PLUS
+			this.userInfo = uni.getStorageSync("data")
+			//#endif
+			//#ifdef H5
+			this.userInfo = JSON.parse(localStorage.getItem("data"));
+			//#endif
+		},
+		onShow(){
 			//#ifdef APP-PLUS
 			this.userInfo = uni.getStorageSync("data")
 			//#endif

@@ -1,7 +1,7 @@
 <template>
 	<view class="userList">
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="content">用户列表</block>
+			<block slot="content">{{title}}</block>
 		</cu-custom>
 
 		<view class="search">
@@ -9,7 +9,7 @@
 				<view class="cu-bar search bg-white">
 					<view class="search-form round">
 						<text class="cuIcon-search"></text>
-						<input v-model="userName" type="text" placeholder="请输入人员名称" confirm-type="search"></input>
+						<input v-model="requestInfo.userName" type="text" placeholder="请输入人员名称" confirm-type="search"></input>
 					</view>
 					<view class="action">
 						<button @click="searchUser" class="cu-btn bg-green shadow-blur round">搜索</button>
@@ -19,9 +19,9 @@
 		</view>
 		<view class="positionLine"></view>
 		<view class="cu-list  menu-avatar">
-			<view class="cu-item" v-for="(userInfo,index) in userList" :key="index" @click="openUrl(index)">
+			<view class="cu-item" v-for="(userInfo,index) in userList" :key="index" @click="openUrl(userInfo.id,userInfo.nickname)">
 				<view class="content">
-					<text class="text-grey">{{userInfo.nickname+index}}({{userInfo.usercode+index}})</text>
+					<text class="text-grey">{{userInfo.nickname}}({{userInfo.usercode}})</text>
 				</view>
 			</view>
 		</view>
@@ -30,66 +30,80 @@
 </template>
 
 <script>
+	import {selectUserByRoleId} from '@/api/sysUser.js';
+		import Router from '@/router';
 	export default {
 		data() {
 			return {
-				userList: [{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-					{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-					{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-					{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-					{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-					{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-					{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-					{
-						"nickname": "张三",
-						"usercode": "00001"
-					},
-				],
-				userName: '',
-
+				userList: [],
+				requestInfo:{roleId:0,username:''},
+				title:''
 			};
 		},
+		created(){
+			var _this=this;
+			_this.title=_this.$route.params.title;
+			_this.requestInfo.roleId=_this.$route.params.roleId;
+			if(_this.isNullOrEmpty(_this.requestInfo.roleId)){
+				//#ifdef H5
+				_this.requestInfo.roleId=localStorage.getItem('usermanagerroleid')
+				//#endif
+				//#ifdef APP-PLUS
+				_this.requestInfo.roleId=uni.getStorageSync("usermanagerroleid");
+				//#endif
+			}
+			else{
+				//#ifdef H5
+				localStorage.setItem('usermanagerroleid', _this.requestInfo.roleId)
+				//#endif
+				//#ifdef APP-PLUS
+				uni.setStorageSync("usermanagerroleid", _this.requestInfo.roleId);
+				//#endif
+			}
+			
+			_this.loadUserList();
+		},
 		methods: {
+			loadUserList(){
+				var _this=this;
+				selectUserByRoleId(_this.requestInfo).then(response=>{
+					if (response.code != 200) {
+						uni.showToast({
+							title: '数据加载异常请稍后再试',
+							icon: "none"
+						});
+						return;
+					}
+					_this.userList=response.data;
+				})
+			},
+			isNullOrEmpty(value) {
+				return (value == undefined || value == null || value == '')
+			},
 			searchUser() {
 				var _this = this;
-				console.log("点击了用户查询")
+				_this.loadUserList();
 			},
-			openUrl(id) {
+			openUrl(id,nickname) {
+				var _this=this;
 				//#ifdef APP-PLUS
 				Router.push({
 					name: 'userdetail',
 					params: {
-						userid: id
+						userid: id,
+						nickname:nickname,
+						roleid:_this.requestInfo.roleId
 					}
 				});
 				//#endif
 
 				//#ifdef H5
-				this.$router.push({
+				_this.$router.push({
 					name: 'userdetail',
 					params: {
-						userid: id
+						userid: id,
+						nickname:nickname,
+						roleid:_this.requestInfo.roleId
 					}
 				});
 				//#endif

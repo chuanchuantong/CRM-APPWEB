@@ -5,19 +5,9 @@
 		</cu-custom>
 		<view class="positionLine"></view>
 		<view class="cu-list menu sm-border">
-			<view class="cu-item arrow" @click="openUrl('销售专员',1)">
+			<view class="cu-item arrow" v-for="(roleInfo,index) in roleList" :key="index" @click="openUrl(roleInfo.rolename,roleInfo.id)">
 				<view class="content">
-					<text class="text-grey">销售专员</text>
-				</view>
-			</view>
-			<view class="cu-item arrow" @click="openUrl('销售经理',2)">
-				<view class="content">
-					<text class="text-grey">销售经理</text>
-				</view>
-			</view>
-			<view class="cu-item arrow" @click="openUrl('OA',3)">
-				<view class="content">
-					<text class="text-grey">OA</text>
+					<text class="text-grey">{{roleInfo.rolename}}</text>
 				</view>
 			</view>
 		</view>
@@ -27,23 +17,40 @@
 </template>
 
 <script>
-	import Router from '@/router'
+	import Router from '@/router';
+	import {selectRoleList} from '@/api/sysUser.js';
 	export default {
 		data() {
 			return {
-				userInfo: {}
+				roleList:[]
 			};
 		},
 		created() {
-
+			var _this=this;
+			_this.loadRoleList();
 		},
 		methods: {
+			loadRoleList(){
+				var _this=this;
+				console.log("此处是加载数据的地方")
+				selectRoleList().then(response=>{
+					if (response.code != 200) {
+						uni.showToast({
+							title: '加载角色列表异常请稍后再试',
+							icon: "none"
+						});
+						return;
+					}
+					_this.roleList=response.data;
+				})
+			},
 			openUrl(title, id) {
 				//#ifdef APP-PLUS
 				Router.push({
 					name: 'userlist',
 					params: {
-						title: id
+						title: title,
+						roleId:id,
 					}
 				});
 				//#endif
@@ -52,7 +59,8 @@
 				this.$router.push({
 					name: 'userlist',
 					params: {
-						title: id
+						title: title,
+						roleId:id,
 					}
 				});
 				//#endif

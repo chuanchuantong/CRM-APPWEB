@@ -46,6 +46,7 @@
 		updatePayMethod,
 		insertPayMethod
 	} from '@/api/pay.js'
+		import Router from '@/router'
 	export default {
 		data() {
 			return {
