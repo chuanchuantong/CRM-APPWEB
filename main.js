@@ -7,7 +7,7 @@ Vue.filter('moment', function (value, formatString) {
 return moment(value).format(formatString);
 
 }); 
-
+ 
 	 /**
      * 生成一个姓名的头像图片（Base64）
      * @param {stirng} name 用户的名（最多两个字）
@@ -63,8 +63,10 @@ Vue.component('home', home)
 import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom', cuCustom)
 App.mpType = 'app'
-
+import i18n from './language/index.js' 
+Vue.prototype._i18n = i18n
 const app = new Vue({
+	 i18n,  
 	...App
 })
 //v1.3.5起 H5端 你应该去除原有的app.$mount();使用路由自带的渲染方式
