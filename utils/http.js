@@ -36,10 +36,10 @@ const http = axios.create({
 
 // 拦截器 在请求之前拦截
 http.interceptors.request.use(config => {
-	uni.showLoading({
-		title: "正在加载中",
-		mask: true
-	})
+	// uni.showLoading({
+	// 	title: "正在加载中",
+	// 	mask: true
+	// })
 	// code...
 	// 获取本地存储的Cookie
 	const cookie = uni.getStorageSync('Token')
@@ -51,7 +51,7 @@ http.interceptors.request.use(config => {
 
 // 拦截器 在请求之后拦截
 http.interceptors.response.use(response => {
-	uni.hideLoading();
+	// uni.hideLoading();
 	console.log("拦截器",response)
 
 	

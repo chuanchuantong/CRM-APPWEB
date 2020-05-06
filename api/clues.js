@@ -15,8 +15,8 @@ export function searchclues(data){
 	return http.get("/clue/selectById?Id="+data)
 }
 
-export function selectByGZXS(){
-	return http.post("/clue/selectByGZXS")
+export function selectByGZXS(data){
+	return http.post("/clue/selectByGZXS",data)
 }
 
 /**
@@ -31,22 +31,22 @@ export function selectAllResult(data){
 	return http.post("/clue/selectAllResult",data)
 }
 
-export function selectClueResult(){
-	return http.post("/clue/selectClueResult")
+export function selectClueResult(data){
+	return http.post("/clue/selectClueResult",data)
 }
 
 /**
  * XS查询销售经理待分线索
  */
-export function selectByXSF(){
-	return http.post("/clue/selectByXSF");
+export function selectByXSF(data){
+	return http.post("/clue/selectByXSF",data);
 }
 
 /**
  * 查询跟踪线索
  */
-export function selectByXSG(){
-	return http.post("/clue/selectByXSG");
+export function selectByXSG(data){
+	return http.post("/clue/selectByXSG",data);
 }
 
 /**

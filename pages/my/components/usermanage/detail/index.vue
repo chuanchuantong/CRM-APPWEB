@@ -2,7 +2,7 @@
 	<view class="userDetail">
 
 		<scroll-view scroll-y class="DrawerPage" :class="modalName=='viewModal'?'show':''">
-			<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+			<cu-custom bgColor="bg-gradual-blue" :isBack="true" :indexV="'userlist'">
 				<block slot="content">权限设置</block>
 				<block slot="right">
 					<button class="cu-btn bg-green buttonRight" @click="save()">
@@ -87,7 +87,8 @@
 		selectUserByRoleId,
 		selectRoleList,
 		queryUserXS,
-		updateRoleStatus
+		updateRoleStatus,
+		getUserByUserId
 	} from '@/api/sysUser.js';
 	import Router from '@/router'
 	export default {
@@ -121,19 +122,46 @@
 					roleid: 0,
 					userid: 0
 				},
-				isRotate: false
+				entity:[],
+				isRotate: false,
+				userInfo:[]
 			};
 		},
 		created() {
 			var _this = this;
+			//#ifdef H5
 			_this.userName = _this.$route.params.nickname;
 			_this.userid = _this.$route.params.userid;
 			_this.roleid = _this.$route.params.roleid;
+			_this.entity = _this.$route.params.entity;
+			//#endif
+			//#ifdef APP-PLUS
+			_this.userName = _this.$Route.query.nickname;
+			_this.userid = _this.$Route.query.userid;
+			_this.roleid = _this.$Route.query.roleid;
+			_this.entity = _this.$Route.params.entity;
+			//#endif
+			console.log("获取数据集合0",_this.entity)
 			_this.loadXSName();
 			_this.loadUserList();
 			_this.loadRoleList();
+			_this.loadUserInfo();
 		},
 		methods: {
+			loadUserInfo(){
+				var _this = this;
+				getUserByUserId(_this.userid).then(res=>{
+					if (res.code != 200) {
+						uni.showToast({
+							title: '数据加载异常请稍后再试',
+							icon: "none"
+						});
+						return;
+					}
+					this.userInfo = res.data;
+					this.isDelete = !res.data.isdeleted;
+				})
+			},
 			loadXSName() {
 				var _this = this;
 				queryUserXS(_this.userid).then(response => {
@@ -144,6 +172,7 @@
 						});
 						return;
 					}
+					
 					if (response.data != null) {
 						_this.selectXSManager.nickName = response.data.nickName;
 						_this.selectXSManager.userId = response.data.userId;
@@ -174,6 +203,7 @@
 						});
 						return;
 					}
+					this.authorizeList = response.data;
 					for (let i = 0; i < response.data.length; i++) {
 						var info = response.data[i];
 						_this.$set(_this.managerObject, i, info.id)
@@ -190,7 +220,7 @@
 			},
 			PickerChange(e) {
 				this.index = e.detail.value;
-				console.log("当前选中的权限组为", this.index)
+				console.log("当前选中的权限组为", this.authorizeList[this.index].id)
 			},
 			isEnabled(e) {
 				this.isDelete = e.detail.value
@@ -223,7 +253,7 @@
 					return;
 				}
 				_this.saveInfo.userid = _this.userid;
-				_this.saveInfo.roleid = _this.roleid;
+				_this.saveInfo.roleid = this.authorizeList[this.index].id;
 				_this.saveInfo.isdeleted = _this.isDelete ? 0 : 1;
 				_this.saveInfo.leveid = _this.selectXSManager.userId;
 				console.log("需要传输的对象值为", _this.saveInfo)
@@ -241,11 +271,11 @@
 						icon: "none",
 						success: function() {
 							// #ifdef H5
-							_this.$router.push("usermanage")
+							_this.$router.replace("userlist")
 							//#endif
 							//#ifdef APP-PLUS
-							Router.push({
-								name: 'usermanage'
+							Router.replace({
+								name: 'userlist'
 							});
 							// #endif
 						}

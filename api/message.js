@@ -19,8 +19,8 @@ export function getMessagesByUserId(){
 /**
  * 获取首页消息信息
  */
-export function selectMessage(){
-	return http.post("/tm/selectMess")
+export function selectMessage(data){
+	return http.post("/tm/selectMess",data)
 }
 
 /**

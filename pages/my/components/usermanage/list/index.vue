@@ -42,8 +42,14 @@
 		},
 		created(){
 			var _this=this;
+			//#ifdef H5
 			_this.title=_this.$route.params.title;
 			_this.requestInfo.roleId=_this.$route.params.roleId;
+			//#endif
+			//#ifdef APP-PLUS
+			_this.title=_this.$Route.query.title;
+			_this.requestInfo.roleId=_this.$Route.query.roleId;
+			//#endif
 			if(_this.isNullOrEmpty(_this.requestInfo.roleId)){
 				//#ifdef H5
 				_this.requestInfo.roleId=localStorage.getItem('usermanagerroleid')
@@ -92,7 +98,8 @@
 					params: {
 						userid: id,
 						nickname:nickname,
-						roleid:_this.requestInfo.roleId
+						roleid:_this.requestInfo.roleId,
+						entity:_this.requestInfo
 					}
 				});
 				//#endif
@@ -103,7 +110,8 @@
 					params: {
 						userid: id,
 						nickname:nickname,
-						roleid:_this.requestInfo.roleId
+						roleid:_this.requestInfo.roleId,
+						entity:_this.requestInfo
 					}
 				});
 				//#endif

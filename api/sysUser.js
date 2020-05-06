@@ -3,8 +3,8 @@ import http from '../utils/http.js'
 /**
  * 获取下级
  */
-export function getChildsByUserId() {
-	return http.post("/system/getChildsByUserId")
+export function getChildsByUserId(data) {
+	return http.post("/system/getChildsByUserId",data)
 }
 
 /**
@@ -52,4 +52,8 @@ export function queryUserXS(data) {
 export function updateRoleStatus(data) {
 	
 	return http.post("/system/updateRoleStatus",data)
+}
+
+export function getUserByUserId(userid){
+	return http.get("/system/getUserByUserId?userid="+userid)
 }
