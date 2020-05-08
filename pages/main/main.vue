@@ -67,7 +67,7 @@
 				scrollTop: 0,
 				queryData: {
 					currentPage: 1,
-					pageSize: 20,
+					pageSize: 20000,
 					params: {
 
 					}
@@ -93,7 +93,7 @@
 				this.PageCur = this.$tabbarUtil.tabbarIndex;
 				console.log("roleid:", this.roleId)
 				this.getMenus(this.roleId, this.id)
-				selectMessage().then(res=>{
+				selectMessage(this.queryData).then(res=>{
 					let count=0
 					res.data.forEach(s=>{
 						if(s.isReadly==0){
@@ -117,7 +117,7 @@
 					this.$tabbarUtil.setInfo(res.data)
 					this.getMenu(res.data.roleid, 0)
 				})
-				selectMessage().then(res=>{
+				selectMessage(this.queryData).then(res=>{
 					let count=0
 					if(res.data==null){
 						return

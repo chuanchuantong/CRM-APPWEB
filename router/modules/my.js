@@ -112,5 +112,13 @@ const My = [{
 	meta: {
 		title: '提现审核',
 	}
+},
+{
+	path: '/pages/setup/index',
+	name: 'setup',
+	aliasPath: '/setup',
+	meta: {
+		title: '设置',
+	}
 }]
 export default My

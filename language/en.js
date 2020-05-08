@@ -5,6 +5,10 @@ export default {
 				loginBt:'Login',
 				loginName:'Login Name',
 				loginPwd:'Login Password'
+			},
+			my:{
+				setup:'Settings',
+				code:'Invitation Code'
 			}
 		}
 		
