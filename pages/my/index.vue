@@ -24,18 +24,18 @@
 					</view>
 					<view v-if="menuInfo.bottom" class="positionLine"></view>
 				</view> -->
-				<view  v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('wallet')">
+				<view v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('wallet')">
 					<view class="content"> <text class="cuIcon-pay text-grey"></text>
 						<text class="text-grey">我的钱包</text>
 					</view>
 				</view>
-				<view  v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('accountmanage')">
+				<view v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('accountmanage')">
 					<view class="content">
 						<text class="cuIcon-rank text-grey"></text>
 						<text class="text-grey">账户管理</text>
 					</view>
 				</view>
-				<view  v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('cashapply')">
+				<view v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('cashapply')">
 					<view class="content">
 						<text class="cuIcon-redpacket text-grey"></text>
 						<text class="text-grey">提现申请</text>
@@ -75,15 +75,15 @@
 					</view>
 				</view>
 			</view>
-			<!-- 	<view class="positionLine"></view>
+			<view class="positionLine"></view>
 			<view class="cu-list menu sm-border">
-				<view class="cu-item arrow">
+				<view class="cu-item arrow" @click="openUrl('setup')">
 					<view class="content">
 						<text class="cuIcon-settings text-grey"></text>
 						<text class="text-grey">设置</text>
 					</view>
 				</view>
-			</view> -->
+			</view>
 
 			<button class="cu-btn bg-white" @click="outLogin">
 				退出登录
@@ -101,6 +101,11 @@
 		getMenu
 	} from '@/api/appsys.js'
 	export default {
+		computed: {
+			i18n() {
+				return this.$t('index')
+			}
+		},
 		data() {
 			return {
 				//菜单集合
@@ -124,7 +129,7 @@
 			this.userinfo = JSON.parse(localStorage.getItem("data"));
 			//#endif
 			var _this = this;
-			//this.img = this.$userHead(this.userinfo.nickname);
+			this.img = this.$userHead(this.userinfo.nickname);
 			_this.getMyMenu();
 		},
 		methods: {
