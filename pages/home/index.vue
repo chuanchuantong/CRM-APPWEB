@@ -59,7 +59,7 @@
 		</view>
 
 		<view class="positionLine"></view>
-		<mescroll-uni  ref="mescrollRef" @init="mescrollInit" :top="CustomBar+400" :bottom="0.5*250" @down="downCallback" @up="upCallback"
+		<mescroll-uni  ref="mescrollRef" @init="mescrollInit" :top="CustomBar+360" :bottom="0.5*250" @down="downCallback" @up="upCallback"
 		 :down="downOption" :up="upOption">
 		<view class="cu-list  menu-avatar">
 		<!-- 	<view class="cu-item">
@@ -105,7 +105,7 @@
 			return {
 				queryData: {
 					currentPage: 1,
-					pageSize: 20,
+					pageSize: 2000,
 					params: {
 						cstatus: 1
 					}

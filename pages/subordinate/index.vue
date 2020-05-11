@@ -35,7 +35,7 @@
 			</view>
 
 		</view>
-		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+420" :bottom="0.5*250" @down="downCallback" @up="upCallback"
+		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+370" :bottom="0.5*250" @down="downCallback" @up="upCallback"
 		 :down="downOption" :up="upOption">
 			<view class="cu-card case no-card">
 				<view class="cu-item shadow">
@@ -118,7 +118,8 @@
 			};
 		},
 		created() {
-			//this.Init()
+			this.amount()
+			//this.Init();
 		},
 		methods: {
 			/*下拉刷新的回调, 有三种处理方式:*/
@@ -143,18 +144,27 @@
 					this.mescroll.endByPage(res.data.size, res.data.pages);
 				})
 			},
-			Init: function() {
-				let amount = 0
-				getChildsByUserId().then(res => {
-					this.childs = res.data;
-					this.childs.forEach(s => {
-						//s.img = this.$userHead(s.nickname),
-						amount += parseFloat(s.amount == null ? 0 : s.amount),
-							console.log(amount)
-					})
-					this.childsCount = res.data.length
-					this.childsAmount = amount
-				})
+			// Init: function() {
+				
+			// 	getChildsByUserId({queryData: {
+			// 		currentPage: 1,
+			// 		pageSize: 20000,
+			// 		params: {
+			// 			cstatus: 1
+			// 		}
+			// 	}}).then(res => {
+			// 		let amount = 0
+			// 		this.childs = res.data;
+			// 		this.childs.forEach(s => {
+			// 			//s.img = this.$userHead(s.nickname),
+			// 			amount += parseFloat(s.amount == null ? 0 : s.amount)
+			// 		})
+			// 		console.log(amount)
+			// 		this.childsCount = res.data.length
+			// 		this.childsAmount = amount
+			// 	}) 
+			// },
+			amount:function(){
 				queryAmountByUserId().then(res => {
 					this.keAmount = res.data.amount;
 				})
