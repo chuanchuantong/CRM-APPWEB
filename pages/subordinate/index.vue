@@ -35,7 +35,7 @@
 			</view>
 
 		</view>
-		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+370" :bottom="0.5*250" @down="downCallback" @up="upCallback"
+		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+420" :bottom="0.5*250" @down="downCallback" @up="upCallback"
 		 :down="downOption" :up="upOption">
 			<view class="cu-card case no-card">
 				<view class="cu-item shadow">

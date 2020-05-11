@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+30" :bottom="0.5*250" @down="downCallback" @up="upCallback"
+		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+80" :bottom="0.5*250" @down="downCallback" @up="upCallback"
 		 :down="downOption" :up="upOption">
 		<view class="managerCluesDis">
 			<view class="cu-list  menu-avatar bottom_cu">

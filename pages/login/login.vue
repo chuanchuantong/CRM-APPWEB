@@ -11,7 +11,7 @@
 				<wInput name="pwd" type="password" maxlength="11" :placeholder="i18n.login.loginPwd" @input="getpwd"></wInput>
 			</view>
 			<wButton :text="i18n.login.loginBt" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
-			<button @click="change">123213</button>
+			<!-- <button @click="change">123213</button> -->
 			<!-- 其他登录 -->
 			<!-- 	<view class="other_login cuIcon">
 				<view class="login_icon">

@@ -2,9 +2,9 @@
 	<view>
 		<view class="myCluesClass">
 			<view v-if="userinfo.rolecode=='ZY'">
-				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+				<scroll-view scroll-x class="bg-white nav nav_heard clueHead" @scroll="scroll" >
 					<view class="flex text-center">
-						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
+						<view class="cu-item flex-sub" :id="'tab'+index" :scroll-into-view="'tab1'" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
 						 :data-id="index">
 							{{item}}
 						</view>
@@ -146,6 +146,9 @@
 				console.log("滚动距离为：" + e.scrollTop);
 				//console.log('当前滚动条的位置:' + e.scrollTop + ', 是否向上滑:'+e.isScrollUp)
 			},
+			scroll(e){
+				 console.log(e)
+			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 			},
@@ -184,6 +187,7 @@
 			position: fixed;
 			z-index: 1000;
 			width: 100%;
+			white-space: nowrap;
 
 		}
 

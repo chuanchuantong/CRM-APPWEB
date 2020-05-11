@@ -16,7 +16,7 @@
 			</view>
 			<view v-if="resultOAData.length<=0" style="text-align: center;"> 暂无数据</view>
 		</view> -->
-		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+30" :bottom="0.5*250" @down="downCallback" @up="upCallback"
+		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+80" :bottom="0.5*250" @down="downCallback" @up="upCallback"
 		 :down="downOption" :up="upOption">
 			<view class="cu-card case no-card bottom_cu">
 				<view class="cu-item shadow">
