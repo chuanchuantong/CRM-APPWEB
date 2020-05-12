@@ -155,7 +155,7 @@
 			outLogin() {
 				uni.removeStorageSync("Token")
 				//#ifdef APP-PLUS 
-				Router.push({
+				Router.replaceAll({
 					name: 'login'
 				});
 				//#endif

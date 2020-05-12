@@ -154,7 +154,8 @@
 						_this.$router.push("main")
 						//#endif
 						//#ifdef APP-PLUS
-						Router.push({
+						this.$tabbarUtil.setValue('home');
+						Router.replaceAll({
 							name: 'main'
 						});
 						// #endif

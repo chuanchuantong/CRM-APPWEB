@@ -55,7 +55,7 @@
 					<text class="text-grey text-sm">{{userInfo.incode}}</text>
 				</view>
 			</view>
-			<view class="cu-item">
+			<!-- <view class="cu-item">
 				<view class="content">
 					<text class="text-grey">我的销售经理</text>
 				</view>
@@ -70,7 +70,7 @@
 				<view class="action">
 					<text class="text-grey text-sm">马云</text>
 				</view>
-			</view>
+			</view> -->
 			<!-- <view class="cu-item arrow">
 				<view class="content">
 					<text class="text-grey">我的提现信息</text>
