@@ -120,5 +120,13 @@ const My = [{
 	meta: {
 		title: '设置',
 	}
+},
+{
+	path: '/pages/my/components/updatedata/updatepwd/index',
+	name: 'updatepwd',
+	aliasPath: '/updatepwd',
+	meta: {
+		title: '更新密码',
+	}
 }]
 export default My
