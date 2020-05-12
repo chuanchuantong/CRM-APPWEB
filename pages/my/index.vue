@@ -85,9 +85,6 @@
 				</view>
 			</view>
 
-			<button class="cu-btn bg-white" @click="outLogin">
-				退出登录
-			</button>
 		</view>
 
 
@@ -151,19 +148,7 @@
 				this.$router.push(url);
 				//#endif
 			},
-			//退出登录
-			outLogin() {
-				uni.removeStorageSync("Token")
-				//#ifdef APP-PLUS 
-				Router.replaceAll({
-					name: 'login'
-				});
-				//#endif
-
-				//#ifdef H5 
-				this.$router.push("/");
-				//#endif
-			},
+			
 			//获取个人中心需要现实的菜单
 			getMyMenu() {
 				var _this = this;
