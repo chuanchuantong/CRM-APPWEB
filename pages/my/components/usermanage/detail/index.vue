@@ -49,6 +49,14 @@
 						<switch @change="isEnabled" :class="isDelete?'checked':''" :checked="isDelete"></switch>
 					</view>
 				</view>
+				<view class="cu-item arrow" @click="openUrl('adminupdatepwd', '更改密码')">
+					<view class="content">
+						<text class="text-grey">密码</text>
+					</view>
+					<view class="action">
+						<text class="text-grey text-sm">修改密码</text>
+					</view>
+				</view>
 			</view>
 		</scroll-view>
 		<view class="DrawerClose" :class="modalName=='viewModal'?'show':''" @tap="hideModal">
@@ -281,6 +289,31 @@
 						}
 					});
 				})
+			},
+			openUrl(url, title) {
+				
+				var _this=this;
+				
+				//#ifdef APP-PLUS
+				Router.push({
+					name: url,
+					params: {
+						title: title,
+						id:_this.userid
+					}
+				});
+				//#endif
+				
+				
+				//#ifdef H5
+				this.$Router.push({
+					name: url,
+					params: {
+						title: title,
+						id:_this.userid
+					}
+				});
+				//#endif
 			}
 		}
 	}

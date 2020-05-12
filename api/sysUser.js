@@ -57,3 +57,17 @@ export function updateRoleStatus(data) {
 export function getUserByUserId(userid){
 	return http.get("/system/getUserByUserId?userid="+userid)
 }
+
+/**
+ * 更新用户基本信息
+ */
+export function updateUserBaseInfo(data){
+	return http.post("/system/update",data)
+}
+
+/**
+ * 更新用户密码
+ */
+export function updateUserPwd(data){
+	return http.post("/system/updatePwd",data)
+}
