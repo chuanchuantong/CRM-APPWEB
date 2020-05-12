@@ -7,10 +7,10 @@
 			</view>
 			<!-- 主体表单 -->
 			<view class="main">
-				<wInput name="name" type="text" maxlength="11" :placeholder="i18n.login.loginName" @input="getname"></wInput>
-				<wInput name="pwd" type="password" maxlength="11" :placeholder="i18n.login.loginPwd" @input="getpwd"></wInput>
+				<wInput name="name" type="text" maxlength="11" placeholder="用户名" @input="getname"></wInput>
+				<wInput name="pwd" type="password" maxlength="11" placeholder="密码" @input="getpwd"></wInput>
 			</view>
-			<wButton :text="i18n.login.loginBt" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
+			<wButton text="登  录" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
 			<!-- <button @click="change">123213</button> -->
 			<!-- 其他登录 -->
 			<!-- 	<view class="other_login cuIcon">
@@ -58,11 +58,11 @@
 				isModal: false
 			};
 		}, 
-		computed: {
-		 i18n () {  
-		    return this.$t('index')  
-		 }  
-		},
+		// computed: {
+		//  i18n () {  
+		//     return this.$t('index')  
+		//  }  
+		// },
 		components: {
 			wInput,
 			wButton
@@ -71,17 +71,17 @@
 			_this = this; 
 		},
 		methods: {
-			change() {
-				console.log('语言切换')
-				const system_info = uni.getStorageSync('system_info')
-				console.log(system_info)
-				let lang = 'en';
-				system_info === 'en' ? lang = this._i18n.locale = 'zh_CN' : lang = this._i18n.locale = 'en'
-				uni.setStorageSync('system_info',lang)
-				uni.reLaunch({
-					url: 'index'
-				})
-			},
+			// change() {
+			// 	console.log('语言切换')
+			// 	const system_info = uni.getStorageSync('system_info')
+			// 	console.log(system_info)
+			// 	let lang = 'en';
+			// 	system_info === 'en' ? lang = this._i18n.locale = 'zh_CN' : lang = this._i18n.locale = 'en'
+			// 	uni.setStorageSync('system_info',lang)
+			// 	uni.reLaunch({
+			// 		url: 'index'
+			// 	})
+			// },
 			isLogin() {
 				//判断缓存中是否登录过，直接登录
 				// try {

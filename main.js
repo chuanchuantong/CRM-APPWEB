@@ -79,10 +79,10 @@ Vue.component('home', home)
 import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom', cuCustom)
 App.mpType = 'app'
-import i18n from './language/index.js'
-Vue.prototype._i18n = i18n
+// import i18n from './language/index.js'
+// Vue.prototype._i18n = i18n
 const app = new Vue({
-	i18n,
+	// i18n,
 	...App
 })
 //v1.3.5起 H5端 你应该去除原有的app.$mount();使用路由自带的渲染方式
