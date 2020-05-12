@@ -2,8 +2,8 @@
     "name" : "找好车",
     "appid" : "__UNI__3716FDD",
     "description" : "1.0.1.4",
-    "versionName" : "1.0.2",
-    "versionCode" : 102,
+    "versionName" : "1.0.1",
+    "versionCode" : 101,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -46,7 +46,9 @@
                     "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.INSTALL_PACKAGES\"/>",
+                    "<uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\"/>"
                 ]
             },
             /* ios打包配置 */

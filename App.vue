@@ -1,8 +1,14 @@
  
 <script>
+	// #ifdef APP-PLUS
+	import APPUpdate from "@/js_sdk/zhouWei-APPUpdate/APPUpdate.js";
+	// #endif
 	export default {
-		onLaunch: function() {
-			console.log('App Launch')
+		onLaunch: function () {  
+		    // #ifdef APP-PLUS
+		        APPUpdate();
+				console.log("开始更新")
+		        // #endif 
 		},
 		onShow: function() {
 			console.log('App Show')

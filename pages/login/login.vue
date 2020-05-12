@@ -27,7 +27,7 @@
  -->
 			<!-- 底部信息 -->
 			<view class="footer">
-				<navigator url="forget" open-type="navigate">找回密码</navigator>
+				<navigator url="forget" open-type="navigate" @click="forget">找回密码</navigator>
 				<text>|</text>
 				<navigator url="register" open-type="navigate" @click="reg">注册账号</navigator>
 			</view>
@@ -57,7 +57,7 @@
 				isRotate: false, //是否加载旋转
 				isModal: false
 			};
-		}, 
+		},
 		// computed: {
 		//  i18n () {  
 		//     return this.$t('index')  
@@ -68,7 +68,7 @@
 			wButton
 		},
 		mounted() {
-			_this = this; 
+			_this = this;
 		},
 		methods: {
 			// change() {
@@ -104,6 +104,12 @@
 			getpwd(e) {
 				_this.formData.pwd = e
 			},
+			forget() {
+				uni.showToast({
+					title: "请联系系统管理员",
+					icon: "none"
+				});
+			},
 			startLogin() {
 
 				//登录
@@ -128,28 +134,28 @@
 					}
 				];
 				var checkRes = graceChecker.check(_this.formData, rule);
-				
+
 				if (checkRes) {
-					
-					  uni.removeStorageSync("Token")
+
+					uni.removeStorageSync("Token")
 					login(_this.formData).then(res => {
 						_this.isRotate = false
 						console.log(res.data)
-						if(res.code===404){
+						if (res.code === 404) {
 							uni.showToast({
 								title: res.msg,
 								icon: "none"
 							});
 							return
 						}
-						if(!res.data.token){ 
+						if (!res.data.token) {
 							uni.showToast({
 								title: '账号密码输入有误',
 								icon: "none"
 							});
 							return
 						}
-						uni.setStorageSync("Token",res.data.token)
+						uni.setStorageSync("Token", res.data.token)
 						// #ifdef H5
 						_this.$router.push("main")
 						//#endif
@@ -161,7 +167,7 @@
 						// #endif
 					}).finally(res => {
 						_this.isRotate = false
-					}) 
+					})
 
 
 				} else {
@@ -174,7 +180,7 @@
 
 
 			},
-			reg(){
+			reg() {
 				// #ifdef H5
 				_this.$router.push("pwd")
 				//#endif
