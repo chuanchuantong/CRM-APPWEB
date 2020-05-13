@@ -35,18 +35,19 @@
 				  "loginpwd": ''
 				},
 				confirmPwd:'',
-				submitBtnLoading: false
+				submitBtnLoading: false,
+				roleid:0,
+				entity:{},
+				nickname:''
 			};
 		},
 		created() {
 			var _this = this;
 			_this.title = _this.$Route.query.title;
-			//#ifdef APP-PLUS
-			_this.userInfo.id = uni.getStorageSync("data").id
-			//#endif
-			//#ifdef H5
-			_this.userInfo.id = JSON.parse(localStorage.getItem("data")).id;
-			//#endif
+			_this.userInfo.id = _this.$Route.query.id;
+			_this.roleid = _this.$Route.query.roleid;
+			_this.entity = _this.$Route.query.entity;
+			_this.nickname = _this.$Route.query.userName;
 			if(_this.isNullOrEmpty(_this.userInfo.loginpwd)&&_this.isNullOrEmpty(_this.userInfo.oldpwd)&&_this.isNullOrEmpty(_this.confirmPwd)){
 				_this.disabled = true;
 			}
@@ -89,6 +90,8 @@
 					return;
 				}
 				_this.isRotate = true;
+				console.log("需要修改的数据为",_this.userInfo);
+				// return;
 				updateUserBaseInfo(_this.userInfo).then(response => {
 					console.log(response);
 					_this.submitBtnLoading = false;
@@ -101,6 +104,7 @@
 						_this.isRotate = false;
 						return;
 					}
+					_this.successUrl();
 					// //#ifdef APP-PLUS
 					// Router.push('login');
 					// //#endif
@@ -117,6 +121,32 @@
 			isNullOrEmpty(value) {
 				return (value == undefined || value == null || value == '')
 			},
+			successUrl(){
+				var _this=this;
+				//#ifdef APP-PLUS
+				Router.push({
+					name: 'userdetail',
+					params: {
+						userid: _this.userInfo.id,
+						nickname:_this.nickname,
+						roleid:_this.roleid,
+						entity:_this.entity
+					}
+				});
+				//#endif
+				
+				//#ifdef H5
+				_this.$router.push({
+					name: 'userdetail',
+					params: {
+						userid: _this.userInfo.id,
+						nickname:_this.nickname,
+						roleid:_this.roleid,
+						entity:_this.entity
+					}
+				});
+				//#endif
+			}
 		}
 	}
 </script>

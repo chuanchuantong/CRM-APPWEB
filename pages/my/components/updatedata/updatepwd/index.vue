@@ -25,7 +25,7 @@
 
 <script>
 	import {
-		updateUserPwd
+		updateUserBaseInfo
 	} from '@/api/sysUser.js';
 	import Router from '@/router'
 	export default {

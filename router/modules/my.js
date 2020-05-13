@@ -128,5 +128,13 @@ const My = [{
 	meta: {
 		title: '更新密码',
 	}
+},
+{
+	path: '/pages/my/components/usermanage/detail/updatepassword/index',
+	name: 'adminupdatepwd',
+	aliasPath: '/adminupdatepwd',
+	meta: {
+		title: '管理员更新密码',
+	}
 }]
 export default My

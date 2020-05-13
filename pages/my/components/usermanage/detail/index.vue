@@ -299,7 +299,10 @@
 					name: url,
 					params: {
 						title: title,
-						id:_this.userid
+						id:_this.userid,
+						roleid : _this.roleid,
+						entity : _this.entity,
+						userName : _this.userName
 					}
 				});
 				//#endif
@@ -310,7 +313,10 @@
 					name: url,
 					params: {
 						title: title,
-						id:_this.userid
+						id:_this.userid,
+						roleid : _this.roleid,
+						entity : _this.entity,
+						userName : _this.userName
 					}
 				});
 				//#endif
