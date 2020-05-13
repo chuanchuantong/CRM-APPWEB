@@ -272,7 +272,7 @@
 				oa: 0,
 				isLoad: false,
 				messages: [], 
-				isJinyong:false 
+				isJinyong:false,
 				isShowApprovalInfo:true, 
 			};
 		},
@@ -352,28 +352,28 @@
 					if (this.Selectindex == 2)
 						this.updateData.cstatus = 4;
 				}
-				// ！！！在paegB中
-				// 获取当前的页面栈
-				let pages = getCurrentPages();
+				// // ！！！在paegB中
+				// // 获取当前的页面栈
+				// let pages = getCurrentPages();
 				
-				// 获取上一级页面，即pageA的page对象
-				let prevPage = pages[pages.length - 2];
+				// // 获取上一级页面，即pageA的page对象
+				// let prevPage = pages[pages.length - 2];
 				
-				// 获取上一级页面，即pageA的data
-				let prevPageData = prevPage.data;
-				console.log(prevPage)
-				return
+				// // 获取上一级页面，即pageA的data
+				// let prevPageData = prevPage.data;
+				// console.log(prevPage)
+				// return
 				update(this.updateData).then(res => {
 					
-					// 方法1：设置上一级页面，即pageA的data
-					prevPage.setData({
-					    isRefresh: true
-					});
+					// // 方法1：设置上一级页面，即pageA的data
+					// prevPage.setData({
+					//     isRefresh: true
+					// });
 
-					// uni.navigateBack({
-					// 	delta: 1,
-					// 	animationType: "pop-out"
-					// })
+					uni.navigateBack({
+						delta: 1,
+						animationType: "pop-out"
+					})
 					uni.hideLoading();
 					this.isJinyong = false
 				})

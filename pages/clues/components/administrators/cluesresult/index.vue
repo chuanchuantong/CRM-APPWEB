@@ -37,7 +37,7 @@
 					currentPage: 1,
 					pageSize: 20,
 					params: {
-						cstatus: 1
+						cstatus: 3
 					}
 				},
 				resultOAData: [],
