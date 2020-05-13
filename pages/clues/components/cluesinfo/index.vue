@@ -272,7 +272,7 @@
 				oa: 0,
 				isLoad: false,
 				messages: [], 
-				isJinyong:false 
+				isJinyong:false, 
 				isShowApprovalInfo:true, 
 			};
 		},
