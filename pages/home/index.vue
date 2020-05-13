@@ -183,6 +183,7 @@
 				//#endif
 			},
 			read(e) {
+				let vm =this
 				uni.showModal({
 					title: e.title,
 					content: e.content,
@@ -193,7 +194,8 @@
 							isReadly: 1,
 							id: e.id
 						}).then(res => {
-
+							vm.$emit('loadTab')
+							vm.mescroll.triggerDownScroll()
 						})
 					}
 				})

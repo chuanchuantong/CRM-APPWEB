@@ -2,24 +2,24 @@
 	<view>
 		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+80" :bottom="0.5*250" @down="downCallback" @up="upCallback"
 		 :down="downOption" :up="upOption">
-		<view class="managerCluesDis">
-			<view class="cu-list  menu-avatar bottom_cu">
-				<view class="cu-item" @click="openUrl(item.id)" v-for="(item , index) in resultXSData" :key="item.id">
-					<view class="content">
-						<view class="text-sm flex">
-							<view class="text-cut">
-								{{item.shorthand}}
+			<view class="managerCluesDis">
+				<view class="cu-list  menu-avatar bottom_cu">
+					<view class="cu-item" @click="openUrl(item.id)" v-for="(item , index) in resultXSData" :key="item.id">
+						<view class="content">
+							<view class="text-sm flex">
+								<view class="text-cut">
+									{{item.shorthand}}
+								</view>
 							</view>
 						</view>
+						<view class="action">
+							<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
+						</view>
 					</view>
-					<view class="action">
-						<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
-					</view>
+					<!-- 	<view style="text-align: center;"> 暂无数据</view> -->
 				</view>
-			<!-- 	<view style="text-align: center;"> 暂无数据</view> -->
 			</view>
-		</view>
-			</mescroll-uni>
+		</mescroll-uni>
 	</view>
 </template>
 
@@ -33,6 +33,7 @@
 		mixins: [MescrollMixin], // 使用mixin
 		data() {
 			return {
+				ifOnShow:false,
 				queryData: {
 					currentPage: 1,
 					pageSize: 20,
@@ -65,14 +66,20 @@
 					textLoading: '正在玩命加载中。。。',
 					textNoMore: '没有更多数据了',
 					textColor: '#DDDDDD'
-				
+
 				}
 			};
 		},
-		created(){
+		created() {
 			//this.initData();
 		},
+		onShow() {
+			console.log("页面加载了。。。。。。。。。。。。。。。。。。。。。")
+		},
 		methods: {
+			setData(a){
+				console.log("刷新页面")
+			},
 			/*下拉刷新的回调, 有三种处理方式:*/
 			downCallback() {
 				console.log("下拉刷新一开始")
@@ -98,7 +105,7 @@
 					this.resultXSData = res.data
 				})
 			},
-			openUrl(clueid){
+			openUrl(clueid) {
 				console.log("线索id", clueid)
 				//#ifdef APP-PLUS
 				Router.push({
@@ -112,7 +119,7 @@
 					}
 				});
 				//#endif
-				
+
 				//#ifdef H5
 				this.$Router.push({
 					name: 'cluesdetail',

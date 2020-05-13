@@ -7,7 +7,7 @@
 			:type="_type"  
 			:placeholder="placeholder" 
 			:password="type==='password'&&!showPassword" 
-			@input="onInput"
+			@input="onInput" 
 		/>
 		<radio-group v-if="type=='radio'" class="block main-input" @change="RadioChange">
 		<view style="width: 49%;float: left;"> 
@@ -56,7 +56,10 @@
 		},
 		props:{
 			type: String, //类型
-			value: String, //值
+			value: {
+				type:String,
+				default:''
+			}, //值
 			placeholder: String, //框内提示
 			maxlength: {
 				//最大长度
@@ -124,7 +127,10 @@
 				this.$emit('scan', this.code)
 			},
 			onInput(e) {  
+				console.log(this.value)
 				//传出值
+				e.target.value=e.target.value.replace(/\s*/g, "");
+				//this.value = e.target.value
 				this.$emit('input', e.target.value)
 			}, 
 			setCode(){

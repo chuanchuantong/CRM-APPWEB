@@ -72,6 +72,9 @@
 		created(){
 			//this.initData();
 		},
+		onShow() {
+			console.log("页面加载了。。。。。。。。。。。。。。。。。。。。。")
+		},
 		methods: {
 			/*下拉刷新的回调, 有三种处理方式:*/
 			downCallback() {

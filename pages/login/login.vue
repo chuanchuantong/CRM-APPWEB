@@ -7,8 +7,8 @@
 			</view>
 			<!-- 主体表单 -->
 			<view class="main">
-				<wInput name="name" type="text" maxlength="11" placeholder="用户名" @input="getname"></wInput>
-				<wInput name="pwd" type="password" maxlength="11" placeholder="密码" @input="getpwd"></wInput>
+				<wInput name="name"  type="text" maxlength="11" placeholder="用户名" @input="getname"></wInput>
+				<wInput name="pwd" onkeyup="this.value=this.value.replace(/^\s+|\s+$/g,'')" type="password" maxlength="11" placeholder="密码" @input="getpwd"></wInput>
 			</view>
 			<wButton text="登  录" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
 			<!-- <button @click="change">123213</button> -->
@@ -102,6 +102,8 @@
 				_this.formData.name = e
 			},
 			getpwd(e) {
+				e =e.replace(/\s*/g, "");
+				console.log(e.length)
 				_this.formData.pwd = e
 			},
 			forget() {
@@ -117,6 +119,7 @@
 					//判断是否加载中，避免重复点击请求
 					return false;
 				}
+				
 				this.isRotate = true
 				var rule = [{
 						name: "name",

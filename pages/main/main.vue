@@ -20,7 +20,7 @@
 			<myself :id="id" v-if="PageCur=='myself'"></myself>
 			<cluesmanage :id="id" v-if="PageCur=='cluesmanage'"></cluesmanage>
 			<subordinate v-if="PageCur=='subordinate'"></subordinate>
-			<home v-if="PageCur=='home'"></home>
+			<home v-if="PageCur=='home'" @loadTab="loadTab"></home>
 		</view>
 		<div class="entry"></div>
 		<view class="cu-bar tabbar bg-white shadow foot submit-warp">
@@ -57,9 +57,21 @@
 			}
 		},
 		components:{uniBadge},
+		// onHide() {
+		// 	console.log('this.ifOnShow=true')
+		// 	this.ifOnShow = true
+		// },
+		
+		// onShow() {
+		// 	if (this.ifOnShow) {
+		// 		this.mescroll.triggerDownScroll();
+		// 		console.log('工单详情',)
+		// 	}
+		// },
 		data() {
 			return {
 				PageCur: 'basics',
+				ifOnShow:false,
 				menuData: {},
 				id: 0,
 				TabCur: "",
@@ -86,6 +98,19 @@
 			console.log(option); //打印出上个页面传递的参数。
 		},
 		methods: { 
+			loadTab:function(){
+				console.log("重新刷新tab")
+				selectMessage(this.queryData).then(res=>{
+					let count=0
+					res.data.list.forEach(s=>{
+						if(s.isReadly==0){
+							count+=1
+						}
+					})
+					this.tabCount=count
+					console.log("Count",count)
+				})
+			},
 			NavChange: function(e) {
 				this.id = e.currentTarget.dataset.id;
 				this.$tabbarUtil.setValue(e.currentTarget.dataset.cur);

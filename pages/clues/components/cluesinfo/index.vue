@@ -154,7 +154,7 @@
 				</view>
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>订单状态</view>
-					<view> 
+					<view>
 						<picker @change="SelectChange" :value="Selectindex" :range="picker">
 							<view class="picker">
 								{{Selectindex>0?picker[Selectindex]:'请选择'}}
@@ -179,7 +179,7 @@
 			<view class="cu-timeline jindu" v-if="updateData.cstatus!=-1">
 				<view>
 					<evan-steps :active="updateData.cstatus>2?messages.length:messages.length-1">
-						<evan-step :title="item.remarks" v-for="item in messages" :description="item.createtime |moment"></evan-step> 
+						<evan-step :title="item.remarks" v-for="item in messages" :description="item.createtime |moment"></evan-step>
 					</evan-steps>
 				</view>
 			</view>
@@ -191,7 +191,7 @@
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
 			<button v-if="(this.staticentity.rolecode == 'XS' && updateData.cstatus==0) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
 			 @click="submit">
-				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
+				<text class="cuIcon-loading2 cuIconfont-spin" isLoad="true" v-show="isLoad"></text> 提交</button>
 			<button v-if="(this.staticentity.rolecode == 'OA' && updateData.cstatus==1) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
 			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
@@ -253,7 +253,7 @@
 		data() {
 			return {
 				Selectindex: 0,
-				picker: ['请选择','成功','失败'],
+				picker: ['请选择', '成功', '失败'],
 				clueid: 0,
 				showOrHide: true,
 				animation: '',
@@ -271,7 +271,8 @@
 				userOAs: [],
 				oa: 0,
 				isLoad: false,
-				messages: []
+				messages: [],
+				isJinyong:false
 			};
 		},
 		created() {
@@ -299,38 +300,78 @@
 		},
 		methods: {
 			submit() {
+				if(this.isJinyong){
+					return
+				}
+				this.isJinyong = true;
+				uni.showLoading({
+					title: "提交中",
+					mask: true
+				})
 				if (this.staticentity.rolecode == 'OA') {
 					this.updateData.cstatus = 2;
 				}
 				if (this.staticentity.rolecode == 'XS') {
+					if(this.updateData.oaid<=0){
+						uni.showToast({
+							title: "请选择产品专员",
+							icon: "none"
+						})
+						uni.hideLoading();
+						this.isJinyong = false
+						return;
+					}
 					this.updateData.cstatus = 1;
 				}
 				if (this.staticentity.rolecode == 'ADMIN') {
-					if(this.Selectindex<1){
+					if (this.Selectindex < 1) {
 						uni.showToast({
-							title:"订单状态不能为空",
-							icon:"none"
+							title: "订单状态不能为空",
+							icon: "none"
 						})
+						uni.hideLoading();
+						this.isJinyong = false
 						return;
 					}
-					if(this.updateData.royalty==null||this.updateData.royalty<0){
+					if (this.updateData.royalty == null || this.updateData.royalty < 0) {
 						uni.showToast({
-							title:"销售提成填写有误",
-							icon:"none"
+							title: "销售提成填写有误",
+							icon: "none"
 						})
+						uni.hideLoading();
+						this.isJinyong = false
 						return;
 					}
-					
-					if(this.Selectindex==1)
-					this.updateData.cstatus = 3;
-					if(this.Selectindex==2)
-					this.updateData.cstatus = 4;
+
+					if (this.Selectindex == 1)
+						this.updateData.cstatus = 3;
+					if (this.Selectindex == 2)
+						this.updateData.cstatus = 4;
 				}
+				// ！！！在paegB中
+				// 获取当前的页面栈
+				let pages = getCurrentPages();
+				
+				// 获取上一级页面，即pageA的page对象
+				let prevPage = pages[pages.length - 2];
+				
+				// 获取上一级页面，即pageA的data
+				let prevPageData = prevPage.data;
+				console.log(prevPage)
+				return
 				update(this.updateData).then(res => {
-					uni.navigateBack({
-						delta: 1,
-						animationType: "pop-out"
-					})
+					
+					// 方法1：设置上一级页面，即pageA的data
+					prevPage.setData({
+					    isRefresh: true
+					});
+
+					// uni.navigateBack({
+					// 	delta: 1,
+					// 	animationType: "pop-out"
+					// })
+					uni.hideLoading();
+					this.isJinyong = false
 				})
 			},
 			showOrHideClue() {
@@ -352,7 +393,7 @@
 				})
 
 			},
-			SelectChange(e){
+			SelectChange(e) {
 				this.Selectindex = e.detail.value
 				console.log(this.Selectindex)
 			},
