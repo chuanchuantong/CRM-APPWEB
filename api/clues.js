@@ -31,6 +31,10 @@ export function selectAllResult(data){
 	return http.post("/clue/selectAllResult",data)
 }
 
+export function selectZYClueResult(data){
+	return http.post("/clue/selectZYClueResult",data)
+}
+
 export function selectClueResult(data){
 	return http.post("/clue/selectClueResult",data)
 }

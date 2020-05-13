@@ -4,20 +4,14 @@
 			<block slot="content">查看下线</block>
 		</cu-custom>
 		<view class="bg-white padding bgimg">
-			<view class="grid margin-bottom text-center col-3">
-				<view class="gradpadding tleft">
-					<view class="text-grey textcolor">{{keAmount}}</view>
-					<view class="text-gray text-sm">
-						可提现金额(元)
-					</view>
-				</view>
-				<view class="gradpadding tcenter">
+			<view class="grid margin-bottom text-center col-2">
+				<view class="gradpadding">
 					<view class="text-grey textcolor">{{childsAmount}}</view>
 					<view class="text-gray text-sm">
 						累计返佣金额(元)
 					</view>
 				</view>
-				<view class="gradpadding tright">
+				<view class="gradpadding">
 					<view class="text-grey textcolor">{{childsCount}}</view>
 					<view class="text-gray text-sm">
 						累计邀请人
@@ -182,17 +176,6 @@
 			color: #FFFFFF !important;
 		}
 
-		.tleft {
-			width: 30%;
-		}
-
-		.tcenter {
-			width: 40%;
-		}
-
-		.tright {
-			width: 30%;
-		}
 
 		.gradpadding {
 			padding: 30upx 0px;

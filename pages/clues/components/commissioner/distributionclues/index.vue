@@ -1,21 +1,28 @@
 <template>
-	<view>
+	<view class="myCluesClass">
 		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+80" :bottom="0.5*250" @down="downCallback" @up="upCallback"
 		 :down="downOption" :up="upOption">
-			<view class="cu-list menu-avatar bottom_cu">
-				<view class="cu-item newslist" @click="openUrl(item.id)" v-for="(item,index) in resultOAData" :key="index">
-					<view class="content">
-						<view class="text-sm flex">
-							<view class="text-cut">
-								{{item.shorthand}}
+			<view class="cu-card case no-card bottom_cu">
+				<view class="cu-item shadow">
+					<view class="cu-list menu-avatar">
+						<view class="cu-item" @click="openUrl(item.id)" v-for="(item,index) in resultOAData" :key="index">
+							<view class="content flex-sub">
+								<view class="text-grey flex justify-between">{{item.shorthand}}
+									<view class="text-gray text-sm">
+										<text class="margin-lr-xs"></text><span v-if="item.cstatus==3" class="cusser">已完成(￥{{item.royalty}})</span>
+										<span v-if="item.cstatus==4" class="error">失败</span>
+									</view>
+								</view>
+								<view class="text-gray text-sm flex justify-between">
+									{{item.oaname}}
+									<view class="text-gray text-sm">
+										<text class="margin-lr-xs"></text> {{item.createtime==null?"":item.createtime.slice(0, 10)}}
+									</view>
+								</view>
 							</view>
 						</view>
 					</view>
-					<view class="action">
-						<view class="text-xs">{{item.createtime.slice(0, 10)}}</view>
-					</view>
 				</view>
-				<!-- <view v-if="resultOAData.length<=0" style="text-align: center;"> 暂无数据</view> -->
 			</view>
 		</mescroll-uni>
 	</view>
@@ -24,7 +31,7 @@
 <script>
 	import Router from '@/router'
 	import {
-		selectAllResult
+		selectZYClueResult
 	} from '@/api/clues.js'
 	// 引入mescroll-mixins.js
 	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
@@ -87,7 +94,15 @@
 				console.log("上拉刷新一开始")
 				let pageNum = page.num; // 页码, 默认从1开始
 				let pageSize = page.size; // 页长, 默认每页10条
-				selectAllResult(this.queryData).then(res => {
+				// selectZYClueResult(this.queryData).then(res => {
+				// 	if (page.num == 1) this.resultOAData = []; //如果是第一页需手动置空列表
+				// 	this.resultOAData = this.resultOAData.concat(res.data.list); //追加新数据
+				// 	console.log(res.data.list)
+				// 	// 请求成功,隐藏加载状态
+				// 	//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+				// 	this.mescroll.endByPage(res.data.size, res.data.pages);
+				// })
+				selectZYClueResult(this.queryData).then(res => {
 					if (page.num == 1) this.resultOAData = []; //如果是第一页需手动置空列表
 					this.resultOAData = this.resultOAData.concat(res.data.list); //追加新数据
 					console.log(res.data.list)
@@ -95,9 +110,13 @@
 					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
 					this.mescroll.endByPage(res.data.size, res.data.pages);
 				})
+				
 			},
 			query() {
-				selectAllResult({}).then(res => {
+				// selectZYClueResult({}).then(res => {
+				// 	this.resultOAData = res.data
+				// })
+				selectZYClueResult().then(res => {
 					this.resultOAData = res.data
 				})
 			},
@@ -137,26 +156,27 @@
 
 <style scoped lang="scss">
 	.myCluesClass {
-		.cu-list.menu-avatar>.cu-item .content {
-			left: 20upx !important;
-			// width: 100% !important;
+		.cusser {
+			font-weight: bold;
+			color: #007AFF;
 		}
-
+		
+		.cu-list.menu-avatar>.cu-item .content {
+			left: 20upx;
+		}
+		
+		.error {
+			font-weight: bold;
+			color: red;
+		}
+		
 		.bottom_cu {
-			// margin-bottom: 120px;
+		//	margin-bottom: 120px;
 			padding-top: 110upx;
 		}
-
-		.cu-list.menu-avatar>.cu-item .action {
-			width: 240upx !important;
-		}
-
-		.cu-list.menu-avatar>.cu-item {
-			height: 80upx !important;
-		}
-
-		.cu-list.menu-avatar>.cu-item .flex .text-cut {
-			max-width: 566upx !important;
+		
+		.cu-list.menu-avatar>.cu-item .content.flex-sub {
+			width: calc(100% - 30px);
 		}
 	}
 </style>

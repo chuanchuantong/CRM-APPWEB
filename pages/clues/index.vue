@@ -125,6 +125,9 @@
 			// this.userinfo.rolecode="OA"
 			// this.userinfo.rolecode="ADMIN"
 		},
+		onShow() {
+			console.log("页面展示了")
+		},
 		onPageScroll: function(e) { //nvue暂不支持滚动监听，可用bindingx代替
 			console.log("滚动距离为：" + e.scrollTop);
 		},
