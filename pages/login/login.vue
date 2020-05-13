@@ -7,10 +7,10 @@
 			</view>
 			<!-- 主体表单 -->
 			<view class="main">
-				<wInput name="name" type="text" maxlength="11" :placeholder="i18n.login.loginName" @input="getname"></wInput>
-				<wInput name="pwd" type="password" maxlength="11" :placeholder="i18n.login.loginPwd" @input="getpwd"></wInput>
+				<wInput name="name" type="text" maxlength="11" placeholder="用户名" @input="getname"></wInput>
+				<wInput name="pwd" type="password" maxlength="11" placeholder="密码" @input="getpwd"></wInput>
 			</view>
-			<wButton :text="i18n.login.loginBt" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
+			<wButton text="登  录" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
 			<!-- <button @click="change">123213</button> -->
 			<!-- 其他登录 -->
 			<!-- 	<view class="other_login cuIcon">
@@ -27,7 +27,7 @@
  -->
 			<!-- 底部信息 -->
 			<view class="footer">
-				<navigator url="forget" open-type="navigate">找回密码</navigator>
+				<navigator url="forget" open-type="navigate" @click="forget">找回密码</navigator>
 				<text>|</text>
 				<navigator url="register" open-type="navigate" @click="reg">注册账号</navigator>
 			</view>
@@ -57,31 +57,31 @@
 				isRotate: false, //是否加载旋转
 				isModal: false
 			};
-		}, 
-		computed: {
-		 i18n () {  
-		    return this.$t('index')  
-		 }  
 		},
+		// computed: {
+		//  i18n () {  
+		//     return this.$t('index')  
+		//  }  
+		// },
 		components: {
 			wInput,
 			wButton
 		},
 		mounted() {
-			_this = this; 
+			_this = this;
 		},
 		methods: {
-			change() {
-				console.log('语言切换')
-				const system_info = uni.getStorageSync('system_info')
-				console.log(system_info)
-				let lang = 'en';
-				system_info === 'en' ? lang = this._i18n.locale = 'zh_CN' : lang = this._i18n.locale = 'en'
-				uni.setStorageSync('system_info',lang)
-				uni.reLaunch({
-					url: 'index'
-				})
-			},
+			// change() {
+			// 	console.log('语言切换')
+			// 	const system_info = uni.getStorageSync('system_info')
+			// 	console.log(system_info)
+			// 	let lang = 'en';
+			// 	system_info === 'en' ? lang = this._i18n.locale = 'zh_CN' : lang = this._i18n.locale = 'en'
+			// 	uni.setStorageSync('system_info',lang)
+			// 	uni.reLaunch({
+			// 		url: 'index'
+			// 	})
+			// },
 			isLogin() {
 				//判断缓存中是否登录过，直接登录
 				// try {
@@ -103,6 +103,12 @@
 			},
 			getpwd(e) {
 				_this.formData.pwd = e
+			},
+			forget() {
+				uni.showToast({
+					title: "请联系系统管理员",
+					icon: "none"
+				});
 			},
 			startLogin() {
 
@@ -128,28 +134,28 @@
 					}
 				];
 				var checkRes = graceChecker.check(_this.formData, rule);
-				
+
 				if (checkRes) {
-					
-					  uni.removeStorageSync("Token")
+
+					uni.removeStorageSync("Token")
 					login(_this.formData).then(res => {
 						_this.isRotate = false
 						console.log(res.data)
-						if(res.code===404){
+						if (res.code === 404) {
 							uni.showToast({
 								title: res.msg,
 								icon: "none"
 							});
 							return
 						}
-						if(!res.data.token){ 
+						if (!res.data.token) {
 							uni.showToast({
 								title: '账号密码输入有误',
 								icon: "none"
 							});
 							return
 						}
-						uni.setStorageSync("Token",res.data.token)
+						uni.setStorageSync("Token", res.data.token)
 						// #ifdef H5
 						_this.$router.push("main")
 						//#endif
@@ -161,7 +167,7 @@
 						// #endif
 					}).finally(res => {
 						_this.isRotate = false
-					}) 
+					})
 
 
 				} else {
@@ -174,7 +180,7 @@
 
 
 			},
-			reg(){
+			reg() {
 				// #ifdef H5
 				_this.$router.push("pwd")
 				//#endif

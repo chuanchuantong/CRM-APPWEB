@@ -64,7 +64,7 @@
 			outLogin() {
 				uni.showModal({
 					title: "系统提示",
-					content: "登录超时请重新登录",
+					content: "退出登录？",
 					confirmText: "确定",
 					success: function(res) {
 						if (res.confirm) {
