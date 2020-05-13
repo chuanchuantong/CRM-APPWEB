@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="myCluesClass">
 		<mescroll-uni ref="mescrollRef" @init="mescrollInit" :top="CustomBar+80" :bottom="0.5*250" @down="downCallback" @up="upCallback" :down="downOption" :up="upOption"> 
 			<view class="cu-list menu-avatar bottom_cu">
 				<view class="cu-item newslist" @click="openUrl(item.id)" v-for="(item,index) in returnData" :key="index">

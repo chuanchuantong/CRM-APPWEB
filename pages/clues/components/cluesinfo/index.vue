@@ -4,7 +4,7 @@
 
 		<scroll-view scroll-y class="DrawerPage" :class="modalName=='viewModal'?'show':''">
 			<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-				<block slot="content">线索审核</block>
+				<block slot="content">跟踪线索</block>
 			</cu-custom>
 			<view class="cu-list menu sm-border">
 				<view class="cu-item" @click="showOrHideClue()">
@@ -183,7 +183,7 @@
 					</evan-steps>
 				</view>
 			</view>
-			<approvalInfo :userName='userName' :updateData="updateData" @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA"
+			<approvalInfo v-if="isShowApprovalInfo" :userName='userName' :updateData="updateData" @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA"
 			 :clueid="clueid"></approvalInfo>
 			<div class="entry"></div>
 			<button v-if="(this.staticentity.rolecode == 'ZY' && updateData.cstatus==-1) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
@@ -271,7 +271,8 @@
 				userOAs: [],
 				oa: 0,
 				isLoad: false,
-				messages: []
+				messages: [],
+				isShowApprovalInfo:true,
 			};
 		},
 		created() {
@@ -290,6 +291,9 @@
 			}
 			if (this.staticentity.rolecode == 'XS') {
 				this.showXs = true;
+			}
+			if (this.staticentity.rolecode == 'ZY') {
+				this.isShowApprovalInfo = false;
 			}
 			getMessagesByClueId(this.clueid).then(res => {
 				this.messages = res.data;

@@ -102,6 +102,7 @@
 		searchclues
 	} from '../../../../api/clues.js'
 	import dictionary from '../../../../utils/dictionary.js'
+	import Router from '@/router'
 	export default {
 
 		data() {
@@ -277,24 +278,27 @@
 						_this.saveBtnLoading = false;
 						_this.submitBtnLoading = false;
 						_this.isRotate = false;
+						var message=isSave?'保存':'提交';
 						if (response.code != 200) {
 							uni.showToast({
-								title: '保存线索异常请稍后再试',
+								title: (message+'线索异常请稍后再试'),
 								icon: "none"
 							});
 							_this.isRotate = false;
 							return;
 						}
 						uni.showToast({
-							title: '保存成功',
+							title: (message+'成功'),
 							icon: "none",
 							success: function() {
+								
 								// #ifdef H5
-								_this.$router.push("cluesmanage")
+								_this.$router.push("main")
 								//#endif
+								
 								//#ifdef APP-PLUS
 								Router.push({
-									name: 'cluesmanage'
+									name: 'main'
 								});
 								// #endif
 							}
