@@ -2,7 +2,33 @@
 	<view>
 		<view class="myCluesClass">
 			<view v-if="userinfo.rolecode=='ZY'">
-				<scroll-view scroll-x class="bg-white nav nav_heard clueHead" @scroll="scroll" >
+				<tabControl :current="TabCur" class="clueHead" :top="CustomBar" :values="clues" bgc="#fff" :fixed="true"
+				 :scrollFlag='true' :isEqually='true' @clickItem="onClickItem"></tabControl>
+				<!-- 使用 swiper 配合 滑动切换 -->
+				<template>
+					<swiper @change='scollSwiper' :current='TabCur'>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<myclues></myclues>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<followup></followup>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<distribution></distribution>
+							</scroll-view>
+						</swiper-item>
+					</swiper>
+				</template>
+
+				<!-- <scroll-view scroll-x class="bg-white nav nav_heard clueHead" scroll-x="true" @scroll="scroll" scroll-left="120"> 
 					<view class="flex text-center">
 						<view class="cu-item flex-sub" :id="'tab'+index" :scroll-into-view="'tab1'" :class="index==TabCur?' cur':''" v-for="(item,index) in clues" :key="index" @tap="tabSelect"
 						 :data-id="index">
@@ -12,10 +38,35 @@
 				</scroll-view>
 				<myclues :returnData="returnData" v-if="TabCur=='0'"></myclues>
 				<followup v-if="TabCur=='1'"></followup>
-				<distribution v-if="TabCur=='2'"></distribution>
+				<distribution v-if="TabCur=='2'"></distribution> -->
 			</view>
 			<view v-if="userinfo.rolecode=='XS'">
-				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+				<tabControl :current="TabCur" class="clueHead" :top="CustomBar" :values="cluesXS" bgc="#fff" :fixed="true"
+				 :scrollFlag='true' :isEqually='true' @clickItem="onClickItem"></tabControl>
+				<!-- 使用 swiper 配合 滑动切换 -->
+				<template>
+					<swiper @change='scollSwiper' :current='TabCur'>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<managerclues></managerclues>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<managerfollowup></managerfollowup>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<managerdistribution></managerdistribution>
+							</scroll-view>
+						</swiper-item>
+					</swiper>
+				</template>
+				<!-- <scroll-view scroll-x class="bg-white nav nav_heard clueHead">
 					<view class="flex text-center">
 						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in cluesXS" :key="index" @tap="tabSelect"
 						 :data-id="index">
@@ -25,10 +76,36 @@
 				</scroll-view>
 				<managerclues :returnData="returnData" v-if="TabCur=='2'"></managerclues>
 				<managerfollowup v-if="TabCur=='1'"></managerfollowup>
-				<managerdistribution v-if="TabCur=='0'"></managerdistribution>
+				<managerdistribution v-if="TabCur=='0'"></managerdistribution> -->
 			</view>
 			<view v-if="userinfo.rolecode=='OA'">
-				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+				<tabControl :current="TabCur" class="clueHead" :top="CustomBar" :values="cluesOA" bgc="#fff" :fixed="true"
+				 :scrollFlag='true' :isEqually='true' @clickItem="onClickItem"></tabControl>
+				<!-- 使用 swiper 配合 滑动切换 -->
+				<template>
+					<swiper @change='scollSwiper' :current='TabCur'>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<oaclues></oaclues>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<oadistribution></oadistribution>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<oafollowup></oafollowup>
+							</scroll-view>
+						</swiper-item>
+					</swiper>
+				</template>
+				
+				<!-- <scroll-view scroll-x class="bg-white nav nav_heard clueHead">
 					<view class="flex text-center">
 						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in cluesOA" :key="index" @tap="tabSelect"
 						 :data-id="index">
@@ -38,20 +115,46 @@
 				</scroll-view>
 				<oaclues :returnData="returnData" v-if="TabCur=='0'"></oaclues>
 				<oadistribution v-if="TabCur=='2'"></oadistribution>
-				<oafollowup v-if="TabCur=='1'"></oafollowup>
+				<oafollowup v-if="TabCur=='1'"></oafollowup> -->
 			</view>
 			<view v-if="userinfo.rolecode=='ADMIN'">
-				<scroll-view scroll-x class="bg-white nav nav_heard clueHead">
+				<tabControl :current="TabCur" class="clueHead" :top="CustomBar" :values="cluesAdmin" bgc="#fff" :fixed="true"
+				 :scrollFlag='true' :isEqually='true' @clickItem="onClickItem"></tabControl>
+				<!-- 使用 swiper 配合 滑动切换 -->
+				<template>
+					<swiper @change='scollSwiper' :current='TabCur'>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<admindistribution></admindistribution>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<adminfollowup></adminfollowup>
+							</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<adminclues></adminclues>
+							</scroll-view>
+						</swiper-item>
+					</swiper>
+				</template>
+				
+				<!-- <scroll-view scroll-x class="bg-white nav nav_heard clueHead">
 					<view class="flex text-center">
-						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in cluesAdmin" :key="index" @tap="tabSelect"
-						 :data-id="index">
+						<view class="cu-item flex-sub" :class="index==TabCur?' cur':''" v-for="(item,index) in cluesAdmin" :key="index"
+						 @tap="tabSelect" :data-id="index">
 							{{item}}
 						</view>
 					</view>
 				</scroll-view>
 				<admindistribution v-if="TabCur=='0'"></admindistribution>
 				<adminfollowup v-if="TabCur=='1'"></adminfollowup>
-				<adminclues :returnData="returnData" v-if="TabCur=='2'"></adminclues>
+				<adminclues :returnData="returnData" v-if="TabCur=='2'"></adminclues> -->
 			</view>
 		</view>
 
@@ -76,7 +179,7 @@
 	import adminclues from './components/administrators/cluesresult/index.vue';
 	import adminfollowup from './components/administrators/followupclues/index.vue';
 	import admindistribution from './components/administrators/distributionclues/index.vue';
-	
+
 	import {
 		getMenu
 	} from '@/api/appsys.js'
@@ -85,6 +188,7 @@
 	import {
 		selectAll
 	} from '@/api/clues.js'
+	import tabControl from '@/components/tabControl-tag/tabControl-tag.vue';
 	export default {
 		mixins: [MescrollMixin], // 使用mixin
 		props: {
@@ -94,6 +198,7 @@
 			}
 		},
 		components: {
+			tabControl,
 			//oa专员组件
 			myclues,
 			followup,
@@ -126,6 +231,7 @@
 			// this.userinfo.rolecode="ADMIN"
 		},
 		onShow() {
+			this.$forceUpdate();
 			console.log("页面展示了")
 		},
 		onPageScroll: function(e) { //nvue暂不支持滚动监听，可用bindingx代替
@@ -133,24 +239,32 @@
 		},
 		data() {
 			return {
-				TabCur: 0,
+				TabCur: this.$tabbarUtil.tabindex,
 				userinfo: [],
-				clues: ["我的草稿","跟踪线索", "线索结果"],
-				cluesXS: ["分配线索","跟踪线索", "线索结果"],
+				clues: ["我的草稿", "跟踪线索", "线索结果"],
+				cluesXS: ["分配线索", "跟踪线索", "线索结果"],
 				cluesAdmin: ["确认线索", "线索结果"],
-				cluesOA: ["线索跟进","跟踪线索", "线索结果"],
+				cluesOA: ["线索跟进", "跟踪线索", "线索结果"],
 				scrollTop: 0,
 				returnData: [],
-				
+
 			};
 		},
 		methods: {
+			onClickItem(val) {
+				this.$tabbarUtil.setTabindex(val.currentIndex)
+				this.TabCur = val.currentIndex
+			},
+			scollSwiper(e) {
+				this.$tabbarUtil.setTabindex(e.target.current)
+				this.TabCur = e.target.current
+			},
 			onPageScroll(e) { //nvue暂不支持滚动监听，可用bindingx代替
 				console.log("滚动距离为：" + e.scrollTop);
 				//console.log('当前滚动条的位置:' + e.scrollTop + ', 是否向上滑:'+e.isScrollUp)
 			},
-			scroll(e){
-				 console.log(e)
+			scroll(e) {
+				console.log(e)
 			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
@@ -174,6 +288,7 @@
 		watch: {
 			'TabCur': function(newVal) {
 				console.log(newVal)
+				
 				if (newVal == "0") {
 					console.log(this.returnData)
 				}
@@ -181,28 +296,56 @@
 		}
 	}
 </script>
-
 <style scoped lang="scss">
+	// uni-swiper{
+	// 	height: 100% !important;
+	// }
+</style>
+<style lang="scss">
+	page {
+		height: 100%;
+	}
+
+	.uni-swiper-wrapper {
+		position: initial !important;
+		width: inherit !important;
+		height: inherit !important;
+		transform: initial !important;
+
+	}
+
 	.myCluesClass {
+		padding-top: 98rpx;
+		height: 100%;
+	}
 
-
-		.clueHead {
-			position: fixed;
-			z-index: 1000;
-			width: 100%;
-			white-space: nowrap;
-
+	.aaa {
+		.uni-swiper-wrapper {
+			position: initial !important;
+			transform: initial !important;
 		}
+	}
 
-		.clueData {
-			width: 100%;
-			margin-top: 110upx;
-			bottom: 0.5*300upx;
+	.myCluesClass {
+		
 
-			.mescroll-body-content {
-				margin-top: -10px;
-			}
+		// .clueHead {
+		// 	position: fixed;
+		// 	z-index: 1000;
+		// 	width: 100%;
+		// 	white-space: nowrap;
 
-		}
+		// }
+
+		// .clueData {
+		// 	width: 100%;
+		// 	margin-top: 110upx;
+		// 	bottom: 0.5*300upx;
+
+		// 	.mescroll-body-content {
+		// 		margin-top: -10px;
+		// 	}
+
+		// }
 	}
 </style>

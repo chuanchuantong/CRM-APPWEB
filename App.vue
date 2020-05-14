@@ -376,4 +376,11 @@
 .btn-defaultborder:active {
 	background-color: #f6f6e5 !important;
 }
+.uni-swiper-wrapper {
+		position: initial !important;
+		width: inherit !important;
+		height: inherit !important;
+		transform: initial !important;
+
+	}
 </style>

@@ -162,7 +162,7 @@
 						</picker>
 					</view>
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group" v-show="Selectindex!=2">
 					<view class="title"><text class="required">*</text>销售提成</view>
 					<view class="money">
 						<text class="symbol">￥</text>
@@ -244,6 +244,7 @@
 	import {
 		getMessagesByClueId
 	} from '@/api/message.js'
+	import Router from '@/router'
 	export default {
 		components: {
 			approvalInfo,
@@ -272,7 +273,11 @@
 				oa: 0,
 				isLoad: false,
 				messages: [], 
+<<<<<<< HEAD
 				isJinyong:false, 
+=======
+				isJinyong:false,
+>>>>>>> 8c039c70dd4bc61ed5262e95c944b47996129643
 				isShowApprovalInfo:true, 
 			};
 		},
@@ -337,7 +342,7 @@
 						this.isJinyong = false
 						return;
 					}
-					if (this.updateData.royalty == null || this.updateData.royalty < 0) {
+					if ((this.updateData.royalty == null || this.updateData.royalty < 0)&& this.Selectindex==1) {
 						uni.showToast({
 							title: "销售提成填写有误",
 							icon: "none"
@@ -352,28 +357,42 @@
 					if (this.Selectindex == 2)
 						this.updateData.cstatus = 4;
 				}
-				// ！！！在paegB中
-				// 获取当前的页面栈
-				let pages = getCurrentPages();
+				// // ！！！在paegB中
+				// // 获取当前的页面栈
+				// let pages = getCurrentPages();
 				
-				// 获取上一级页面，即pageA的page对象
-				let prevPage = pages[pages.length - 2];
+				// // 获取上一级页面，即pageA的page对象
+				// let prevPage = pages[pages.length - 2];
 				
-				// 获取上一级页面，即pageA的data
-				let prevPageData = prevPage.data;
-				console.log(prevPage)
-				return
+				// // 获取上一级页面，即pageA的data
+				// let prevPageData = prevPage.data;
+				// console.log(prevPage)
+				// return
 				update(this.updateData).then(res => {
 					
-					// 方法1：设置上一级页面，即pageA的data
-					prevPage.setData({
-					    isRefresh: true
-					});
-
-					// uni.navigateBack({
-					// 	delta: 1,
-					// 	animationType: "pop-out"
-					// })
+					// // 方法1：设置上一级页面，即pageA的data
+					// prevPage.setData({
+					//     isRefresh: true
+					// });
+					//#ifdef APP-PLUS
+					Router.replaceAll({
+						name:'main',
+						animation:{
+							delta: 1,
+							animationType: "pop-out"
+						}
+						
+					})
+					//#endif
+					//#ifdef H5
+					this.$router.push({
+						name:'main',
+						animation:{
+							delta: 1,
+							animationType: "pop-out"
+						}
+					})
+					//#endif
 					uni.hideLoading();
 					this.isJinyong = false
 				})

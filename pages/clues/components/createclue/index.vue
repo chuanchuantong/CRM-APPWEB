@@ -297,7 +297,7 @@
 								//#endif
 								
 								//#ifdef APP-PLUS
-								Router.push({
+								Router.replaceAll({
 									name: 'main'
 								});
 								// #endif
