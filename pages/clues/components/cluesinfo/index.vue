@@ -162,7 +162,7 @@
 						</picker>
 					</view>
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group" v-show="Selectindex!=2">
 					<view class="title"><text class="required">*</text>销售提成</view>
 					<view class="money">
 						<text class="symbol">￥</text>
@@ -244,6 +244,7 @@
 	import {
 		getMessagesByClueId
 	} from '@/api/message.js'
+	import Router from '@/router'
 	export default {
 		components: {
 			approvalInfo,
@@ -337,7 +338,7 @@
 						this.isJinyong = false
 						return;
 					}
-					if (this.updateData.royalty == null || this.updateData.royalty < 0) {
+					if ((this.updateData.royalty == null || this.updateData.royalty < 0)&& this.Selectindex==1) {
 						uni.showToast({
 							title: "销售提成填写有误",
 							icon: "none"
@@ -369,11 +370,25 @@
 					// prevPage.setData({
 					//     isRefresh: true
 					// });
-
-					uni.navigateBack({
-						delta: 1,
-						animationType: "pop-out"
+					//#ifdef APP-PLUS
+					Router.replaceAll({
+						name:'main',
+						animation:{
+							delta: 1,
+							animationType: "pop-out"
+						}
+						
 					})
+					//#endif
+					//#ifdef H5
+					this.$router.push({
+						name:'main',
+						animation:{
+							delta: 1,
+							animationType: "pop-out"
+						}
+					})
+					//#endif
 					uni.hideLoading();
 					this.isJinyong = false
 				})

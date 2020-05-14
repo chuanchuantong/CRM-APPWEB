@@ -152,7 +152,10 @@
 			left: 20upx !important;
 			// width: 100% !important;
 		}
-
+		
+uni-swiper .uni-swiper-wrapper{
+	overflow: initial;
+}
 		.bottom_cu {
 			//margin-bottom: 120px;
 			padding-top: 110upx;

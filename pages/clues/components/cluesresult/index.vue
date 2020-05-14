@@ -318,7 +318,7 @@
 			//线索详情
 			clueDetail(clueid) {
 				//#ifdef APP-PLUS
-				Router.push({
+				Router.replaceAll({
 					name: 'cluesdetail',
 					params: {
 						clueid: clueid
