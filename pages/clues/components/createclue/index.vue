@@ -1,97 +1,156 @@
 <template>
 
 	<view class="createClue">
+		<scroll-view scroll-y class="DrawerPage" :class="modalName=='viewModal'?'show':''">
+			<cu-custom bgColor="bg-gradual-blue" :isBack="true" :indexV="'myclues'">
+				<block slot="content">新建线索</block>
+			</cu-custom>
 
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :indexV="'myclues'">
-			<block slot="content">新建线索</block>
-		</cu-custom>
-
-		<form>
-			<view class="cu-bar bg-white solid-bottom">
-				<view class="action">
-					<text class="cuIcon-titles text-green"></text>
-					基本信息
+			<form>
+				<view class="cu-bar bg-white solid-bottom">
+					<view class="action">
+						<text class="cuIcon-titles text-green"></text>
+						基本信息
+					</view>
 				</view>
-			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>线索名称</view>
-				<input v-model="cluesInfo.shorthand" placeholder="请输入线索名称" name="input"></input>
-			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>线索来源</view>
-				<input v-model="cluesInfo.source" placeholder="请输入线索来源" name="input"></input>
-			</view>
-			<view class="cu-bar bg-white solid-bottom">
-				<view class="action">
-					<text class="cuIcon-titles text-green"></text>客户信息
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>线索名称</view>
+					<input v-model="cluesInfo.shorthand" placeholder="请输入线索名称" name="input"></input>
 				</view>
-			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>客户姓名</view>
-				<input v-model="cluesInfo.customername" placeholder="请输入客户姓名" name="input"></input>
-			</view>
-			<!-- <view class="cu-form-group">
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>线索来源</view>
+					<input v-model="cluesInfo.source" placeholder="请输入线索来源" name="input"></input>
+				</view>
+				<view class="cu-bar bg-white solid-bottom">
+					<view class="action">
+						<text class="cuIcon-titles text-green"></text>客户信息
+					</view>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>客户姓名</view>
+					<input v-model="cluesInfo.customername" placeholder="请输入客户姓名" name="input"></input>
+				</view>
+				<!-- <view class="cu-form-group">
 				<view class="title"><text class="required">*</text>客户级别</view>
 				<input v-model="cluesInfo.level" placeholder="请输入客户级别" name="input"></input>
 			</view> -->
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>客户行业</view>
-				<input v-model="cluesInfo.industry" placeholder="请输入客户行业" name="input"></input>
-			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>联系方式</view>
-				<input v-model="cluesInfo.contactinfo" placeholder="请输入联系方式" name="input"></input>
-			</view>
-			<!-- <view class="cu-form-group">
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>客户行业</view>
+					<input v-model="cluesInfo.industry" placeholder="请输入客户行业" name="input"></input>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>联系方式</view>
+					<input v-model="cluesInfo.contactinfo" placeholder="请输入联系方式" name="input"></input>
+				</view>
+				<!-- <view class="cu-form-group">
 				<view class="title"><text class="required">*</text>邮箱</view>
 				<input v-model="cluesInfo.email" placeholder="请输入邮箱" name="input"></input>
 			</view> -->
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>地址</view>
-				<input v-model="cluesInfo.customeraddress" placeholder="请输入地址" name="input"></input>
-			</view>
-			<view class="cu-bar bg-white solid-bottom">
-				<view class="action">
-					<text class="cuIcon-titles text-green"></text>需求信息
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>地址</view>
+					<input v-model="cluesInfo.customeraddress" placeholder="请输入地址" name="input"></input>
+				</view>
+				<view class="cu-bar bg-white solid-bottom">
+					<view class="action">
+						<text class="cuIcon-titles text-green"></text>需求信息
+					</view>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>意向车型</view>
+					<input v-model="cluesInfo.intentioncar" placeholder="请输入意向车型" name="input"></input>
+				</view>
+				<view class="cu-form-group">
+					<view class="title usertrait"><text class="required">*</text>需求</view>
+					<textarea v-model="cluesInfo.needs" maxlength="500" placeholder="请输入需求"></textarea>
+				</view>
+				<view class="cu-form-group">
+
+					<view class="title"><text class="required">*</text>预算</view>
+					<input v-model="cluesInfo.budget" placeholder="请输入预算" name="input"></input>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>是否持币</view>
+					<input v-model="cluesInfo.isholdcash" placeholder="请输入是否持币" name="input"></input>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>现有车型</view>
+					<input v-model="cluesInfo.exitscar" placeholder="请输入现有车型" name="input"></input>
+				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>计划提车时间</view>
+					<input v-model="cluesInfo.plantime" placeholder="请输入计划提车时间" name="input"></input>
+				</view>
+				<view class="cu-bar bg-white solid-bottom">
+					<view class="action">
+						<text class="cuIcon-titles text-green"></text>
+						审核信息
+					</view>
+				</view>
+				<view class="cu-form-group" @click="showModal" v-if="userinfo.rolecode=='XS'">
+					<view class="title"><text class="required">*</text>选择产品专员</view>
+
+					<view class="action">
+						{{userName!=''?userName:'请选择'}}
+						<text class="cuIcon-right"></text>
+					</view>
+				</view>
+				<view class="cu-form-group"  v-if="userinfo.rolecode=='OA' ||userinfo.rolecode=='XS'">
+					<view class="title"><text class="required">*</text>客户级别</view>
+					<radio-group class="block" @change="radioChange">
+						<radio class='round blue margin-left-sm' :checked="leave=='A+'?true:false" value="A+"></radio>A+
+						<radio class='round blue margin-left-sm' :checked="leave=='A'?true:false" value="A"></radio>A
+						<radio class='round blue margin-left-sm' :checked="leave=='A-'?true:false" value="A-"></radio>A-
+					</radio-group>
+				</view>
+				<view class="cu-form-group"  v-if="userinfo.rolecode=='OA'||userinfo.rolecode=='XS'">
+					<view class="title usertrait"><text class="required">*</text>客户特点</view>
+					<textarea v-model="cluesInfo.custyles" maxlength="500" placeholder="请输入客户特点"></textarea>
+				</view>
+
+				<view class="cu-form-group">
+					<button class="cu-btn bg-green" @click="saveclueinfo(true)">
+						<text v-if="saveBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
+						保存
+					</button>
+					<button class="cu-btn bg-green" @click="saveclueinfo(false)">
+						<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
+						提交
+					</button>
+					<button class="cu-btn bg-green" @click="saveclueinfo(false)">
+						<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
+						一键提交
+					</button>
+				</view>
+			</form>
+		</scroll-view>
+		<view class="DrawerClose" :class="modalName=='viewModal'?'show':''" @tap="hideModal">
+			<text class="cuIcon-pullright"></text>
+		</view>
+		<scroll-view scroll-y class="DrawerWindow" :class="modalName=='viewModal'?'show':''">
+			<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+				<view class="search">
+					<view class="box">
+						<view class="cu-bar search bg-white">
+							<view class="search-form round">
+								<text class="cuIcon-search"></text>
+								<input v-model="userName" type="text" placeholder="请输入人员名称" confirm-type="search"></input>
+							</view>
+							<view class="action">
+								<button @click="searchUser" class="cu-btn bg-green shadow-blur round">搜索</button>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="cu-item" @tap="hideModal" :data-name="item.nickname" :data-id="item.id" v-for="(item,index) in userOAs"
+				 :key="index">
+					<view class="content">
+						<text class="text-grey">{{item.nickname}}({{item.usercode}})</text>
+					</view>
 				</view>
 			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>意向车型</view>
-				<input v-model="cluesInfo.intentioncar" placeholder="请输入意向车型" name="input"></input>
-			</view>
-			<view class="cu-form-group">
-				<view class="title usertrait"><text class="required">*</text>需求</view>
-				<textarea v-model="cluesInfo.needs" maxlength="500" placeholder="请输入需求"></textarea>
-			</view>
-			<view class="cu-form-group">
+		</scroll-view>
+		<div class="entry"></div>
 
-				<view class="title"><text class="required">*</text>预算</view>
-				<input v-model="cluesInfo.budget" placeholder="请输入预算" name="input"></input>
-			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>是否持币</view>
-				<input v-model="cluesInfo.isholdcash" placeholder="请输入是否持币" name="input"></input>
-			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>现有车型</view>
-				<input v-model="cluesInfo.exitscar" placeholder="请输入现有车型" name="input"></input>
-			</view>
-			<view class="cu-form-group">
-				<view class="title"><text class="required">*</text>计划提车时间</view>
-				<input v-model="cluesInfo.plantime" placeholder="请输入计划提车时间" name="input"></input>
-			</view>
-			<view class="cu-form-group">
-				<button class="cu-btn bg-green" @click="saveclueinfo(true)">
-					<text v-if="saveBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
-					保存
-				</button>
-				<button class="cu-btn bg-green" @click="saveclueinfo(false)">
-					<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
-					提交
-				</button>
-			</view>
-		</form>
-<div class="entry"></div>
 	</view>
 </template>
 
@@ -103,8 +162,16 @@
 	} from '../../../../api/clues.js'
 	import dictionary from '../../../../utils/dictionary.js'
 	import Router from '@/router'
+	import {
+		selectByOA
+	} from '@/api/sysUser.js'
+	import EvanSteps from '@/components/evan-steps/evan-steps.vue'
+	import EvanStep from '@/components/evan-steps/evan-step.vue'
 	export default {
-
+		components: {
+			EvanSteps,
+			EvanStep
+		},
 		data() {
 			return {
 				//线索对象
@@ -126,27 +193,54 @@
 					email: '',
 					cstatus: dictionary.cluesStatus.save, //线索状态
 				},
+				userOAs: [],
+				modalName: '',
+				leave: '',
+				userName: '',
 				isRotate: false, //是否加载旋转
 				saveBtnLoading: false,
 				submitBtnLoading: false,
+				userinfo:[]
 			};
 		},
 		created() {
+			//#ifdef APP-PLUS
+			this.userinfo = uni.getStorageSync("data")
+			//#endif
+			//#ifdef H5
+			this.userinfo = JSON.parse(localStorage.getItem("data"));
+			//#endif
 			var _this = this;
 			var id = _this.$Route.query.clueid;
 			if (id) {
 				_this.cluesInfo.id = id;
 				searchclues(id).then(response => {
 					if (response.code == 200) {
-						_this.cluesInfo=response.data;
-						console.log("ghjkhj",_this.cluesInfo)
+						_this.cluesInfo = response.data;
+						console.log("ghjkhj", _this.cluesInfo)
 					}
 				}).finally(response => {
-					console.log("获取线索信息失败",response)
+					console.log("获取线索信息失败", response)
 				})
 			}
+			selectByOA().then(res => {
+				this.userOAs = res.data
+			})
 		},
 		methods: {
+			hideModal(e) {
+				this.modalName = null;
+				this.userName = e.currentTarget.dataset.name;
+				this.cluesInfo.oaid = e.currentTarget.dataset.id;
+			},
+			showModal() {
+				this.modalName = 'viewModal';
+			},
+			radioChange(e) {
+				var _this = this;
+				_this.cluesInfo.level = e.detail.value;
+				console.log(_this.leave)
+			},
 			saveclueinfo(isSave) {
 				var _this = this;
 				//登录
@@ -278,24 +372,24 @@
 						_this.saveBtnLoading = false;
 						_this.submitBtnLoading = false;
 						_this.isRotate = false;
-						var message=isSave?'保存':'提交';
+						var message = isSave ? '保存' : '提交';
 						if (response.code != 200) {
 							uni.showToast({
-								title: (message+'线索异常请稍后再试'),
+								title: (message + '线索异常请稍后再试'),
 								icon: "none"
 							});
 							_this.isRotate = false;
 							return;
 						}
 						uni.showToast({
-							title: (message+'成功'),
+							title: (message + '成功'),
 							icon: "none",
 							success: function() {
-								
+
 								// #ifdef H5
 								_this.$router.push("main")
 								//#endif
-								
+
 								//#ifdef APP-PLUS
 								Router.replaceAll({
 									name: 'main'
@@ -329,7 +423,7 @@
 		}
 
 		.cu-btn {
-			width: 40% !important;
+			width: 30% !important;
 			margin-top: 10px !important;
 			margin-bottom: 10px !important;
 		}
@@ -348,5 +442,129 @@
 		.cu-bar.btn-group uni-button {
 			max-width: none !important;
 		}
+	}
+	
+	page {
+		background-image: var(--gradualBlue);
+		width: 100vw;
+		overflow: hidden;
+	}
+	
+	.money {
+		font-size: 30upx;
+		display: flex;
+	
+		.symbol {
+			margin-top: 13upx;
+		}
+	
+		uni-input {
+			font-size: 30upx;
+			height: 2.4em !important;
+		}
+	}
+	
+	.DrawerPage {
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		left: 0vw;
+		background-color: #f1f1f1;
+		transition: all 0.4s;
+	}
+	
+	.DrawerPage.show {
+		transform: scale(0.9, 0.9);
+		left: 85vw;
+		box-shadow: 0 0 60upx rgba(0, 0, 0, 0.2);
+		transform-origin: 0;
+	}
+	
+	.DrawerWindow {
+		position: absolute;
+		width: 85vw;
+		height: 100vh;
+		left: 0;
+		top: 0;
+		transform: scale(0.9, 0.9) translateX(-100%);
+		opacity: 0;
+		pointer-events: none;
+		transition: all 0.4s;
+		padding: 100upx 0;
+	}
+	
+	.DrawerWindow.show {
+		transform: scale(1, 1) translateX(0%);
+		opacity: 1;
+		pointer-events: all;
+	}
+	
+	.DrawerClose {
+		position: absolute;
+		width: 40vw;
+		height: 100vh;
+		right: 0;
+		top: 0;
+		color: transparent;
+		padding-bottom: 30upx;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.6));
+		letter-spacing: 5px;
+		font-size: 50upx;
+		opacity: 0;
+		pointer-events: none;
+		transition: all 0.4s;
+	}
+	
+	.DrawerClose.show {
+		opacity: 1;
+		pointer-events: all;
+		width: 15vw;
+		color: #fff;
+	}
+	
+	.DrawerPage .cu-bar.tabbar .action button.cuIcon {
+		width: 64upx;
+		height: 64upx;
+		line-height: 64upx;
+		margin: 0;
+		display: inline-block;
+	}
+	
+	.DrawerPage .cu-bar.tabbar .action .cu-avatar {
+		margin: 0;
+	}
+	
+	.DrawerPage .nav {
+		flex: 1;
+	}
+	
+	.DrawerPage .nav .cu-item.cur {
+		border-bottom: 0;
+		position: relative;
+	}
+	
+	.DrawerPage .nav .cu-item.cur::after {
+		content: "";
+		width: 10upx;
+		height: 10upx;
+		background-color: currentColor;
+		position: absolute;
+		bottom: 10upx;
+		border-radius: 10upx;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	
+	.DrawerPage .cu-bar.tabbar .action {
+		flex: initial;
+	}
+	
+	.cu-form-group .title {
+		min-width: calc(6em + 40upx);
+		text-align: right;
 	}
 </style>

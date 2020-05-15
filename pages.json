@@ -196,6 +196,14 @@
         ,{
             "path" : "pages/login/test",
             "style" : {}
+        } 
+        ,{
+            "path" : "pages/clues/components/marnager/createclue/index",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/clues/components/marnager/myclues/index",
+            "style" : {}
         }
     ],
 	"globalStyle": {

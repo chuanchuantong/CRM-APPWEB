@@ -46,10 +46,15 @@
 				<!-- 使用 swiper 配合 滑动切换 -->
 				<template>
 					<swiper @change='scollSwiper' :current='TabCur'>
+						<swiper-item>
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<managermyclues></managermyclues>
+							</scroll-view>
+						</swiper-item>
 						<swiper-item >
 							<!-- 使用 scroll-view 来滚动内容区域 -->
 							<scroll-view scroll-y="true" style="height: 100%;">
-								<managerclues></managerclues>
+								<managerdistribution></managerdistribution>
 							</scroll-view>
 						</swiper-item>
 						<swiper-item >
@@ -58,10 +63,11 @@
 								<managerfollowup></managerfollowup>
 							</scroll-view>
 						</swiper-item>
+						
 						<swiper-item >
 							<!-- 使用 scroll-view 来滚动内容区域 -->
 							<scroll-view scroll-y="true" style="height: 100%;">
-								<managerdistribution></managerdistribution>
+								<managerclues></managerclues>
 							</scroll-view>
 						</swiper-item>
 					</swiper>
@@ -168,6 +174,7 @@
 	import followup from './components/commissioner/followupclues/index.vue';
 	import distribution from './components/commissioner/distributionclues/index.vue';
 	//经理组件
+	import managermyclues from './components/marnager/myclues/index.vue';
 	import managerclues from './components/marnager/cluesresult/index.vue';
 	import managerfollowup from './components/marnager/followupclues/index.vue';
 	import managerdistribution from './components/marnager/distributionclues/index.vue';
@@ -204,6 +211,7 @@
 			followup,
 			distribution,
 			//经理组件
+			managermyclues,
 			managerclues,
 			managerfollowup,
 			managerdistribution,
@@ -242,7 +250,7 @@
 				TabCur: this.$tabbarUtil.tabindex,
 				userinfo: [],
 				clues: ["我的草稿", "跟踪线索", "线索结果"],
-				cluesXS: ["分配线索", "跟踪线索", "线索结果"],
+				cluesXS: ["我的线索","分配线索", "跟踪线索", "线索结果"],
 				cluesAdmin: ["确认线索", "线索结果"],
 				cluesOA: ["线索跟进", "跟踪线索", "线索结果"],
 				scrollTop: 0,
@@ -253,11 +261,11 @@
 		methods: {
 			onClickItem(val) {
 				this.$tabbarUtil.setTabindex(val.currentIndex)
-				this.TabCur = val.currentIndex
+				this.TabCur = Number(val.currentIndex)
 			},
 			scollSwiper(e) {
 				this.$tabbarUtil.setTabindex(e.target.current)
-				this.TabCur = e.target.current
+				this.TabCur = Number(e.target.current)
 			},
 			onPageScroll(e) { //nvue暂不支持滚动监听，可用bindingx代替
 				console.log("滚动距离为：" + e.scrollTop);
@@ -267,7 +275,7 @@
 				console.log(e)
 			},
 			tabSelect(e) {
-				this.TabCur = e.currentTarget.dataset.id;
+				this.TabCur = Number(e.currentTarget.dataset.id);
 			},
 			getCuleMenu() {
 				var _this = this;

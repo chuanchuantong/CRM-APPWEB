@@ -7,7 +7,7 @@
 		</cu-custom>
 		<cu-custom v-show="PageCur=='cluesmanage'" bgColor="bg-gradual-blue">
 			<block slot="content">线索管理</block>
-			<block slot="right" v-if="this.sysuser.rolecode == 'ZY'">
+			<block slot="right" v-if="this.sysuser.rolecode != 'ADMIN'">
 				<button class="cu-btn bg-green btnCreateClue" @click="createclues">
 					创建线索
 				</button>
@@ -220,8 +220,8 @@
 }
 .posbadge{
 	position: absolute;
-	    top: -5px;
-	    right: 9px;
+	    top: -8px;
+	    right: 24px;
 }
 		.entry {
 			height: 0.5*300upx;

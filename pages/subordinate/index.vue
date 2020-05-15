@@ -35,7 +35,9 @@
 				<view class="cu-item shadow">
 					<view class="cu-list menu-avatar">
 						<view class="cu-item" v-for="item in childs" :key="item.id">
-							<view class="cu-avatar round lg" :style="'background-image:url('+item.img+');'"></view>
+							<view class="cu-avatar round lg margin-xs" :class="'bg-blue'">
+								<text class="avatar-text">{{item.nickname}}</text>
+							</view> 
 							<view class="content flex-sub">
 								<view class="text-grey text-sm flex justify-between">{{item.nickname}}({{item.usercode}})
 									<view class="text-gray text-sm">

@@ -6,7 +6,9 @@
 			</cu-custom>
 			<view class="cu-list menu menu-avatar">
 				<view class="cu-item arrow" @click="openUrl('data')">
-					<view class="cu-avatar round lg" :style="'background-image:url('+img+');'"></view>
+					<view class="cu-avatar round lg margin-xs" :class="'bg-blue'">
+						<text class="avatar-text">{{userinfo.nickname}}</text>
+					</view>  
 					<view class="content flex-sub">
 						<view class="myname">{{userinfo.nickname}}({{userinfo.rolename}})</view>
 						<view class="text-gray text-sm  myincode">

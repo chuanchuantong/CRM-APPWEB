@@ -36,8 +36,8 @@ export function getPayMethodById(data){
 /**
  * 获取提现记录
  */
-export function selectCapitalApply(){
-	return http.post("/capitalApply/selectCapitalApply")
+export function selectCapitalApply(data){
+	return http.post("/capitalApply/selectCapitalApply",data)
 }
 
 /**
