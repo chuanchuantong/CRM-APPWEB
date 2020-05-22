@@ -106,6 +106,10 @@
 					<view class="title usertrait"><text class="required">*</text>客户特点</view>
 					<textarea v-model="cluesInfo.custyles" maxlength="500" placeholder="请输入客户特点"></textarea>
 				</view>
+				<view class="cu-form-group"  v-if="userinfo.rolecode=='OA'||userinfo.rolecode=='XS'">
+					<view class="title usertrait">备注</view>
+					<textarea v-model="cluesInfo.remarks" maxlength="500" placeholder="请输入备注"></textarea>
+				</view>
 
 				<view class="cu-form-group">
 					<button class="cu-btn bg-green" @click="saveclueinfo(true)">
@@ -116,8 +120,8 @@
 						<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
 						提交
 					</button>
-					<button class="cu-btn bg-green" @click="saveclueinfo(false)">
-						<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
+					<button class="cu-btn bg-green" @click="submitclueinfo(false)" v-if="userinfo.rolecode=='XS'">
+						<text v-if="submitBtnLoading1" class="cuIcon-loading2 cuIconfont-spin"></text>
 						一键提交
 					</button>
 				</view>
@@ -158,7 +162,8 @@
 	var graceChecker = require("@/js_sdk/graceui-dataChecker/graceChecker.js")
 	import {
 		insertclue,
-		searchclues
+		searchclues,
+		xsInsert
 	} from '../../../../api/clues.js'
 	import dictionary from '../../../../utils/dictionary.js'
 	import Router from '@/router'
@@ -200,6 +205,7 @@
 				isRotate: false, //是否加载旋转
 				saveBtnLoading: false,
 				submitBtnLoading: false,
+				submitBtnLoading1:false,
 				userinfo:[]
 			};
 		},
@@ -211,12 +217,17 @@
 			this.userinfo = JSON.parse(localStorage.getItem("data"));
 			//#endif
 			var _this = this;
+		    
 			var id = _this.$Route.query.clueid;
 			if (id) {
 				_this.cluesInfo.id = id;
 				searchclues(id).then(response => {
 					if (response.code == 200) {
 						_this.cluesInfo = response.data;
+						let oaname =response.data.oaid>0?response.data.oaname:"" ;
+						let level =response.data.level ;
+						this.userName = oaname;
+						this.leave = level;
 						console.log("ghjkhj", _this.cluesInfo)
 					}
 				}).finally(response => {
@@ -228,8 +239,168 @@
 			})
 		},
 		methods: {
+			submitclueinfo(){
+				var _this = this;
+				//登录
+				if (_this.isRotate) {
+					//判断是否加载中，避免重复点击请求
+					return false;
+				}
+				_this.isRotate = true;
+				
+				var rule = []; 
+					_this.submitBtnLoading1 = true;
+					_this.cluesInfo.cstatus = dictionary.cluesStatus.submit;
+					rule = [{
+							name: "shorthand",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入线索名称"
+						},
+						{
+							name: "source",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入线索来源"
+						},
+						{
+							name: "customername",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入客户姓名"
+						},
+						{
+							name: "customeraddress",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入地址"
+						},
+						{
+							name: "contactinfo",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入联系方式"
+						},
+						{
+							name: "industry",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入客户行业"
+						},
+						{
+							name: "intentioncar",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入意向车型"
+						},
+						{
+							name: "needs",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入需求"
+						},
+						{
+							name: "budget",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入预算"
+						},
+						{
+							name: "isholdcash",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入是否持币"
+						},
+						{
+							name: "exitscar",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入现有车型"
+						},
+						{
+							name: "plantime",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请输入计划提车时间"
+						},
+						// {
+						// 	name: "level",
+						// 	checkType: "notnull",
+						// 	checkRule: "",
+						// 	required: true,
+						// 	errorMsg: "请输入客户级别"
+						// },
+						// {
+						// 	name: "email",
+						// 	checkType: "notnull",
+						// 	checkRule: "",
+						// 	required: true,
+						// 	errorMsg: "请输入邮箱"
+						// },
+					]; 
+				console.log(_this.cluesInfo)
+				var checkRes = graceChecker.check(_this.cluesInfo, rule);
+				if (checkRes) {
+					_this.cluesInfo.cstatus = 2;
+					//新增线索接口
+					xsInsert(_this.cluesInfo).then(response => { 
+						_this.submitBtnLoading1 = false;
+						_this.isRotate = false;
+						var message = '一键提交';
+						if (response.code != 200) {
+							uni.showToast({
+								title: (message + '线索异常请稍后再试'),
+								icon: "none"
+							});
+							_this.isRotate = false;
+							return;
+						}
+						uni.showToast({
+							title: (message + '成功'),
+							icon: "none",
+							success: function() {
+				
+								// #ifdef H5
+								_this.$router.push("main")
+								//#endif
+				
+								//#ifdef APP-PLUS
+								Router.replaceAll({
+									name: 'main'
+								});
+								// #endif
+							}
+						});
+					}).finally(response => {
+						_this.saveBtnLoading = false;
+						_this.submitBtnLoading = false;
+						_this.isRotate = false
+					})
+				} else {
+					_this.saveBtnLoading = false;
+					_this.submitBtnLoading = false;
+					_this.isRotate = false;
+					uni.showToast({
+						title: graceChecker.error,
+						icon: "none"
+					});
+				}
+			},
 			hideModal(e) {
 				this.modalName = null;
+				console.log(e)
 				this.userName = e.currentTarget.dataset.name;
 				this.cluesInfo.oaid = e.currentTarget.dataset.id;
 			},
@@ -365,43 +536,110 @@
 					}];
 				}
 				console.log(_this.cluesInfo)
-				var checkRes = graceChecker.check(_this.cluesInfo, rule);
-				if (checkRes) {
-					//新增线索接口
-					insertclue(_this.cluesInfo).then(response => {
-						_this.saveBtnLoading = false;
-						_this.submitBtnLoading = false;
-						_this.isRotate = false;
-						var message = isSave ? '保存' : '提交';
-						if (response.code != 200) {
+				if(isSave){
+					if(this.userinfo.rolecode=="XS")
+					{
+						_this.cluesInfo.cstatus=-2;
+					}
+				}else{
+					if(this.userinfo.rolecode=="XS")
+					{
+						if(_this.cluesInfo.oaid<=0){
 							uni.showToast({
-								title: (message + '线索异常请稍后再试'),
+								title:  '请选择产品专员',
 								icon: "none"
 							});
 							_this.isRotate = false;
 							return;
 						}
-						uni.showToast({
-							title: (message + '成功'),
-							icon: "none",
-							success: function() {
-
-								// #ifdef H5
-								_this.$router.push("main")
-								//#endif
-
-								//#ifdef APP-PLUS
-								Router.replaceAll({
-									name: 'main'
+						if(_this.cluesInfo.level=="" || _this.cluesInfo.level==null){
+							uni.showToast({
+								title:  '请选择客户级别',
+								icon: "none"
+							});
+							_this.isRotate = false;
+							return;
+						} 
+						_this.cluesInfo.cstatus=1;
+					}
+				}
+				var checkRes = graceChecker.check(_this.cluesInfo, rule);
+				if (checkRes) {
+					if(this.userinfo.rolecode=="XS")
+					{
+						//新增线索接口
+						xsInsert(_this.cluesInfo).then(response => {
+							_this.saveBtnLoading = false;
+							_this.submitBtnLoading = false;
+							_this.isRotate = false;
+							var message = isSave ? '保存' : '提交';
+							if (response.code != 200) {
+								uni.showToast({
+									title: (message + '线索异常请稍后再试'),
+									icon: "none"
 								});
-								// #endif
+								_this.isRotate = false;
+								return;
 							}
-						});
-					}).finally(response => {
-						_this.saveBtnLoading = false;
-						_this.submitBtnLoading = false;
-						_this.isRotate = false
-					})
+							uni.showToast({
+								title: (message + '成功'),
+								icon: "none",
+								success: function() {
+						
+									// #ifdef H5
+									_this.$router.push("main")
+									//#endif
+						
+									//#ifdef APP-PLUS
+									Router.replaceAll({
+										name: 'main'
+									});
+									// #endif
+								}
+							});
+						}).finally(response => {
+							_this.saveBtnLoading = false;
+							_this.submitBtnLoading = false;
+							_this.isRotate = false
+						})
+					}else{
+						//新增线索接口
+						insertclue(_this.cluesInfo).then(response => {
+							_this.saveBtnLoading = false;
+							_this.submitBtnLoading = false;
+							_this.isRotate = false;
+							var message = isSave ? '保存' : '提交';
+							if (response.code != 200) {
+								uni.showToast({
+									title: (message + '线索异常请稍后再试'),
+									icon: "none"
+								});
+								_this.isRotate = false;
+								return;
+							}
+							uni.showToast({
+								title: (message + '成功'),
+								icon: "none",
+								success: function() {
+						
+									// #ifdef H5
+									_this.$router.push("main")
+									//#endif
+						
+									//#ifdef APP-PLUS
+									Router.replaceAll({
+										name: 'main'
+									});
+									// #endif
+								}
+							});
+						}).finally(response => {
+							_this.saveBtnLoading = false;
+							_this.submitBtnLoading = false;
+							_this.isRotate = false
+						})
+					}
+					
 				} else {
 					_this.saveBtnLoading = false;
 					_this.submitBtnLoading = false;

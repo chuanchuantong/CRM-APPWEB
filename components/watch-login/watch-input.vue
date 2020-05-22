@@ -6,7 +6,7 @@
 			:value="value" 
 			:type="_type"  
 			:placeholder="placeholder" 
-			:password="type==='password'&&!showPassword" 
+			:password="type==='password'&&!showPassword"  
 			@input="onInput" 
 		/>
 		<radio-group v-if="type=='radio'" class="block main-input" @change="RadioChange">

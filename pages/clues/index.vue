@@ -93,19 +93,26 @@
 						<swiper-item >
 							<!-- 使用 scroll-view 来滚动内容区域 -->
 							<scroll-view scroll-y="true" style="height: 100%;">
+						<oamyclues></oamyclues>
+						</scroll-view>
+						</swiper-item>
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
 								<oaclues></oaclues>
+							</scroll-view>
+						</swiper-item>
+						
+						<swiper-item >
+							<!-- 使用 scroll-view 来滚动内容区域 -->
+							<scroll-view scroll-y="true" style="height: 100%;">
+								<oafollowup></oafollowup>
 							</scroll-view>
 						</swiper-item>
 						<swiper-item >
 							<!-- 使用 scroll-view 来滚动内容区域 -->
 							<scroll-view scroll-y="true" style="height: 100%;">
 								<oadistribution></oadistribution>
-							</scroll-view>
-						</swiper-item>
-						<swiper-item >
-							<!-- 使用 scroll-view 来滚动内容区域 -->
-							<scroll-view scroll-y="true" style="height: 100%;">
-								<oafollowup></oafollowup>
 							</scroll-view>
 						</swiper-item>
 					</swiper>
@@ -179,6 +186,7 @@
 	import managerfollowup from './components/marnager/followupclues/index.vue';
 	import managerdistribution from './components/marnager/distributionclues/index.vue';
 	//OA专员组件
+	import oamyclues from './components/oaspecialist/myclues/index.vue';
 	import oaclues from './components/oaspecialist/cluesresult/index.vue';
 	import oadistribution from './components/oaspecialist/distributionclues/index.vue';
 	import oafollowup from './components/oaspecialist/followupclues/index.vue';
@@ -207,6 +215,7 @@
 		components: {
 			tabControl,
 			//oa专员组件
+			oamyclues,
 			myclues,
 			followup,
 			distribution,
@@ -252,7 +261,7 @@
 				clues: ["我的草稿", "跟踪线索", "线索结果"],
 				cluesXS: ["我的线索","分配线索", "跟踪线索", "线索结果"],
 				cluesAdmin: ["确认线索", "线索结果"],
-				cluesOA: ["线索跟进", "跟踪线索", "线索结果"],
+				cluesOA: ["我的线索","线索跟进", "跟踪线索", "线索结果"],
 				scrollTop: 0,
 				returnData: [],
 

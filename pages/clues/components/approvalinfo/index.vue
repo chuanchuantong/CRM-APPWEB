@@ -34,6 +34,11 @@
 			 
 				<textarea v-model="updateData.custyles"></textarea> 
 			</view>
+			<view class="cu-form-group"  v-if="updateData.cstatus>1">
+				<view class="title usertrait">备注 </view> 
+			 
+				<textarea v-model="updateData.remarks"></textarea> 
+			</view>
 
 			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
 				<view class="title"><text class="required">*</text>客户级别</view>
@@ -46,6 +51,10 @@
 			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
 				<view class="title usertrait"><text class="required">*</text>客户特点</view>
 				<textarea v-model="updateData.custyles" maxlength="500" placeholder="请输入客户特点"></textarea>
+			</view>
+			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
+				<view class="title usertrait">备注</view>
+				<textarea v-model="updateData.remarks" maxlength="500" placeholder="请输入备注"></textarea>
 			</view>
 			<!-- <view class="cu-form-group" v-if="ShowOA">
 				<view class="title"><text class="required">*</text>进度记录</view>

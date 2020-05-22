@@ -192,9 +192,15 @@
 			<button v-if="(this.staticentity.rolecode == 'XS' && updateData.cstatus==0) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
 			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" isLoad="true" v-show="isLoad"></text> 提交</button>
-			<button v-if="(this.staticentity.rolecode == 'OA' && updateData.cstatus==1) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
-			 @click="submit">
-				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
+				<div v-if="(this.staticentity.rolecode == 'OA' && updateData.cstatus==1) " class="btnLo">
+					<button class="cu-btn block bg-brown margin-tb-sm lg "  style="width: 48%; float: left;"
+					 @click="submitZC"> 
+						<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 暂存</button>
+					<button  class="cu-btn block bg-blue margin-tb-sm lg " style="width: 48%; float: right;"
+					 @click="submit"> 
+						<text class="cuIcon-loading2 cuIconfont-spin"  v-show="isLoad"></text> 提交</button>
+				</div>
+			
 			<button v-if="(this.staticentity.rolecode == 'ADMIN' && updateData.cstatus==2) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
 			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
@@ -239,7 +245,8 @@
 	} from '@/api/sysUser.js'
 	import {
 		searchclues,
-		update
+		update,
+		updateold
 	} from '@/api/clues.js'
 	import {
 		getMessagesByClueId
@@ -304,6 +311,45 @@
 			this.biandOA();
 		},
 		methods: {
+			submitZC(){
+				if(this.isJinyong){
+					return
+				}
+				this.isJinyong = true;
+				uni.showLoading({
+					title: "提交中",
+					mask: true
+				})
+				this.updateData.cstatus = 1;
+				updateold(this.updateData).then(res => {
+					
+					// // 方法1：设置上一级页面，即pageA的data
+					// prevPage.setData({
+					//     isRefresh: true
+					// });
+					//#ifdef APP-PLUS
+					Router.replaceAll({
+						name:'main',
+						animation:{
+							delta: 1,
+							animationType: "pop-out"
+						}
+						
+					})
+					//#endif
+					//#ifdef H5
+					this.$router.push({
+						name:'main',
+						animation:{
+							delta: 1,
+							animationType: "pop-out"
+						}
+					})
+					//#endif
+					uni.hideLoading();
+					this.isJinyong = false
+				})
+			},
 			submit() {
 				if(this.isJinyong){
 					return
