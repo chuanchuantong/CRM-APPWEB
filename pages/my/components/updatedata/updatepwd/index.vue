@@ -117,12 +117,15 @@
 						_this.isRotate = false;
 						return;
 					}
-					//#ifdef APP-PLUS
-					Router.replaceAll('login');
+					uni.removeStorageSync("Token")
+					//#ifdef APP-PLUS 
+					Router.push({
+						name: 'login'
+					});
 					//#endif
 					
-					//#ifdef H5
-					_this.$Router.push('login');
+					//#ifdef H5 
+					Router.push("/");
 					//#endif
 					
 				}).finally(res => {
