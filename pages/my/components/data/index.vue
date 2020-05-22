@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="content">我的资料</block></cu-custom>
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'main'"><block slot="content">我的资料</block></cu-custom>
 		<view class="cu-list menu sm-border">
 			<view class="cu-item">
 				<view class="content"><text class="text-grey">用户ID</text></view>

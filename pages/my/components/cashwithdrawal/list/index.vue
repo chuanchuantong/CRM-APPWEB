@@ -1,6 +1,6 @@
 <template>
 	<view class="cashList">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'main'">
 			<block slot="content">提现列表</block>
 		</cu-custom>
 		<view class="positionLine"></view>
@@ -34,6 +34,12 @@
 			return {
 				capitalList: [],
 				statusObject: dictionary.capitalStatus,
+				queryData: {
+					currentPage: 1,
+					pageSize: 20,
+					params: {
+					}
+				},
 			};
 		},
 		created() {
@@ -54,7 +60,7 @@
 				var _this = this;
 				_this.capitalList=[];
 				console.log("提现管理的加载数据")
-				selectCapitalApply().then(response => {
+				selectCapitalApply(_this.queryData).then(response => {
 					
 					if (response.code != 200) {
 						uni.showToast({
@@ -63,7 +69,7 @@
 						});
 						return;
 					}
-					_this.capitalList = response.data;
+					_this.capitalList = response.data.list;
 				})
 			},
 			isNullOrEmpty(value) {

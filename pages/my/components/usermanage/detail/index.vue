@@ -2,7 +2,7 @@
 	<view class="userDetail">
 
 		<scroll-view scroll-y class="DrawerPage" :class="modalName=='viewModal'?'show':''">
-			<cu-custom bgColor="bg-gradual-blue" :isBack="true" :indexV="'userlist'">
+			<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'userlist'" :indexV="'userlist'">
 				<block slot="content">权限设置</block>
 				<block slot="right">
 					<button class="cu-btn bg-green buttonRight" @click="save()">

@@ -174,11 +174,11 @@
 						icon: "none",
 						success: function() {
 							// #ifdef H5
-							_this.$router.push("cashlist")
+							_this.$router.push("wallet")
 							//#endif
 							//#ifdef APP-PLUS
-							Router.push({
-								name: 'cashlist'
+							Router.replaceAll({
+								name: 'wallet'
 							});
 							// #endif
 						}

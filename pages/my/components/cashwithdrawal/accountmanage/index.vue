@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="accManage">
-			<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+			<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'main'">
 				<block slot="content">账户管理</block>
 				<block slot="right">
 					<button class="cu-btn bg-green btnCreateClue" @click="openUrl()">

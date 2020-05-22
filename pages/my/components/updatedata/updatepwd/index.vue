@@ -1,6 +1,6 @@
 <template>
 	<view class="updateMyData">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'data'">
 			<block slot="content">{{title}}</block>
 			<block slot="right">
 				<button :disabled="disabled" class="cu-btn bg-green buttonRight" @click="savedata">
@@ -25,7 +25,7 @@
 
 <script>
 	import {
-		updateUserBaseInfo
+		updateUserPwd
 	} from '@/api/sysUser.js';
 	import Router from '@/router'
 	export default {
@@ -117,12 +117,15 @@
 						_this.isRotate = false;
 						return;
 					}
-					//#ifdef APP-PLUS
-					Router.push('login');
+					uni.removeStorageSync("Token")
+					//#ifdef APP-PLUS 
+					Router.push({
+						name: 'login'
+					});
 					//#endif
 					
-					//#ifdef H5
-					_this.$Router.push('login');
+					//#ifdef H5 
+					Router.push("/");
 					//#endif
 					
 				}).finally(res => {

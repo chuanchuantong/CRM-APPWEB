@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'main'">
 			<block slot="content">用户管理</block>
 		</cu-custom>
 		<view class="positionLine"></view>

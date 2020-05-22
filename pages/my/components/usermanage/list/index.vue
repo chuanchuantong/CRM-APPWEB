@@ -1,6 +1,6 @@
 <template>
 	<view class="userList">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'usermanage'">
 			<block slot="content">{{title}}</block>
 		</cu-custom>
 
