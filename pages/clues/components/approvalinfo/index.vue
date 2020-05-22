@@ -3,13 +3,22 @@
 
 		<view class="positionLine"></view>
 		<form>
-			<view class="cu-bar bg-white solid-bottom" v-if="showXs||updateData.cstatus>0">
+			<view class="cu-list menu sm-border">
+			<view class="cu-item" @click="showOrHideClue(4)" v-show="(showXs||updateData.cstatus>0)">
+				<view class="content">
+					<text class="text-grey">审核信息</text>
+				</view>
+				<view v-show="!showOrHide4" class="'text-grey cuIcon-unfold"></view>
+				<view v-show="showOrHide4" class="'text-grey cuIcon-fold"></view>
+			</view> 
+			</view>
+			<!-- <view class="cu-bar bg-white solid-bottom" v-if="showXs||updateData.cstatus>0">
 				<view class="action">
 					<text class="cuIcon-titles text-green"></text>
 					审核信息
 				</view>
-			</view>
-			<view class="cu-form-group" @click="showModal" v-if="showXs&&updateData.cstatus==0">
+			</view> -->
+			<view class="cu-form-group" @click="showModal" v-if="showXs&&updateData.cstatus==0&&showOrHide4">
 				<view class="title"><text class="required">*</text>选择OA专员</view>
 				
 				<view class="action">
@@ -17,30 +26,30 @@
 					<text class="cuIcon-right"></text>
 				</view>
 			</view>
-			<view class="cu-form-group"  v-if="updateData.cstatus>0">
+			<view class="cu-form-group"  v-if="updateData.cstatus>0&&showOrHide4">
 				<view class="title">OA专员</view> 
 				<view class="action">
 				{{updateData.oaname}}
 				</view>
 			</view>
-			<view class="cu-form-group"  v-if="updateData.cstatus>1">
+			<view class="cu-form-group"  v-if="updateData.cstatus>1&&showOrHide4">
 				<view class="title">客户级别</view> 
 				<view class="action">
 				{{updateData.level}}
 				</view>
 			</view>
-			<view class="cu-form-group"  v-if="updateData.cstatus>1">
+			<view class="cu-form-group"  v-if="updateData.cstatus>1&&showOrHide4">
 				<view class="title usertrait">客户特点 </view> 
 			 
 				<textarea v-model="updateData.custyles"></textarea> 
 			</view>
-			<view class="cu-form-group"  v-if="updateData.cstatus>1">
+			<view class="cu-form-group"  v-if="updateData.cstatus>1&&showOrHide4">
 				<view class="title usertrait">备注 </view> 
 			 
 				<textarea v-model="updateData.remarks"></textarea> 
 			</view>
 
-			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
+			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1&&showOrHide4">
 				<view class="title"><text class="required">*</text>客户级别</view>
 				<radio-group class="block" @change="radioChange">
 					<radio class='round blue margin-left-sm' :class="updateData.level=='A+'?'checked':''" :checked="leave=='A+'?true:false" value="A+"></radio>A+
@@ -48,11 +57,11 @@
 					<radio class='round blue margin-left-sm' :class="updateData.level=='A-'?'checked':''" :checked="leave=='A-'?true:false" value="A-"></radio>A-
 				</radio-group>
 			</view>
-			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
+			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1&&showOrHide4">
 				<view class="title usertrait"><text class="required">*</text>客户特点</view>
 				<textarea v-model="updateData.custyles" maxlength="500" placeholder="请输入客户特点"></textarea>
 			</view>
-			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1">
+			<view class="cu-form-group" v-if="ShowOA && updateData.cstatus==1&&showOrHide4">
 				<view class="title usertrait">备注</view>
 				<textarea v-model="updateData.remarks" maxlength="500" placeholder="请输入备注"></textarea>
 			</view>
@@ -96,6 +105,7 @@
 		},
 		data() {
 			return {
+				showOrHide4:false,
 				//选择oa的索引
 				oauserindex: -1,
 				//oa集合
@@ -144,6 +154,11 @@
 			_this.date = year + '-' + month + '-' + date;
 		},
 		methods: {
+			showOrHideClue(e) {
+				var _this = this;
+				 
+				_this.showOrHide4 = !_this.showOrHide4;
+			},
 			pickerChange(e) {
 				var _this = this;
 				_this.oauserindex = e.detail.value;

@@ -7,7 +7,7 @@
 				<block slot="content">跟踪线索</block>
 			</cu-custom>
 			<view class="cu-list menu sm-border">
-				<view class="cu-item" @click="showOrHideClue()">
+				<view class="cu-item" @click="showOrHideClue(0)">
 					<view class="content">
 						<text class="text-grey">线索信息</text>
 					</view>
@@ -125,19 +125,29 @@
 
 			</view>
 			<view v-if="updateData.cstatus>-1 && updateData.cstatus!=2">
-				<view class="cu-bar bg-white solid-bottom">
+				<!-- <view class="cu-bar bg-white solid-bottom">
 					<view class="action">
 						<text class="cuIcon-titles text-green"></text>
 						订单信息
 					</view>
+				</view> -->
+				<view class="positionLine"></view>
+				<view class="cu-list menu sm-border">
+				<view class="cu-item" @click="showOrHideClue(1)">
+					<view class="content">
+						<text class="text-grey">订单信息</text>
+					</view>
+					<view v-show="!showOrHide1" class="'text-grey cuIcon-unfold"></view>
+					<view v-show="showOrHide1" class="'text-grey cuIcon-fold"></view>
+				</view> 
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group"  v-show="showOrHide1">
 					<view class="title">订单状态</view>
 					<view>
 						{{picker[updateData.cstatus-2]}}
 					</view>
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group"  v-show="showOrHide1">
 					<view class="title">销售提成</view>
 					<view class="money">
 						<text>￥</text>
@@ -146,13 +156,17 @@
 				</view>
 			</view>
 			<view v-if="this.staticentity.rolecode == 'ADMIN' && updateData.cstatus==2">
-				<view class="cu-bar bg-white solid-bottom">
-					<view class="action">
-						<text class="cuIcon-titles text-green"></text>
-						订单信息
+				<view class="positionLine"></view>
+				<view class="cu-list menu sm-border">
+				<view class="cu-item" @click="showOrHideClue(2)">
+					<view class="content">
+						<text class="text-grey">订单信息</text>
 					</view>
+					<view v-show="!showOrHide2" class="'text-grey cuIcon-unfold"></view>
+					<view v-show="showOrHide2" class="'text-grey cuIcon-fold"></view>
+				</view> 
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group"  v-show="showOrHide2">
 					<view class="title"><text class="required">*</text>订单状态</view>
 					<view>
 						<picker @change="SelectChange" :value="Selectindex" :range="picker">
@@ -162,7 +176,7 @@
 						</picker>
 					</view>
 				</view>
-				<view class="cu-form-group" v-show="Selectindex!=2">
+				<view class="cu-form-group" v-show="Selectindex!=2&&showOrHide2" >
 					<view class="title"><text class="required">*</text>销售提成</view>
 					<view class="money">
 						<text class="symbol">￥</text>
@@ -170,13 +184,23 @@
 					</view>
 				</view>
 			</view>
-			<view class="cu-bar bg-white solid-bottom" v-if="updateData.cstatus!=-1">
+		<!-- 	<view class="cu-bar bg-white solid-bottom" v-if="updateData.cstatus!=-1">
 				<view class="action">
 					<text class="cuIcon-titles text-green"></text>
 					提交进度
 				</view>
+			</view> -->
+			<view class="positionLine"></view>
+			<view class="cu-list menu sm-border">
+			<view class="cu-item" @click="showOrHideClue(3)">
+				<view class="content">
+					<text class="text-grey">提交进度</text>
+				</view>
+				<view v-show="!showOrHide3" class="'text-grey cuIcon-unfold"></view>
+				<view v-show="showOrHide3" class="'text-grey cuIcon-fold"></view>
+			</view> 
 			</view>
-			<view class="cu-timeline jindu" v-if="updateData.cstatus!=-1">
+			<view class="cu-timeline jindu" v-if="updateData.cstatus!=-1"  v-show="showOrHide3">
 				<view>
 					<evan-steps :active="updateData.cstatus>2?messages.length:messages.length-1">
 						<evan-step :title="item.remarks" v-for="item in messages" :description="item.createtime |moment"></evan-step>
@@ -263,7 +287,11 @@
 				Selectindex: 0,
 				picker: ['请选择', '成功', '失败'],
 				clueid: 0,
-				showOrHide: true,
+				showOrHide: false,
+				showOrHide1: false,
+				showOrHide2: false,
+				showOrHide3: false,
+				showOrHide4: false,
 				animation: '',
 				submitBtnLoading: false,
 				animation: '',
@@ -439,9 +467,16 @@
 					this.isJinyong = false
 				})
 			},
-			showOrHideClue() {
+			showOrHideClue(e) {
 				var _this = this;
-				_this.showOrHide = !_this.showOrHide;
+				if(e==0)
+				{_this.showOrHide = !_this.showOrHide;}
+				if(e==1)
+				{_this.showOrHide1 = !_this.showOrHide1;}
+				if(e==2)
+				{_this.showOrHide2 = !_this.showOrHide2;}
+				if(e==3)
+				{_this.showOrHide3 = !_this.showOrHide3;}
 			},
 			init() {
 
@@ -489,6 +524,9 @@
 
 <style scoped lang="scss">
 	.clueinfo {
+		.positionLine {
+			height: 10upx;
+		}
 		.btnLo {
 			position: fixed;
 			width: 100%;

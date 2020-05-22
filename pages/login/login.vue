@@ -7,8 +7,8 @@
 			</view>
 			<!-- 主体表单 -->
 			<view class="main">
-				<wInput name="name"  type="text" maxlength="11" placeholder="用户名" @input="getname"></wInput>
-				<wInput name="pwd" onkeyup="this.value=this.value.replace(/^\s+|\s+$/g,'')" type="password" maxlength="11" placeholder="密码" @input="getpwd"></wInput>
+				<wInput name="name" :namelen="namelen" v-model="name" type="text" maxlength="11" placeholder="用户名" @input="getname" @tapinput="tapinput"></wInput>
+				<wInput name="pwd" :pwdlen="pwdlen"  v-model="pwd" onkeyup="this.value=this.value.replace(/^\s+|\s+$/g,'')" type="password" maxlength="11" placeholder="密码" @input="getpwd"></wInput>
 			</view>
 			<wButton text="登  录" :rotate="isRotate" @click.native="startLogin()" class="wbutton"></wButton>
 			<!-- <button @click="change">123213</button> -->
@@ -49,7 +49,10 @@
 			return {
 				//logo图片 base64
 				logoImage: '../../static/login/1240.png',
-
+				namelen:0,
+				pwdlen:0,
+				name:'',
+				pwd:'',
 				formData: {
 					name: '', //用户/电话
 					pwd: '', //密码
@@ -98,12 +101,21 @@
 				// 	// error
 				// }
 			},
+			tapinput(e){
+				console.log("asdasd")
+				//_this.formData.name = e
+			},
 			getname(e) {
+				this.namelen = e.length;
+				e =e.replace(/\s*/g, "");
+				this.name = e;
 				_this.formData.name = e
 			},
 			getpwd(e) {
+				this.pwdlen=  e.length;
 				e =e.replace(/\s*/g, "");
-				console.log(e.length)
+				console.log(e)
+				this.pwd = e;
 				_this.formData.pwd = e
 			},
 			forget() {
@@ -217,7 +229,17 @@
 					title: '...'
 				});
 			}
-		}
+		},
+		 watch: {
+		namelen: function (val, oldVal) {
+			console.log("this.formData.name",val)
+		      this.name = this.formData.name.replace(/\s*/g, "");
+		    },
+			pwdlen:function (val, oldVal) {
+			console.log("this.formData.pwd",val)
+		      this.pwd = this.formData.pwd.replace(/\s*/g, "");
+		    },
+			}
 	}
 </script>
 

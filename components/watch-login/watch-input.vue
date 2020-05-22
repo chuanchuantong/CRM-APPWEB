@@ -7,7 +7,8 @@
 			:type="_type"  
 			:placeholder="placeholder" 
 			:password="type==='password'&&!showPassword"  
-			@input="onInput" 
+			@input="onInput"
+			  @keyup="tapinput"
 		/>
 		<radio-group v-if="type=='radio'" class="block main-input" @change="RadioChange">
 		<view style="width: 49%;float: left;"> 
@@ -92,7 +93,7 @@
 			}
 		},
 		model: {
-			prop: 'value',
+			// prop: 'value',
 			event: 'input'
 		},
 		mounted() {
@@ -128,11 +129,14 @@
 			},
 			onInput(e) {  
 				console.log(this.value)
-				//传出值
-				e.target.value=e.target.value.replace(/\s*/g, "");
-				//this.value = e.target.value
+				//传出值 
+				//this.tapinput(aa)
 				this.$emit('input', e.target.value)
 			}, 
+			tapinput(e){
+				 let aa=e.target.value.replace(/\s*/g, "");
+				this.$emit('tapinput', aa)
+			},
 			setCode(){
 				//设置获取验证码的事件
 				if(this.isRunCode){

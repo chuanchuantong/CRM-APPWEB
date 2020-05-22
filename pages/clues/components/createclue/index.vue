@@ -80,7 +80,7 @@
 					<view class="title"><text class="required">*</text>计划提车时间</view>
 					<input v-model="cluesInfo.plantime" placeholder="请输入计划提车时间" name="input"></input>
 				</view>
-				<view class="cu-bar bg-white solid-bottom">
+				<view class="cu-bar bg-white solid-bottom" v-if="userinfo.rolecode=='XS'">
 					<view class="action">
 						<text class="cuIcon-titles text-green"></text>
 						审核信息
@@ -94,7 +94,7 @@
 						<text class="cuIcon-right"></text>
 					</view>
 				</view>
-				<view class="cu-form-group"  v-if="userinfo.rolecode=='OA' ||userinfo.rolecode=='XS'">
+				<view class="cu-form-group"  v-if=" userinfo.rolecode=='XS'">
 					<view class="title"><text class="required">*</text>客户级别</view>
 					<radio-group class="block" @change="radioChange">
 						<radio class='round blue margin-left-sm' :checked="leave=='A+'?true:false" value="A+"></radio>A+
@@ -102,11 +102,11 @@
 						<radio class='round blue margin-left-sm' :checked="leave=='A-'?true:false" value="A-"></radio>A-
 					</radio-group>
 				</view>
-				<view class="cu-form-group"  v-if="userinfo.rolecode=='OA'||userinfo.rolecode=='XS'">
+				<view class="cu-form-group"  v-if=" userinfo.rolecode=='XS'">
 					<view class="title usertrait"><text class="required">*</text>客户特点</view>
 					<textarea v-model="cluesInfo.custyles" maxlength="500" placeholder="请输入客户特点"></textarea>
 				</view>
-				<view class="cu-form-group"  v-if="userinfo.rolecode=='OA'||userinfo.rolecode=='XS'">
+				<view class="cu-form-group"  v-if=" userinfo.rolecode=='XS'">
 					<view class="title usertrait">备注</view>
 					<textarea v-model="cluesInfo.remarks" maxlength="500" placeholder="请输入备注"></textarea>
 				</view>
