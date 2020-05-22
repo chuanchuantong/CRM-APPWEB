@@ -1,6 +1,6 @@
 <template>
 	<view class="cashmanage">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'main'">
 			<block slot="content">提现管理</block>
 		</cu-custom>
 

@@ -1,6 +1,6 @@
 <template>
 	<view class="updateMyData">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'data'">
 			<block slot="content">{{title}}</block>
 			<block slot="right">
 				<button :disabled="disabled" class="cu-btn bg-green buttonRight" @click="savedata">
@@ -25,7 +25,7 @@
 
 <script>
 	import {
-		updateUserBaseInfo
+		updateUserPwd
 	} from '@/api/sysUser.js';
 	import Router from '@/router'
 	export default {
@@ -118,7 +118,7 @@
 						return;
 					}
 					//#ifdef APP-PLUS
-					Router.push('login');
+					Router.replaceAll('login');
 					//#endif
 					
 					//#ifdef H5

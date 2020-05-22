@@ -1,6 +1,6 @@
 <template>
 	<view class="myWallet">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'main'">
 			<block slot="content">我的钱包</block>
 		</cu-custom>
 		<view class="bg-white padding bgimg">

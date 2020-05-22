@@ -1,6 +1,6 @@
 <template>
 	<view class="updateMyData">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" >
 			<block slot="content">{{title}}</block>
 			<block slot="right">
 				<button :disabled="disabled" class="cu-btn bg-green buttonRight" @click="savedata">
@@ -144,7 +144,7 @@
 							_this.$router.push("data")
 							//#endif
 							//#ifdef APP-PLUS
-							Router.push({
+							Router.replaceAll({
 								name: 'data'
 							});
 							// #endif

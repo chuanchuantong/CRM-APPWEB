@@ -124,7 +124,7 @@
 			successUrl(){
 				var _this=this;
 				//#ifdef APP-PLUS
-				Router.push({
+				Router.replaceAll({
 					name: 'userdetail',
 					params: {
 						userid: _this.userInfo.id,

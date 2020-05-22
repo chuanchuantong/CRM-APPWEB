@@ -1,6 +1,6 @@
 <template>
 	<view class="myWallet">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true" :url="'main'">
 			<block slot="content">设置</block>
 		</cu-custom>
 		<view class="cu-list menu sm-border">

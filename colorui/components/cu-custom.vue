@@ -2,7 +2,7 @@
 	<view>
 		<view class="cu-custom" :style="[{height:CustomBar + 'px'}]">
 			<view class="cu-bar fixed" :style="style" :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
-				<view class="action" ref="refReturn" @tap="BackPage" v-if="isBack">
+				<view class="action" ref="refReturn" @tap="BackPage" v-if="isBack" :url="url">
 					<text class="cuIcon-back"></text>
 					<slot name="backText"></slot>
 				</view>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+	import Router from '@/router'
 	export default {
 		data() {
 			return {
@@ -52,13 +53,31 @@
 			indexV:{
 				type: String,
 				default: 'home'
-			}
+			},
+			url:{
+				type: String,
+				default: null
+			},
 		},
 		methods: {
 			BackPage() {
-				uni.navigateBack({
-					url:'main?taindex='+this.indexV
-				});
+				var _this=this;
+				if(_this.url!=''&&_this.url!=null){
+					// #ifdef H5
+					_this.$router.push(_this.url)
+					//#endif
+					//#ifdef APP-PLUS
+					Router.replaceAll({
+						name: _this.url
+					});
+					// #endif
+				}
+				else{
+					uni.navigateBack({
+						url:'main?taindex='+_this.indexV
+					});
+				}
+				
 			}
 		}
 	}
