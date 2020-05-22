@@ -14,7 +14,17 @@
 				<wInput name="name" type="text" maxlength="11" placeholder="昵称" @input="getnickname"></wInput>
 				<wInput name="loginname" type="text" maxlength="11" placeholder="登录名" @input="getname"></wInput>
 				<wInput name="pwd" type="password" maxlength="11" placeholder="密码" @input="getpwd1"></wInput>
+				<div class="input_span"> 
+				      <span id="one"></span>
+				      <span id="two"></span>
+				      <span id="three"></span>
+				    </div> 
 				<wInput name="pwd" type="password" maxlength="11" placeholder="确认密码" @input="getpwd2"></wInput>
+				<div class="input_span1">
+				      <span id="one1"></span>
+				      <span id="two1"></span>
+				      <span id="three1"></span>
+				    </div> 
 				<wInput name="email" type="text" maxlength="11" placeholder="邮箱" @input="getemail"></wInput>
 				<wInput name="incode" type="text" maxlength="6" isScan="true" placeholder="邀请码" @input="getfcode" @scan="getScanCode"></wInput>
 				<wInput name="sex" type="radio" maxlength="11" placeholder="用户名" @input="getsex"></wInput>
@@ -50,6 +60,8 @@
 					pwd2: '',
 					
 				},
+				msgText:'',
+				msgText1:'',
 				isRotate: false, //是否加载旋转
 				isModal: false,
 				isScan: false,
@@ -64,6 +76,30 @@
 			_this = this;
 		},
 		methods: {
+			 checkStrong(sValue) {
+			      var modes = 0;
+			      //正则表达式验证符合要求的
+			      if (sValue.length < 1) return modes;
+			      if (/\d/.test(sValue)) modes++; //数字
+			      if (/[a-z]/.test(sValue)) modes++; //小写
+			      if (/[A-Z]/.test(sValue)) modes++; //大写
+			      if (/\W/.test(sValue)) modes++; //特殊字符
+				 if(sValue.length<6)
+			      //逻辑处理
+			      switch (modes) {
+			        case 1:
+			          return 1;
+			          break;
+			        case 2:
+			          return 2;
+			          break;
+			        case 3:
+			        case 4:
+			          return sValue.length < 4 ? 3 : 4;
+			          break;
+			      }
+			      return modes;
+			    },
 			isLogin() {
 				//判断缓存中是否登录过，直接登录
 				// try {
@@ -123,9 +159,41 @@
 			getpwd1(e) {
 				console.log(e)
 				_this.formData.pwd1 = e
+				this.msgText = this.checkStrong(e);
+				      if (this.msgText > 1 || this.msgText == 1) {
+				        document.getElementById("one").style.background = "red";
+				      } else {
+				        document.getElementById("one").style.background = "#eee";
+				      }
+				      if (this.msgText > 2 || this.msgText == 2) {
+				        document.getElementById("two").style.background = "orange";
+				      } else {
+				        document.getElementById("two").style.background = "#eee";
+				      }
+				      if (this.msgText == 4) {
+				        document.getElementById("three").style.background = "#00D1B2";
+				      } else {
+				        document.getElementById("three").style.background = "#eee";
+				      } 
 			},
 			getpwd2(e) {
 				_this.formData.pwd2 = e
+				this.msgText1 = this.checkStrong(e);
+				      if (this.msgText1 > 1 || this.msgText1 == 1) {
+				        document.getElementById("one1").style.background = "red";
+				      } else {
+				        document.getElementById("one1").style.background = "#eee";
+				      }
+				      if (this.msgText1 > 2 || this.msgText1 == 2) {
+				        document.getElementById("two1").style.background = "orange";
+				      } else {
+				        document.getElementById("two1").style.background = "#eee";
+				      }
+				      if (this.msgText1 == 4) {
+				        document.getElementById("three1").style.background = "#00D1B2";
+				      } else {
+				        document.getElementById("three1").style.background = "#eee";
+				      } 
 			},
 			startLogin() {
 				console.log(_this.formData)
@@ -174,6 +242,14 @@
 					this.isRotate = false
 					uni.showToast({
 						title: "两次密码输入有误",
+						icon: "none"
+					});
+					return
+				}
+				if(_this.pwd1.length<6 || _this.pwd1.length>12){
+					this.isRotate = false
+					uni.showToast({
+						title: "密码位数大于6位小于12位",
 						icon: "none"
 					});
 					return
@@ -275,6 +351,85 @@
 	}
 </script>
 
+<style scoped>
+#inputValue {
+  width: 240px;
+  margin-left: 20px;
+  padding-left: 10px;
+  border-radius: 3px;
+}
+.input_span span {
+	text-align: center;
+  display: inline-block;
+  width: 85px;
+  height: 10px;
+  background: #eee;
+  line-height: 20px;
+}
+
+#one {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 20px;
+  margin-right: 3px;
+}
+
+#two {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
+.input_span1 span {
+	text-align: center;
+  display: inline-block;
+  width: 85px;
+  height: 10px;
+  background: #eee;
+  line-height: 20px;
+}
+
+#one1 {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px solid;
+  margin-left: 20px;
+  margin-right: 3px;
+}
+
+#two1 {
+  border-left: 0px solid;
+  border-right: 0px solid;
+  margin-left: -5px;
+  margin-right: 3px;
+}
+
+#three1 {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 0px solid;
+  margin-left: -5px;
+}
+#font span:nth-child(1) {
+  color: red;
+  margin-left: 80px;
+}
+#font span:nth-child(2) {
+  color: orange;
+  margin: 0 60px;
+}
+#font span:nth-child(3) {
+  color: #00d1b2;
+}
+</style> 
 <style lang="scss">
 	@import url("../../components/watch-login/css/icon.css");
 

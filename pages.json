@@ -205,6 +205,10 @@
             "path" : "pages/clues/components/marnager/myclues/index",
             "style" : {}
         }
+        ,{
+            "path" : "pages/clues/components/oaspecialist/myclues/index",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

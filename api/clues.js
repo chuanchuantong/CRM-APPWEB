@@ -60,3 +60,15 @@ export function selectByXSG(data){
 export function update(data){
 	return http.post("/clue/update",data);
 }
+
+export function updateold(data){
+	return http.post("/clue/updateold",data);
+}
+
+/**
+ * 销售经理提交
+ * @param {Object} data
+ */
+export function xsInsert(data){
+	return http.post("/clue/xsInsert",data);
+}

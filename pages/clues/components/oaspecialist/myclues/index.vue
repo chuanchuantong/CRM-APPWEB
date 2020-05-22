@@ -39,7 +39,7 @@
 					currentPage: 1,
 					pageSize: 20,
 					params: {
-						cstatus: -2
+						cstatus: 1
 					}
 				},
 				// 下拉刷新的常用配置
