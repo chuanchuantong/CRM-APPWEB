@@ -1,7 +1,8 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="content">线索结果</block>
+			<!-- <block slot="content">线索结果</block> -->
+			<block slot="content">完结线索</block>
 		</cu-custom>
 
 		<view class="clueResult">

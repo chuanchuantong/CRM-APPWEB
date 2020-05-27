@@ -85,7 +85,7 @@
 				console.log("上拉刷新一开始")
 				let pageNum = page.num; // 页码, 默认从1开始
 				let pageSize = page.size; // 页长, 默认每页10条
-				selectAllResult(this.queryData).then(res => {
+				selectAll(this.queryData).then(res => {
 					if (page.num == 1) this.resultOAData = []; //如果是第一页需手动置空列表
 					this.resultOAData = this.resultOAData.concat(res.data.list); //追加新数据
 					console.log(res.data.list)
@@ -94,11 +94,11 @@
 					this.mescroll.endByPage(res.data.size, res.data.pages);
 				})
 			},
-			query() {
-				selectAllResult().then(res => {
-					this.resultOAData = res.data
-				})
-			},
+			// query() {
+			// 	selectAllResult().then(res => {
+			// 		this.resultOAData = res.data
+			// 	})
+			// },
 
 
 			openUrl(clueid) {

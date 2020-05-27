@@ -31,7 +31,8 @@
 <script>
 	import Router from '@/router'
 	import {
-		selectAllResult,selectClueResult
+		// selectAllResult,
+		selectClueResult
 	} from '@/api/clues.js'
 	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
 	export default {
@@ -102,11 +103,11 @@
 					this.mescroll.endByPage(res.data.size, res.data.pages);
 				})
 			},
-			query() {
-				selectAllResult({}).then(res => {
-					this.resultOAData = res.data
-				})
-			},
+			// query() {
+			// 	selectAllResult({}).then(res => {
+			// 		this.resultOAData = res.data
+			// 	})
+			// },
 
 
 			openUrl(clueid) {

@@ -40,7 +40,8 @@
 					<!-- <cover-image src="@/static/home/zongxiaoshouticheng.png"></cover-image> -->
 					{{homeEntity.amountTC}}
 				</view>
-				<text>总销售提成</text>
+				<!-- <text>总销售提成</text> -->
+				<text>总线索佣金</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">

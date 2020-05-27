@@ -258,10 +258,10 @@
 			return {
 				TabCur: this.$tabbarUtil.tabindex,
 				userinfo: [],
-				clues: ["我的草稿", "跟踪线索", "线索结果"],
-				cluesXS: ["我的线索","分配线索", "跟踪线索", "线索结果"],
-				cluesAdmin: ["确认线索", "线索结果"],
-				cluesOA: ["我的线索","线索跟进", "跟踪线索", "线索结果"],
+				clues: ["我的草稿", "已处理线索", "完结线索"],
+				cluesXS: ["我的线索","待处理线索", "已处理线索", "完结线索"],
+				cluesAdmin: ["确认线索", "完结线索"],
+				cluesOA: ["我的线索","待处理线索", "已处理线索", "完结线索"],
 				scrollTop: 0,
 				returnData: [],
 

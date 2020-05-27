@@ -34,7 +34,8 @@
 				<view v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('accountmanage')">
 					<view class="content">
 						<text class="cuIcon-rank text-grey"></text>
-						<text class="text-grey">账户管理</text>
+						<!-- <text class="text-grey">账户管理</text> -->
+						<text class="text-grey">提现账户</text>
 					</view>
 				</view>
 				<view v-if="userinfo.rolecode!='ADMIN'" class="cu-item arrow" @click="openUrl('cashapply')">
