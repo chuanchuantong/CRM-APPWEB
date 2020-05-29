@@ -10,7 +10,7 @@
 				</view>
 			</view>
 			<view class="cu-form-group" @click="showModal" v-if="showXs">
-				<view class="title"><text class="required">*</text>选择OA专员</view>
+				<view class="title"><text class="required">*</text>选择销售专员</view>
 				
 				<view class="action">
 					{{userName!=''?userName:'请选择'}}

@@ -295,7 +295,7 @@
 				animation: '',
 				submitBtnLoading: false,
 				animation: '',
-				updateData: [],
+				updateData: {},
 				showUserId: false,
 				showXs: false,
 				ShowOA: false,
@@ -481,6 +481,14 @@
 			init() {
 
 				searchclues(this.clueid).then(res => {
+					console.log("获取的数据为",res)
+					if(res.code!=200){
+						uni.showToast({
+							title: "数据获取异常请稍后重试",
+							icon: "none"
+						})
+						return;
+					}
 					this.updateData = res.data;
 					if (this.staticentity.rolecode == 'OA' && this.updateData.cstatus == 3) {
 						this.ShowOA = true;
