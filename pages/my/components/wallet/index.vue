@@ -45,21 +45,22 @@
 						<text v-if="info.status==0" style="color: #cce6ff;" class="cuIcon-infofill     margin-right-xs"></text> 
 						<text v-if="info.status==1" class="cuIcon-roundcheckfill text-blue margin-right-xs"></text>
 						<text v-if="info.status==2" class="cuIcon-roundclosefill text-red margin-right-xs"></text>
-						{{statusObject[info.status]}}</view>
+						{{statusObject[info.status]}} {{info.createtime|formatTime}}</view>
 				</view>
 				<view class="content" v-if="info.is_ru==1">
 					<view class="text-grey" v-if="info.status==0">提成</view>
 					<view class="text-grey" v-if="info.status==1">返佣</view>
+					<view class="text-grey" v-if="info.status==2">退款</view>
 					<view class="text-gray text-sm">
 						<text  class="cuIcon-roundcheckfill text-blue margin-right-xs"></text>
-						收入</view>
+						收入 {{info.createtime|formatTime}}</view>
 				</view>
 				<view class="action">
 					<view v-if="info.status==0 && info.is_ru==0" class="text-grey text-xs fill">￥ -{{info.amount}}</view>
 					<view v-if="info.status==1 && info.is_ru==0" class="text-grey text-xs">￥ -{{info.amount}}</view>
 					<view v-if="info.status==2 && info.is_ru==0" class="text-grey text-xs text-red">￥ {{info.amount}}</view>
 					<view v-if=" info.is_ru==1" class="text-grey text-xs text-yellow">￥ {{info.amount}}</view>
-					<view class="text-grey text-sm">{{info.createtime|formatTime}}</view>
+					<view class="text-grey text-sm">余额：{{info.remaamount}}</view>
 				</view>
 			</view>
 		</view>

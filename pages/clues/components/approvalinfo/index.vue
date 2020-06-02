@@ -19,7 +19,7 @@
 				</view>
 			</view> -->
 			<view class="cu-form-group" @click="showModal" v-if="showXs&&updateData.cstatus==0&&showOrHide4">
-				<view class="title"><text class="required">*</text>选择OA专员</view>
+				<view class="title"><text class="required">*</text>选择销售专员</view>
 				
 				<view class="action">
 					{{userName!=''?userName:'请选择'}}
@@ -27,7 +27,7 @@
 				</view>
 			</view>
 			<view class="cu-form-group"  v-if="updateData.cstatus>0&&showOrHide4">
-				<view class="title">OA专员</view> 
+				<view class="title">销售专员</view> 
 				<view class="action">
 				{{updateData.oaname}}
 				</view>
@@ -110,8 +110,6 @@
 				oauserindex: -1,
 				//oa集合
 				oausers: [],
-				//自定义匹配选择的OA的用户id
-				oauserinfo: {},
 				leave: '',
 				date: '',
 				approvalObject: {
@@ -132,20 +130,6 @@
 			//2、客户级别单选按钮 A+   A  A-（此选项为OA所有）
 			//3、客户特点多行文本（此选项为OA所有）
 			//4、进度记录（此选项为OA所有）
-			var oauserlist = [{
-				value: 100,
-				text: 'test1'
-			}, {
-				value: 200,
-				text: 'test2'
-			}, {
-				value: 300,
-				text: 'test3'
-			}];
-			oauserlist.forEach((info, index) => {
-				_this.$set(_this.oauserinfo, index, info.value);
-				_this.oausers.push(info.text);
-			})
 			//处理日期
 			var dateInfo = new Date();
 			var year = dateInfo.getFullYear();

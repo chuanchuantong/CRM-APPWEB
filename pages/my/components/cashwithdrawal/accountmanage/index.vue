@@ -43,15 +43,18 @@
 				payMethods: []
 			};
 		},
-		// created() {
-			
-		// },
-		onShow() {
+		created() {
 			//获取提现方式列表
 			var _this = this;
 			console.log("提现列表页面")
 			_this.getPayMethodList();
 		},
+		// onShow() {
+		// 	//获取提现方式列表
+		// 	var _this = this;
+		// 	console.log("提现列表页面")
+		// 	_this.getPayMethodList();
+		// },
 		methods: {
 			getPayMethodList() {
 				var _this = this;

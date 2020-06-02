@@ -6,124 +6,6 @@
 			<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 				<block slot="content">跟踪线索</block>
 			</cu-custom>
-			<view class="cu-list menu sm-border">
-				<view class="cu-item" @click="showOrHideClue(0)">
-					<view class="content">
-						<text class="text-grey">线索信息</text>
-					</view>
-					<view v-show="!showOrHide" class="'text-grey cuIcon-unfold"></view>
-					<view v-show="showOrHide" class="'text-grey cuIcon-fold"></view>
-				</view>
-			</view>
-			<view v-show="showOrHide">
-				<view class="cu-bar bg-white solid-bottom">
-					<view class="action">
-						<text class="cuIcon-titles text-green"></text>
-						基本信息
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">提交人</view>
-					<view>
-						{{updateData.username}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">线索名称</view>
-					<view>
-						{{updateData.shorthand}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">线索来源</view>
-					<view>
-						{{updateData.source}}
-					</view>
-				</view>
-				<view class="cu-bar bg-white solid-bottom">
-					<view class="action">
-						<text class="cuIcon-titles text-green"></text>客户信息
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">客户姓名</view>
-					<view>
-						{{updateData.customername}}
-					</view>
-				</view>
-				<!-- 	<view class="cu-form-group">
-					<view class="title">客户级别</view>
-					<view>
-						{{updateData.level}}
-					</view>
-				</view> -->
-				<view class="cu-form-group">
-					<view class="title">客户行业</view>
-					<view>
-						{{updateData.industry}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">联系方式</view>
-					<view>
-						{{updateData.contactinfo}}
-					</view>
-				</view>
-				<!-- <view class="cu-form-group">
-					<view class="title">邮箱</view>
-					<view>
-						{{updateData.contactinfo}}
-					</view>
-				</view> -->
-				<view class="cu-form-group">
-					<view class="title">地址</view>
-					<view>
-						{{updateData.customeraddress}}
-					</view>
-				</view>
-				<view class="cu-bar bg-white solid-bottom">
-					<view class="action">
-						<text class="cuIcon-titles text-green"></text>需求信息
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">意向车型</view>
-					<view>
-						{{updateData.intentioncar}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">需求</view>
-					<view>
-						{{updateData.needs}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">预算</view>
-					<view>
-						{{updateData.budget}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">是否持币</view>
-					<view>
-						{{updateData.isholdcash}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">现有车型</view>
-					<view>
-						{{updateData.exitscar}}
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">计划提车时间</view>
-					<view>
-						{{updateData.plantime}}
-					</view>
-				</view>
-
-			</view>
 			<view v-if="updateData.cstatus>-1 && updateData.cstatus!=2">
 				<!-- <view class="cu-bar bg-white solid-bottom">
 					<view class="action">
@@ -209,7 +91,139 @@
 			</view>
 			<approvalInfo v-if="isShowApprovalInfo" :userName='userName' :updateData="updateData" @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA"
 			 :clueid="clueid"></approvalInfo>
+			 
+			 
+
+			 
+			 
+			 <view class="positionLine"></view>
+			 
+			 <view class="cu-list menu sm-border">
+			 	<view class="cu-item" @click="showOrHideClue(0)">
+			 		<view class="content">
+			 			<text class="text-grey">线索信息</text>
+			 		</view>
+			 		<view v-show="!showOrHide" class="'text-grey cuIcon-unfold"></view>
+			 		<view v-show="showOrHide" class="'text-grey cuIcon-fold"></view>
+			 	</view>
+			 </view>
+			 <view v-show="showOrHide">
+			 	<view class="cu-bar bg-white solid-bottom">
+			 		<view class="action">
+			 			<text class="cuIcon-titles text-green"></text>
+			 			基本信息
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">提交人</view>
+			 		<view>
+			 			{{updateData.username}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">线索名称</view>
+			 		<view>
+			 			{{updateData.shorthand}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">线索来源</view>
+			 		<view>
+			 			{{updateData.source}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-bar bg-white solid-bottom">
+			 		<view class="action">
+			 			<text class="cuIcon-titles text-green"></text>客户信息
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">客户姓名</view>
+			 		<view>
+			 			{{updateData.customername}}
+			 		</view>
+			 	</view>
+			 	<!-- 	<view class="cu-form-group">
+			 		<view class="title">客户级别</view>
+			 		<view>
+			 			{{updateData.level}}
+			 		</view>
+			 	</view> -->
+			 	<view class="cu-form-group">
+			 		<view class="title">客户行业</view>
+			 		<view>
+			 			{{updateData.industry}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">联系方式</view>
+			 		<view>
+			 			{{updateData.contactinfo}}
+			 		</view>
+			 	</view>
+			 	<!-- <view class="cu-form-group">
+			 		<view class="title">邮箱</view>
+			 		<view>
+			 			{{updateData.contactinfo}}
+			 		</view>
+			 	</view> -->
+			 	<view class="cu-form-group">
+			 		<view class="title">地址</view>
+			 		<view>
+			 			{{updateData.customeraddress}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-bar bg-white solid-bottom">
+			 		<view class="action">
+			 			<text class="cuIcon-titles text-green"></text>需求信息
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">意向车型</view>
+			 		<view>
+			 			{{updateData.intentioncar}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">需求</view>
+			 		<view>
+			 			{{updateData.needs}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">预算</view>
+			 		<view>
+			 			{{updateData.budget}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">是否持币</view>
+			 		<view>
+			 			{{updateData.isholdcash}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">现有车型</view>
+			 		<view>
+			 			{{updateData.exitscar}}
+			 		</view>
+			 	</view>
+			 	<view class="cu-form-group">
+			 		<view class="title">计划提车时间</view>
+			 		<view>
+			 			{{updateData.plantime}}
+			 		</view>
+			 	</view>
+			 
+			 </view>
+			 
+			 
+			 
 			<div class="entry"></div>
+			
+			
+			
+			
 			<button v-if="(this.staticentity.rolecode == 'ZY' && updateData.cstatus==-1) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
 			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 提交</button>
@@ -295,7 +309,7 @@
 				animation: '',
 				submitBtnLoading: false,
 				animation: '',
-				updateData: [],
+				updateData: {},
 				showUserId: false,
 				showXs: false,
 				ShowOA: false,
@@ -481,6 +495,14 @@
 			init() {
 
 				searchclues(this.clueid).then(res => {
+					console.log("获取的数据为",res)
+					if(res.code!=200){
+						uni.showToast({
+							title: "数据获取异常请稍后重试",
+							icon: "none"
+						})
+						return;
+					}
 					this.updateData = res.data;
 					if (this.staticentity.rolecode == 'OA' && this.updateData.cstatus == 3) {
 						this.ShowOA = true;

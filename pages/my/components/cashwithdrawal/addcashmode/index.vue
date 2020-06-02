@@ -33,7 +33,14 @@
 					<view class="title"><text class="required">*</text>账号</view>
 					<input v-model="saveCashInfo.account" placeholder="请输入账号" name="input"></input>
 				</view>
-
+				<view class="cu-form-group" v-if="saveCashInfo.status==1">
+					<view class="title"><text class="required">*</text>户主名字</view>
+					<input v-model="saveCashInfo.accountowner" placeholder="请输入户主名字" name="input"></input>
+				</view>
+				<view class="cu-form-group " v-if="saveCashInfo.status==1">
+					<view class="title usertrait">备注</view>
+					<textarea v-model="saveCashInfo.methodremark" maxlength="500" placeholder="请输入备注"></textarea>
+				</view>
 			</form>
 
 		</view>
@@ -46,11 +53,11 @@
 		updatePayMethod,
 		insertPayMethod
 	} from '@/api/pay.js'
-		import Router from '@/router'
+	import Router from '@/router'
 	export default {
 		data() {
 			return {
-				showTitle:'新增提现方式',
+				showTitle: '新增提现方式',
 				cashIndex: -1,
 				cashArray: [],
 				cashInfo: {},
@@ -60,10 +67,14 @@
 					//账号
 					account: '',
 					//开户银行
-					bankaccount: ''
+					bankaccount: '',
+					//户主名字
+					accountowner: '',
+					//备注
+					methodremark: ''
 				},
 				submitBtnLoading: false,
-				isRotate:false
+				isRotate: false
 			};
 		},
 		created() {
@@ -71,7 +82,7 @@
 			var methodId = _this.$Route.query.methodId;
 			if (!_this.isNullOrEmpty(methodId) && methodId > 0) {
 				_this.getMethodInfo(methodId);
-				_this.showTitle='修改提现方式'
+				_this.showTitle = '修改提现方式'
 			}
 			var cashlist = [{
 				value: 1,
@@ -87,6 +98,8 @@
 				_this.$set(_this.cashInfo, index, info.value);
 				_this.cashArray.push(info.text);
 			});
+			if (_this.cashArray.length > 0)
+				_this.cashIndex = _this.cashArray[0];
 		},
 		methods: {
 			getMethodInfo(id) {
@@ -111,8 +124,8 @@
 				_this.saveCashInfo.status = (e.detail.value + 1);
 				console.log(_this.cashIndex)
 			},
-			isNullOrEmpty(value){
-				return (value==undefined||value==null||value=='')
+			isNullOrEmpty(value) {
+				return (value == undefined || value == null || value == '')
 			},
 			save() {
 				var _this = this;
@@ -122,7 +135,7 @@
 					return false;
 				}
 				_this.isRotate = true;
-				if(_this.saveCashInfo.status<0||_this.isNullOrEmpty(_this.saveCashInfo.status)){
+				if (_this.saveCashInfo.status < 0 || _this.isNullOrEmpty(_this.saveCashInfo.status)) {
 					uni.showToast({
 						title: '请选择提现方式',
 						icon: "none"
@@ -130,7 +143,7 @@
 					_this.isRotate = false;
 					return;
 				}
-				if(_this.saveCashInfo.status==1&&_this.isNullOrEmpty(_this.saveCashInfo.bankaccount)){
+				if (_this.saveCashInfo.status == 1 && _this.isNullOrEmpty(_this.saveCashInfo.bankaccount)) {
 					uni.showToast({
 						title: '请填写开户银行',
 						icon: "none"
@@ -138,7 +151,7 @@
 					_this.isRotate = false;
 					return;
 				}
-				if(_this.saveCashInfo.status>1&&_this.isNullOrEmpty(_this.saveCashInfo.account)){
+				if (_this.saveCashInfo.status > 1 && _this.isNullOrEmpty(_this.saveCashInfo.account)) {
 					uni.showToast({
 						title: '请填写账号',
 						icon: "none"
@@ -146,67 +159,83 @@
 					_this.isRotate = false;
 					return;
 				}
-				if(_this.saveCashInfo.status!=1){
-					_this.saveCashInfo.bankaccount=''
+				if (_this.saveCashInfo.status == 1 && _this.isNullOrEmpty(_this.saveCashInfo.accountowner)) {
+					uni.showToast({
+						title: '请填写户主名字',
+						icon: "none"
+					});
+					_this.isRotate = false;
+					return;
 				}
-				if(_this.saveCashInfo.id&&!_this.isNullOrEmpty(_this.saveCashInfo.id)){
-					
+				if (_this.saveCashInfo.status != 1) {
+					_this.saveCashInfo.bankaccount = ''
+				}
+				if (_this.saveCashInfo.id && !_this.isNullOrEmpty(_this.saveCashInfo.id)) {
+					console.log("修改保存的数据为", _this.saveCashInfo)
 					updatePayMethod(_this.saveCashInfo).then(response => {
-							_this.submitBtnLoading = false;
-							_this.isRotate = false;
-							if (response.code != 200) {
-								uni.showToast({
-									title: '修改提现方式异常请稍后再试',
-									icon: "none"
-								});
-								_this.isRotate = false;
-								return;
-							}
+						_this.submitBtnLoading = false;
+						_this.isRotate = false;
+						if (response.code != 200) {
 							uni.showToast({
-								title: '保存成功',
-								icon: "none",
-								success: function() {
-									// #ifdef H5
-									_this.$router.push("accountmanage")
-									//#endif
-									//#ifdef APP-PLUS
-									Router.push({
-										name: 'accountmanage'
-									});
-									// #endif
-								}
+								title: '修改提现方式异常请稍后再试',
+								icon: "none"
 							});
+							_this.isRotate = false;
+							return;
+						}
+						uni.showToast({
+							title: '保存成功',
+							icon: "none",
+							success: function() {
+								// #ifdef H5
+								_this.$router.push({
+									name: "accountmanage",
+									params: {}
+								})
+								//#endif
+								//#ifdef APP-PLUS
+								Router.push({
+									name: 'accountmanage',
+									params: {}
+								});
+								// #endif
+							}
+						});
 					}).finally(response => {
 						_this.submitBtnLoading = false;
 						_this.isRotate = false
 					})
-				}
-				else{
+				} else {
+					console.log("新增保存的数据为", _this.saveCashInfo)
 					insertPayMethod(_this.saveCashInfo).then(response => {
-							_this.submitBtnLoading = false;
-							_this.isRotate = false;
-							if (response.code != 200) {
-								uni.showToast({
-									title: '保存线索异常请稍后再试',
-									icon: "none"
-								});
-								_this.isRotate = false;
-								return;
-							}
+						_this.submitBtnLoading = false;
+						_this.isRotate = false;
+						if (response.code != 200) {
 							uni.showToast({
-								title: '保存成功',
-								icon: "none",
-								success: function() {
-									// #ifdef H5
-									_this.$router.push("accountmanage")
-									//#endif
-									//#ifdef APP-PLUS
-									Router.push({
-										name: 'accountmanage'
-									});
-									// #endif
-								}
+								title: '保存线索异常请稍后再试',
+								icon: "none"
 							});
+							_this.isRotate = false;
+							return;
+						}
+						uni.showToast({
+							title: '保存成功',
+							icon: "none",
+							success: function() {
+								// #ifdef H5
+								_this.$router.push({
+									name: "accountmanage",
+									params: {}
+								})
+								//#endif
+								//#ifdef APP-PLUS
+								Router.push({
+									name: 'accountmanage',
+									params: {}
+								});
+								// #endif
+							}
+						});
 					}).finally(response => {
 						_this.submitBtnLoading = false;
 						_this.isRotate = false
@@ -235,6 +264,10 @@
 				min-width: calc(6em + 40upx);
 				text-align: right;
 			}
+		}
+
+		.usertrait {
+			margin-top: -100upx;
 		}
 	}
 </style>

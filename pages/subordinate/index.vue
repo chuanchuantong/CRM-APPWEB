@@ -1,14 +1,18 @@
 <template>
 	<view class="subords">
 		<cu-custom bgColor="bg-gradual-blue">
-			<block slot="content">查看下线</block>
+			<!-- <block slot="content">查看下线</block> -->
+			<block slot="content">我邀请的</block>
 		</cu-custom>
 		<view class="bg-white padding bgimg">
 			<view class="grid margin-bottom text-center col-2">
 				<view class="gradpadding">
 					<view class="text-grey textcolor">{{childsAmount}}</view>
-					<view class="text-gray text-sm">
+					<!-- <view class="text-gray text-sm">
 						累计返佣金额(元)
+					</view> -->
+					<view class="text-gray text-sm">
+						累计推广佣金(美元)
 					</view>
 				</view>
 				<view class="gradpadding">
@@ -24,7 +28,8 @@
 			<view class="cu-bar bg-white">
 				<view class="action">
 					<text class="cuIcon-titles text-green"></text>
-					<text class="text-xl text-bold">我的下线</text>
+					<!-- <text class="text-xl text-bold">我的下线</text> -->
+					<text class="text-xl text-bold">我邀请的用户</text>
 				</view>
 			</view>
 

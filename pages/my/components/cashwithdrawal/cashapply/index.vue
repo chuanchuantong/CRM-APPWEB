@@ -145,6 +145,7 @@
 			//提现提交申请
 			submitCash() {
 				var _this = this;
+				_this.selectCashModeInfo.remaamount= _this.currentSurplusMoney -_this.selectCashModeInfo.amount;
 				if (_this.selectCashModeInfo.status < 0 || _this.isNullOrEmpty(_this.selectCashModeInfo.status)) {
 					uni.showToast({
 						title: '请选择提现方式',
