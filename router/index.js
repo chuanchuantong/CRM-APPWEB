@@ -35,7 +35,8 @@ router.beforeEach((to, from, next) => {
 	} else { 
 		if (!to.isauth) {
 			next({
-				path: '/'
+				path: '/',
+				replace: true
 			})
 		} else {
 			next();
