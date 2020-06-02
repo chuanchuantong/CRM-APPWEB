@@ -9,8 +9,9 @@
 								<view class="content flex-sub">
 									<view class="text-grey flex justify-between">{{item.shorthand}}
 										<view class="text-gray text-sm">
-											<text class="margin-lr-xs"></text><span v-if="item.cstatus==3" class="cusser">已完成(￥{{item.royalty}})</span>
+											<text class="margin-lr-xs"></text><span v-if="item.cstatus==3&&item.royalty!=-1000" class="cusser">已完成(￥{{item.royalty}})</span>
 											<span v-if="item.cstatus==4" class="error">失败</span>
+											<span v-if="item.royalty==-1000" class="error">已失效</span>
 										</view>
 									</view>
 									<view class="text-gray text-sm flex justify-between">
