@@ -7,12 +7,6 @@
 				<block slot="content">跟踪线索</block>
 			</cu-custom>
 			<view v-if="updateData.cstatus>-1 && updateData.cstatus!=2">
-				<!-- <view class="cu-bar bg-white solid-bottom">
-					<view class="action">
-						<text class="cuIcon-titles text-green"></text>
-						订单信息
-					</view>
-				</view> -->
 				<view class="positionLine"></view>
 				<view class="cu-list menu sm-border">
 				<view class="cu-item" @click="showOrHideClue(1)">
@@ -89,7 +83,7 @@
 					</evan-steps>
 				</view>
 			</view>
-			<approvalInfo v-if="isShowApprovalInfo" :userName='userName' :updateData="updateData" @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA"
+			<approvalInfo v-if="isShowApprovalInfo" :userName='userName':communicateList="communicateList" :updateData="updateData" @showModal="showModal" :showXs="showXs" :ShowOA="ShowOA"
 			 :clueid="clueid"></approvalInfo>
 			 
 			 
@@ -290,7 +284,8 @@
 	import {
 		searchclues,
 		update,
-		updateold
+		updateold,
+		getApprovalNotice
 	} from '@/api/clues.js'
 	import {
 		getMessagesByClueId
@@ -330,6 +325,7 @@
 				messages: [], 
 				isJinyong:false, 
 				isShowApprovalInfo:true, 
+				communicateList:[],
 			};
 		},
 		created() {
@@ -357,8 +353,26 @@
 			})
 			this.init();
 			this.biandOA();
+			_this.loadApproval();
 		},
 		methods: {
+			loadApproval(){
+				var _this=this;
+				//getApprovalNotice
+				
+				getApprovalNotice(_this.clueid).then(res => {
+					console.log("getApprovalNotice",res)
+					if(res.code!=200){
+						uni.showToast({
+							title: "数据获取异常请稍后重试",
+							icon: "none"
+						})
+						return;
+					}
+					_this.communicateList = res.data;
+					
+				})
+			},
 			submitZC(){
 				if(this.isJinyong){
 					return
