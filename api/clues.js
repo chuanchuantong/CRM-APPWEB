@@ -72,3 +72,13 @@ export function updateold(data){
 export function xsInsert(data){
 	return http.post("/clue/xsInsert",data);
 }
+
+
+
+/**
+ * 获取审批记录日志
+ * @param clueid data
+ */
+export function getApprovalNotice(data){
+	return http.get("/approva/getlists?clueid="+data);
+}
