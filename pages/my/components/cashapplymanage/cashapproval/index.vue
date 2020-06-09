@@ -53,11 +53,11 @@
 					<view class="cu-form-group">
 						<button class="cu-btn bg-green btnClass" @click="updatecashapply(1)">
 							<text v-if="agreeBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
-							同意
+							成功
 						</button>
 						<button class="cu-btn bg-red btnClass" @click="updatecashapply(2)">
 							<text v-if="rejectBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
-							驳回
+							失败
 						</button>
 					</view>
 				</view>

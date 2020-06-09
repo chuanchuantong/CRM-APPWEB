@@ -162,7 +162,7 @@
 			 		</view>
 			 	</view> -->
 			 	<view class="cu-form-group">
-			 		<view class="title">地址</view>
+			 		<view class="title">学校地区</view>
 			 		<view>
 			 			{{updateData.customeraddress}}
 			 		</view>
@@ -203,7 +203,7 @@
 			 		</view>
 			 	</view>
 			 	<view class="cu-form-group">
-			 		<view class="title">计划提车时间</view>
+			 		<view class="title">计划买车时间</view>
 			 		<view>
 			 			{{updateData.plantime}}
 			 		</view>

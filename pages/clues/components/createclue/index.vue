@@ -6,20 +6,20 @@
 				<block slot="content">新建线索</block>
 			</cu-custom>
 
-			<form>
+			<form class="fromClass">
 				<view class="cu-bar bg-white solid-bottom">
 					<view class="action">
 						<text class="cuIcon-titles text-green"></text>
-						基本信息
+						基本信息	
 					</view>
 				</view>
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>线索名称</view>
-					<input v-model="cluesInfo.shorthand" placeholder="请输入线索名称" name="input"></input>
+					<input v-model="cluesInfo.shorthand" placeholder="请输入线索名称，如加州凯美瑞1w预算" name="input"></input>
 				</view>
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>线索来源</view>
-					<input v-model="cluesInfo.source" placeholder="请输入线索来源" name="input"></input>
+					<input v-model="cluesInfo.source" placeholder="请输入线索来源，如朋友推荐，学校活动" name="input"></input>
 				</view>
 				<view class="cu-bar bg-white solid-bottom">
 					<view class="action">
@@ -36,19 +36,19 @@
 			</view> -->
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>客户行业</view>
-					<input v-model="cluesInfo.industry" placeholder="请输入客户行业" name="input"></input>
+					<input v-model="cluesInfo.industry" placeholder="请输入客户的身份，如学生，已经工作" name="input"></input>
 				</view>
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>联系方式</view>
-					<input v-model="cluesInfo.contactinfo" placeholder="请输入联系方式" name="input"></input>
+					<input v-model="cluesInfo.contactinfo" placeholder="请输入客户的微信号/电话号码/邮箱" name="input"></input>
 				</view>
 				<!-- <view class="cu-form-group">
 				<view class="title"><text class="required">*</text>邮箱</view>
 				<input v-model="cluesInfo.email" placeholder="请输入邮箱" name="input"></input>
 			</view> -->
 				<view class="cu-form-group">
-					<view class="title"><text class="required">*</text>地址</view>
-					<input v-model="cluesInfo.customeraddress" placeholder="请输入地址" name="input"></input>
+					<view class="title"><text class="required">*</text>学校地区</view>
+					<input v-model="cluesInfo.customeraddress" placeholder="请输入客户所在学校或地区，如哥伦布，南加大" name="input"></input>
 				</view>
 				<view class="cu-bar bg-white solid-bottom">
 					<view class="action">
@@ -57,28 +57,28 @@
 				</view>
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>意向车型</view>
-					<input v-model="cluesInfo.intentioncar" placeholder="请输入意向车型" name="input"></input>
+					<input v-model="cluesInfo.intentioncar" placeholder="请输入意向车型，如宝马4系" name="input"></input>
 				</view>
 				<view class="cu-form-group">
 					<view class="title usertrait"><text class="required">*</text>需求</view>
-					<textarea v-model="cluesInfo.needs" maxlength="500" placeholder="请输入需求"></textarea>
+					<textarea v-model="cluesInfo.needs" maxlength="500" placeholder="请输入需求，如实用，两门，远程启动"></textarea>
 				</view>
 				<view class="cu-form-group">
 
 					<view class="title"><text class="required">*</text>预算</view>
-					<input v-model="cluesInfo.budget" placeholder="请输入预算" name="input"></input>
+					<input v-model="cluesInfo.budget" placeholder="请输入预算，如2万" name="input"></input>
 				</view>
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>是否持币</view>
-					<input v-model="cluesInfo.isholdcash" placeholder="请输入是否持币" name="input"></input>
+					<input v-model="cluesInfo.isholdcash" placeholder="请输入是否持币，如父母已打钱，准备贷款" name="input"></input>
 				</view>
 				<view class="cu-form-group">
 					<view class="title"><text class="required">*</text>现有车型</view>
-					<input v-model="cluesInfo.exitscar" placeholder="请输入现有车型" name="input"></input>
+					<input v-model="cluesInfo.exitscar" placeholder="请输入现有车型，如无可填写“无”" name="input"></input>
 				</view>
 				<view class="cu-form-group">
-					<view class="title"><text class="required">*</text>计划提车时间</view>
-					<input v-model="cluesInfo.plantime" placeholder="请输入计划提车时间" name="input"></input>
+					<view class="title"><text class="required">*</text>计划买车时间</view>
+					<input v-model="cluesInfo.plantime" placeholder="请输入计划买车时间，如01/09/2020，开学后" name="input"></input>
 				</view>
 				<view class="cu-bar bg-white solid-bottom" v-if="userinfo.rolecode=='XS'">
 					<view class="action">
@@ -114,7 +114,7 @@
 				<view class="cu-form-group">
 					<button class="cu-btn bg-green" @click="saveclueinfo(true)">
 						<text v-if="saveBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
-						保存
+						暂存
 					</button>
 					<button class="cu-btn bg-green" @click="saveclueinfo(false)">
 						<text v-if="submitBtnLoading" class="cuIcon-loading2 cuIconfont-spin"></text>
@@ -277,7 +277,7 @@
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入地址"
+							errorMsg: "请输入学校地区"
 						},
 						{
 							name: "contactinfo",
@@ -333,7 +333,7 @@
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入计划提车时间"
+							errorMsg: "请输入计划买车时间"
 						},
 						// {
 						// 	name: "level",
@@ -451,7 +451,7 @@
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入地址"
+							errorMsg: "请输入学校地区"
 						},
 						{
 							name: "contactinfo",
@@ -507,7 +507,7 @@
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入计划提车时间"
+							errorMsg: "请输入计划买车时间"
 						},
 						// {
 						// 	name: "level",
@@ -656,6 +656,12 @@
 
 <style scoped lang="scss">
 	.createClue {
+		.fromClass{
+			input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+			  color: #666;
+			  font-size: 16px;
+			}
+		}
 		.usertrait {
 			margin-top: -96upx;
 		}
