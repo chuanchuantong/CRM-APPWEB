@@ -224,13 +224,19 @@
 			<button v-if="(this.staticentity.rolecode == 'XS' && updateData.cstatus==0) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
 			 @click="submit">
 				<text class="cuIcon-loading2 cuIconfont-spin" isLoad="true" v-show="isLoad"></text> 提交</button>
+				<button v-if="(this.staticentity.rolecode == 'XS' && updateData.cstatus==5) " class="cu-btn block bg-gradual-red margin-tb-sm lg btnLo"
+				 @click="submitXSWitch">
+					<text class="cuIcon-loading2  cuIconfont-spin" isLoad="true" v-show="isLoad"></text> 确认失效</button>
 				<div v-if="(this.staticentity.rolecode == 'OA' && updateData.cstatus==1) " class="btnLo">
-					<button class="cu-btn block bg-brown margin-tb-sm lg "  style="width: 48%; float: left;"
+					<button class="cu-btn block bg-brown margin-tb-sm lg "  style="width: 30%; float: left;"
 					 @click="submitZC"> 
 						<text class="cuIcon-loading2 cuIconfont-spin" v-show="isLoad"></text> 暂存</button>
-					<button  class="cu-btn block bg-blue margin-tb-sm lg " style="width: 48%; float: right;"
-					 @click="submit"> 
-						<text class="cuIcon-loading2 cuIconfont-spin"  v-show="isLoad"></text> 提交</button>
+					<button  class="cu-btn block bg-gradual-red margin-tb-sm lg " style="width: 30%; float: left; margin-left: 5%"
+					 @click="submitWitch"> 
+						<text class="cuIcon-loading2 cuIconfont-spin"  v-show="isLoad"></text> 线索失效</button>
+						<button  class="cu-btn block bg-blue margin-tb-sm lg " style="width: 30%; float: right;"
+						 @click="submit"> 
+							<text class="cuIcon-loading2 cuIconfont-spin"  v-show="isLoad"></text> 线索生效</button>
 				</div>
 			
 			<button v-if="(this.staticentity.rolecode == 'ADMIN' && updateData.cstatus==2) " class="cu-btn block bg-blue margin-tb-sm lg btnLo"
@@ -405,6 +411,109 @@
 					uni.hideLoading();
 					this.isJinyong = false
 				})
+			},
+			submitXSWitch(){
+				if(this.isJinyong){
+					return
+				}
+				this.isJinyong = true;
+				let _this = this;
+				uni.showModal({
+				    title: '系统提示',
+				    content: '确认此线索失效吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+							uni.showLoading({
+								title: "提交中",
+								mask: true
+							})
+				             _this.updateData.cstatus = 6
+							 update(_this.updateData).then(res => {
+							 	
+							 	// // 方法1：设置上一级页面，即pageA的data
+							 	// prevPage.setData({
+							 	//     isRefresh: true
+							 	// });
+							 	//#ifdef APP-PLUS
+							 	Router.replaceAll({
+							 		name:'main',
+							 		animation:{
+							 			delta: 1,
+							 			animationType: "pop-out"
+							 		}
+							 		
+							 	})
+							 	//#endif
+							 	//#ifdef H5
+							 	_this.$router.push({
+							 		name:'main',
+							 		animation:{
+							 			delta: 1,
+							 			animationType: "pop-out"
+							 		}
+							 	})
+							 	//#endif
+							 	uni.hideLoading();
+							 	_this.isJinyong = false
+							 })
+				        } else if (res.cancel) {
+							console.log("取消")
+				           _this.isJinyong = false; 
+				        }
+				    }
+				});
+			},
+			submitWitch(){
+				console.log(this.isJinyong)
+				if(this.isJinyong){
+					return
+				}
+				this.isJinyong = true;
+				let _this = this;
+				uni.showModal({
+				    title: '系统提示',
+				    content: '确认此线索失效吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+							uni.showLoading({
+								title: "提交中",
+								mask: true
+							})
+				             _this.updateData.cstatus = 0
+							 update(_this.updateData).then(res => {
+							 	
+							 	// // 方法1：设置上一级页面，即pageA的data
+							 	// prevPage.setData({
+							 	//     isRefresh: true
+							 	// });
+							 	//#ifdef APP-PLUS
+							 	Router.replaceAll({
+							 		name:'main',
+							 		animation:{
+							 			delta: 1,
+							 			animationType: "pop-out"
+							 		}
+							 		
+							 	})
+							 	//#endif
+							 	//#ifdef H5
+							 	_this.$router.push({
+							 		name:'main',
+							 		animation:{
+							 			delta: 1,
+							 			animationType: "pop-out"
+							 		}
+							 	})
+							 	//#endif
+							 	uni.hideLoading();
+							 	_this.isJinyong = false
+							 })
+				        } else if (res.cancel) {
+							console.log("取消")
+				           _this.isJinyong = false; 
+				        }
+				    }
+				});
 			},
 			submit() {
 				if(this.isJinyong){
