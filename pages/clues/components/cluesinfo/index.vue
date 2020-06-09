@@ -137,12 +137,6 @@
 			 			{{updateData.customername}}
 			 		</view>
 			 	</view>
-			 	<!-- 	<view class="cu-form-group">
-			 		<view class="title">客户级别</view>
-			 		<view>
-			 			{{updateData.level}}
-			 		</view>
-			 	</view> -->
 			 	<view class="cu-form-group">
 			 		<view class="title">客户行业</view>
 			 		<view>
@@ -155,18 +149,18 @@
 			 			{{updateData.contactinfo}}
 			 		</view>
 			 	</view>
-			 	<!-- <view class="cu-form-group">
-			 		<view class="title">邮箱</view>
-			 		<view>
-			 			{{updateData.contactinfo}}
-			 		</view>
-			 	</view> -->
 			 	<view class="cu-form-group">
 			 		<view class="title">学校地区</view>
 			 		<view>
 			 			{{updateData.customeraddress}}
 			 		</view>
 			 	</view>
+				<view class="cu-form-group">
+					<view class="title">客户信任度</view>
+					<view>
+						{{updateData.trusts}}
+					</view>
+				</view>
 			 	<view class="cu-bar bg-white solid-bottom">
 			 		<view class="action">
 			 			<text class="cuIcon-titles text-green"></text>需求信息
@@ -337,7 +331,7 @@
 			this.staticentity = JSON.parse(localStorage.getItem("data"));
 			//#endif 
 			this.clueid = this.$Route.query.clueid;
-			console.log("线索对应id为", this.$route)
+			console.log("线索对应id为", this.clueid)
 			console.log(this.staticentity.rolecode)
 			if (this.staticentity.rolecode == 'OA') {
 				this.ShowOA = true;

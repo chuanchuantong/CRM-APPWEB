@@ -46,11 +46,11 @@
 							<label class="flex justify-between align-center flex-sub">
 								<view class="flex-sub">
 									<view class="modeName">
-										选择到账银行卡
+										选择提现账户信息
 									</view>
-									<view class="modeNumber text-grey">
+									<!-- <view class="modeNumber text-grey">
 										请注意到账时间
-									</view>
+									</view> -->
 								</view>
 							</label>
 						</view>
@@ -204,10 +204,10 @@
 					}
 					for (var i = 0; i < response.data.length; i++) {
 						var info = response.data[i];
-						if (info.status == 1) {
+						if (info.status == 4) {
 							info.account = "尾号(" + info.account.substr(info.account.length - 4) + ")";
 						} else {
-							info.bankaccount = dictionary.payMethodStatus[info.status];
+							info.bankaccount = '其他方式';
 						}
 						_this.cashModeArray.push(info);
 					}

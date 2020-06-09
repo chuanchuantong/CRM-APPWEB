@@ -22,7 +22,7 @@
 						</view>
 					</view>
 					<view class="cu-form-group contentClass">
-						<view v-if="detailInfo.payMethodType == 1" class="title">
+						<view v-if="detailInfo.payMethodType == 4" class="title">
 							<view>
 								{{detailInfo.bankaccount}}
 							</view>
@@ -30,13 +30,11 @@
 								{{detailInfo.account}}
 							</view>
 						</view>
-						<view v-else class="title">
+						<view v-else>
 							<view>
-								{{payMethodStatus[detailInfo.payMethodType]}}
+								其他方式
 							</view>
-							<view>
-								{{detailInfo.account}}
-							</view>
+							
 						</view>
 						<view class="text-xs">{{detailInfo.payeename}}</view>
 					</view>
@@ -108,10 +106,11 @@
 						return;
 					}
 					_this.detailInfo = response.data;
-					if (response.data.payMethodType == 1) {
-						// _this.bankText = response.data.bankaccount + "(" + response.data.account + ")";
+					console.log("返回的信息为ADMIN",response)
+					if (response.data.payMethodType == 4) {
+						_this.bankText = (response.data.bankaccount + "(" + response.data.account + ")");
 					} else {
-						_this.bankText = dictionary.payMethodStatus[response.data.payMethodType] + "(" + response.data.account + ")";
+						_this.bankText = '其他方式';
 					}
 				})
 			},

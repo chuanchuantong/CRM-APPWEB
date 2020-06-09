@@ -50,6 +50,14 @@
 					<view class="title"><text class="required">*</text>学校地区</view>
 					<input v-model="cluesInfo.customeraddress" placeholder="请输入客户所在学校或地区，如哥伦布，南加大" name="input"></input>
 				</view>
+				<view class="cu-form-group">
+					<view class="title"><text class="required">*</text>客户信任度</view>
+					<radio-group class="block" @change="radioChangeTrusts">
+						<radio class='round blue margin-left-sm' :checked="trusts=='A+'?true:false" value="A+"></radio>A+
+						<radio class='round blue margin-left-sm' :checked="trusts=='A'?true:false" value="A"></radio>A
+						<radio class='round blue margin-left-sm' :checked="trusts=='A-'?true:false" value="A-"></radio>A-
+					</radio-group>
+				</view>
 				<view class="cu-bar bg-white solid-bottom">
 					<view class="action">
 						<text class="cuIcon-titles text-green"></text>需求信息
@@ -197,10 +205,12 @@
 					level: '',
 					email: '',
 					cstatus: dictionary.cluesStatus.save, //线索状态
+					trusts:''
 				},
 				userOAs: [],
 				modalName: '',
 				leave: '',
+				trusts:'',
 				userName: '',
 				isRotate: false, //是否加载旋转
 				saveBtnLoading: false,
@@ -226,8 +236,10 @@
 						_this.cluesInfo = response.data;
 						let oaname =response.data.oaid>0?response.data.oaname:"" ;
 						let level =response.data.level ;
-						this.userName = oaname;
-						this.leave = level;
+						let trusts =response.data.trusts ;
+						_this.userName = oaname;
+						_this.leave = level;
+						_this.trusts=trusts;
 						console.log("ghjkhj", _this.cluesInfo)
 					}
 				}).finally(response => {
@@ -273,11 +285,11 @@
 							errorMsg: "请输入客户姓名"
 						},
 						{
-							name: "customeraddress",
+							name: "industry",
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入学校地区"
+							errorMsg: "请输入客户行业"
 						},
 						{
 							name: "contactinfo",
@@ -287,11 +299,18 @@
 							errorMsg: "请输入联系方式"
 						},
 						{
-							name: "industry",
+							name: "customeraddress",
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入客户行业"
+							errorMsg: "请输入学校地区"
+						},
+						{
+							name: "trusts",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请选择客户信任度"
 						},
 						{
 							name: "intentioncar",
@@ -335,20 +354,6 @@
 							required: true,
 							errorMsg: "请输入计划买车时间"
 						},
-						// {
-						// 	name: "level",
-						// 	checkType: "notnull",
-						// 	checkRule: "",
-						// 	required: true,
-						// 	errorMsg: "请输入客户级别"
-						// },
-						// {
-						// 	name: "email",
-						// 	checkType: "notnull",
-						// 	checkRule: "",
-						// 	required: true,
-						// 	errorMsg: "请输入邮箱"
-						// },
 					]; 
 				console.log(_this.cluesInfo)
 				var checkRes = graceChecker.check(_this.cluesInfo, rule);
@@ -412,6 +417,11 @@
 				_this.cluesInfo.level = e.detail.value;
 				console.log(_this.leave)
 			},
+			radioChangeTrusts(e) {
+				var _this = this;
+				_this.cluesInfo.trusts = e.detail.value;
+				console.log(_this.trusts)
+			},
 			saveclueinfo(isSave) {
 				var _this = this;
 				//登录
@@ -447,11 +457,11 @@
 							errorMsg: "请输入客户姓名"
 						},
 						{
-							name: "customeraddress",
+							name: "industry",
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入学校地区"
+							errorMsg: "请输入客户行业"
 						},
 						{
 							name: "contactinfo",
@@ -461,11 +471,18 @@
 							errorMsg: "请输入联系方式"
 						},
 						{
-							name: "industry",
+							name: "customeraddress",
 							checkType: "notnull",
 							checkRule: "",
 							required: true,
-							errorMsg: "请输入客户行业"
+							errorMsg: "请输入学校地区"
+						},
+						{
+							name: "trusts",
+							checkType: "notnull",
+							checkRule: "",
+							required: true,
+							errorMsg: "请选择客户信任度"
 						},
 						{
 							name: "intentioncar",
@@ -535,36 +552,38 @@
 						errorMsg: "请输入线索名称"
 					}];
 				}
-				console.log(_this.cluesInfo)
-				if(isSave){
-					if(this.userinfo.rolecode=="XS")
-					{
-						_this.cluesInfo.cstatus=-2;
-					}
-				}else{
-					if(this.userinfo.rolecode=="XS")
-					{
-						if(_this.cluesInfo.oaid<=0){
-							uni.showToast({
-								title:  '请选择产品专员',
-								icon: "none"
-							});
-							_this.isRotate = false;
-							return;
-						}
-						if(_this.cluesInfo.level=="" || _this.cluesInfo.level==null){
-							uni.showToast({
-								title:  '请选择客户级别',
-								icon: "none"
-							});
-							_this.isRotate = false;
-							return;
-						} 
-						_this.cluesInfo.cstatus=1;
-					}
-				}
+				
 				var checkRes = graceChecker.check(_this.cluesInfo, rule);
 				if (checkRes) {
+					
+					if(isSave){
+						if(this.userinfo.rolecode=="XS")
+						{
+							_this.cluesInfo.cstatus=-2;
+						}
+					}else{
+						if(this.userinfo.rolecode=="XS")
+						{
+							if(_this.cluesInfo.oaid<=0){
+								uni.showToast({
+									title:  '请选择产品专员',
+									icon: "none"
+								});
+								_this.isRotate = false;
+								return;
+							}
+							if(_this.cluesInfo.level=="" || _this.cluesInfo.level==null){
+								uni.showToast({
+									title:  '请选择客户级别',
+									icon: "none"
+								});
+								_this.isRotate = false;
+								return;
+							} 
+							_this.cluesInfo.cstatus=1;
+						}
+					}
+					
 					if(this.userinfo.rolecode=="XS")
 					{
 						//新增线索接口

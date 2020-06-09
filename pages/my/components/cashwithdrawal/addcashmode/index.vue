@@ -25,20 +25,20 @@
 						</view>
 					</picker>
 				</view>
-				<view class="cu-form-group" v-if="saveCashInfo.status==1">
+				<view class="cu-form-group" v-if="saveCashInfo.status==4">
 					<view class="title"><text class="required">*</text>开户银行</view>
 					<input v-model="saveCashInfo.bankaccount" placeholder="请输入开户银行" name="input"></input>
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group" v-if="saveCashInfo.status==4">
 					<view class="title"><text class="required">*</text>账号</view>
 					<input v-model="saveCashInfo.account" placeholder="请输入账号" name="input"></input>
 				</view>
-				<view class="cu-form-group" v-if="saveCashInfo.status==1">
+				<view class="cu-form-group" v-if="saveCashInfo.status==4">
 					<view class="title"><text class="required">*</text>户主名字</view>
 					<input v-model="saveCashInfo.accountowner" placeholder="请输入户主名字" name="input"></input>
 				</view>
-				<view class="cu-form-group " v-if="saveCashInfo.status==1">
-					<view class="title usertrait">备注</view>
+				<view class="cu-form-group ">
+					<view class="title usertrait"><text class="required">*</text>备注</view>
 					<textarea v-model="saveCashInfo.methodremark" maxlength="500" placeholder="请输入备注"></textarea>
 				</view>
 			</form>
@@ -84,15 +84,24 @@
 				_this.getMethodInfo(methodId);
 				_this.showTitle = '修改提现方式'
 			}
-			var cashlist = [{
-				value: 1,
-				text: '银行卡'
-			}, {
-				value: 2,
-				text: '微信'
-			}, {
-				value: 3,
-				text: '支付宝'
+			var cashlist = [
+			// 	{
+			// 	value: 1,
+			// 	text: '银行卡'
+			// }, {
+			// 	value: 2,
+			// 	text: '微信'
+			// }, {
+			// 	value: 3,
+			// 	text: '支付宝'
+			// }, 
+			{
+				value: 4,
+				text: '中国银行'
+			},
+			{
+				value: 5,
+				text: '其他方式'
 			}];
 			cashlist.forEach((info, index) => {
 				_this.$set(_this.cashInfo, index, info.value);
@@ -114,14 +123,14 @@
 						return;
 					}
 					_this.saveCashInfo = response.data;
-					_this.cashIndex = (response.data.status - 1);
-					console.log("修改时候的", _this.saveCashInfo)
+					_this.cashIndex = (response.data.status==4?0:1);
 				});
 			},
 			pickerChange(e) {
 				var _this = this;
 				_this.cashIndex = e.detail.value;
-				_this.saveCashInfo.status = (e.detail.value + 1);
+				// _this.saveCashInfo.status = (e.detail.value + 1);
+				_this.saveCashInfo.status = (e.detail.value==0)?4:5;
 				console.log(_this.cashIndex)
 			},
 			isNullOrEmpty(value) {
@@ -143,7 +152,7 @@
 					_this.isRotate = false;
 					return;
 				}
-				if (_this.saveCashInfo.status == 1 && _this.isNullOrEmpty(_this.saveCashInfo.bankaccount)) {
+				if (_this.saveCashInfo.status == 4 && _this.isNullOrEmpty(_this.saveCashInfo.bankaccount)) {
 					uni.showToast({
 						title: '请填写开户银行',
 						icon: "none"
@@ -151,7 +160,7 @@
 					_this.isRotate = false;
 					return;
 				}
-				if (_this.saveCashInfo.status > 1 && _this.isNullOrEmpty(_this.saveCashInfo.account)) {
+				if (_this.saveCashInfo.status == 4 && _this.isNullOrEmpty(_this.saveCashInfo.account)) {
 					uni.showToast({
 						title: '请填写账号',
 						icon: "none"
@@ -159,7 +168,7 @@
 					_this.isRotate = false;
 					return;
 				}
-				if (_this.saveCashInfo.status == 1 && _this.isNullOrEmpty(_this.saveCashInfo.accountowner)) {
+				if (_this.saveCashInfo.status == 4 && _this.isNullOrEmpty(_this.saveCashInfo.accountowner)) {
 					uni.showToast({
 						title: '请填写户主名字',
 						icon: "none"
@@ -167,8 +176,13 @@
 					_this.isRotate = false;
 					return;
 				}
-				if (_this.saveCashInfo.status != 1) {
-					_this.saveCashInfo.bankaccount = ''
+				if (_this.isNullOrEmpty(_this.saveCashInfo.methodremark)) {
+					uni.showToast({
+						title: '请填写备注',
+						icon: "none"
+					});
+					_this.isRotate = false;
+					return;
 				}
 				if (_this.saveCashInfo.id && !_this.isNullOrEmpty(_this.saveCashInfo.id)) {
 					console.log("修改保存的数据为", _this.saveCashInfo)

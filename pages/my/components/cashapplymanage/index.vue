@@ -10,7 +10,7 @@
 				<view class="content">
 					<view class="text-sm flex">
 						<view class="text-cut">
-							申请提现￥{{info.amount}}
+							【{{info.nickname}}】申请提现￥{{info.amount}}
 						</view>
 					</view>
 				</view>

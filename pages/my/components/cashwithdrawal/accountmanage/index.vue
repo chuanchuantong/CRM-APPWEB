@@ -69,10 +69,10 @@
 					_this.payMethods=[];
 					for (var i = 0; i < response.data.length; i++) {
 						var info = response.data[i];
-						if (info.status == 1) {
+						if (info.status == 4) {
 							info.account = "尾号(" + info.account.substr(info.account.length - 4) + ")";
 						} else {
-							info.bankaccount = dictionary.payMethodStatus[info.status];
+							info.bankaccount = '其他方式';
 						}
 						_this.payMethods.push(info);
 					}

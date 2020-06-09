@@ -5,7 +5,8 @@
 				<view class="bgimg-hg">
 					{{homeEntity.amountCon}}
 				</view>
-				<text>总佣金</text>
+				<text>累计佣金</text>
+				<!-- <text>总佣金</text> -->
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
@@ -33,7 +34,8 @@
 					<!-- <cover-image src="@/static/home/zongdingdan.png"></cover-image> -->
 					{{homeEntity.clueCount}}
 				</view>
-				<text>总订单</text>
+				<!-- <text>总订单</text> -->
+				<text>累计订单</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
@@ -41,21 +43,24 @@
 					{{homeEntity.amountTC}}
 				</view>
 				<!-- <text>总销售提成</text> -->
-				<text>总线索佣金</text>
+				<!-- <text>总线索佣金</text> -->
+				<text>累计线索佣金</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/zongyaoqing.png"></cover-image> -->
 					{{homeEntity.userCount}}
 				</view>
-				<text>总邀请</text>
+				<!-- <text>总邀请</text> -->
+				<text>累计邀请</text>
 			</view>
 			<view class="cu-item">
 				<view class="bgimg-hg">
 					<!-- <cover-image src="@/static/home/zongtuiguangticheng.png"></cover-image> -->
 					{{homeEntity.amountTG}}
 				</view>
-				<text>总推广佣金</text>
+				<!-- <text>总推广佣金</text> -->
+				<text>累计推广佣金</text>
 			</view>
 		</view>
 

@@ -104,12 +104,11 @@
 					}
 					console.log("申请信息为", response.data)
 					_this.detailInfo = response.data;
-					if (response.data.payMethodType == 1) {
+					if (response.data.payMethodType == 4) {
 						_this.bankText = response.data.bankaccount + "(" + response.data.account.substr(response.data.account.length -
 							4) + ")";
 					} else {
-						console.log()
-						_this.bankText = dictionary.payMethodStatus[response.data.payMethodType] + "(" + response.data.account + ")";
+						_this.bankText = '其他方式';
 					}
 					console.log(_this.detailInfo)
 				})
