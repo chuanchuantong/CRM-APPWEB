@@ -72,6 +72,7 @@
 		},
 		created() {
 			//this.query();
+			console.log("这是线索结果页面")
 		},
 		methods: {
 			/*下拉刷新的回调, 有三种处理方式:*/

@@ -521,10 +521,16 @@
 				if (this.staticentity.rolecode == 'OA') {
 					this.updateData.cstatus = 2;
 				}
+				console.log("当前角色的值为",this.staticentity.rolecode)
+				console.log("选中的值为",this.updateData.oaid)
+				console.log("需要提交的线索信息为",this.updateData)
+				console.log("判断条件的结果为",(this.updateData.oaid<=0||this.updateData.oaid==undefined||this.updateData.oaid==''))
+				
 				if (this.staticentity.rolecode == 'XS') {
-					if(this.updateData.oaid<=0){
+					
+					if(this.updateData.oaid<=0||this.updateData.oaid==undefined||this.updateData.oaid==''){
 						uni.showToast({
-							title: "请选择产品专员",
+							title: "请选择销售专员",
 							icon: "none"
 						})
 						uni.hideLoading();
@@ -533,6 +539,7 @@
 					}
 					this.updateData.cstatus = 1;
 				}
+				// return;
 				if (this.staticentity.rolecode == 'ADMIN') {
 					if (this.Selectindex < 1) {
 						uni.showToast({
@@ -621,6 +628,7 @@
 						return;
 					}
 					this.updateData = res.data;
+					this.updateData.updatetime=this.currentDateTime();
 					if (this.staticentity.rolecode == 'OA' && this.updateData.cstatus == 3) {
 						this.ShowOA = true;
 					}
@@ -631,6 +639,14 @@
 					console.log(res)
 				})
 
+			},
+			currentDateTime(){
+				var _this=this;
+				var dateInfo = new Date();
+				var year = dateInfo.getFullYear();
+				var month = ((dateInfo.getMonth() + 1) > 10 ? (dateInfo.getMonth() + 1) : '0' + (dateInfo.getMonth() + 1));
+				var date = dateInfo.getDate();
+				return (year + '-' + month + '-' + date)
 			},
 			SelectChange(e) {
 				this.Selectindex = e.detail.value

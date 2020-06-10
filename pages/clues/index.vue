@@ -93,8 +93,8 @@
 						<swiper-item >
 							<!-- 使用 scroll-view 来滚动内容区域 -->
 							<scroll-view scroll-y="true" style="height: 100%;">
-						<oamyclues></oamyclues>
-						</scroll-view>
+								<oamyclues></oamyclues>
+							</scroll-view>
 						</swiper-item>
 						<swiper-item >
 							<!-- 使用 scroll-view 来滚动内容区域 -->

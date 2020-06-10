@@ -85,6 +85,14 @@
 					</view>
 				</view>
 				<view class="cu-form-group" v-if="(updateData.cstatus==0 && showXs)||(updateData.cstatus==1 && ShowOA)">
+					<view class="title">沟通日期</view>
+					<picker mode="date" :value="updateData.updatetime" start="1900-01-01" end="3000-12-31" @change="dateChangeTwo">
+						<view class="picker">
+							{{updateData.updatetime}}
+						</view>
+					</picker>
+				</view>
+				<view class="cu-form-group" v-if="(updateData.cstatus==0 && showXs)||(updateData.cstatus==1 && ShowOA)">
 					<view class="title usertrait">沟通内容</view>
 					<textarea v-model="remarks" maxlength="500" placeholder="请输入沟通内容"></textarea>
 				</view>
@@ -172,18 +180,8 @@
 			}
 		},
 		created() {
-			
-			var _this = this;
-			//1、销售经理显示OA下拉框（此角色为销售经理所有）
-			//2、客户级别单选按钮 A+   A  A-（此选项为OA所有）
-			//3、客户特点多行文本（此选项为OA所有）
-			//4、进度记录（此选项为OA所有）
-			//处理日期
-			var dateInfo = new Date();
-			var year = dateInfo.getFullYear();
-			var month = ((dateInfo.getMonth() + 1) > 10 ? (dateInfo.getMonth() + 1) : '0' + (dateInfo.getMonth() + 1));
-			var date = dateInfo.getDate();
-			_this.date = year + '-' + month + '-' + date;
+			var _this=this;
+			console.log("沟通记录为",_this.communicateList)
 		},
 		methods: {
 			showOrHideClue(e) {
@@ -208,6 +206,10 @@
 				var _this = this;
 				_this.date = e.detail.value;
 				_this.approvalObject.date = e.detail.value;
+			},
+			dateChangeTwo(e) {
+				var _this=this;
+				_this.updateData.updatetime = e.detail.value
 			},
 			submit() {
 				var _this = this;
