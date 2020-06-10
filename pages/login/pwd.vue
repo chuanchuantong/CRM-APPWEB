@@ -238,7 +238,7 @@
 						errorMsg: "请输入邀请码"
 					}
 				];
-				if (_this.pwd1 != _this.pwd2) {
+				if (_this.formData.pwd1 != _this.formData.pwd2) {
 					this.isRotate = false
 					uni.showToast({
 						title: "两次密码输入有误",
@@ -246,7 +246,8 @@
 					});
 					return
 				}
-				if(_this.pwd1.length<6 || _this.pwd1.length>12){
+				console.log(_this.pwd1)
+				if(_this.formData.pwd1.length<6 || _this.formData.pwd1.length>12){
 					this.isRotate = false
 					uni.showToast({
 						title: "密码位数大于6位小于12位",

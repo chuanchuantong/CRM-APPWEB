@@ -1,9 +1,9 @@
 {
-    "name" : "找好车",
+    "name" : "FiMiCar",
     "appid" : "__UNI__3716FDD",
-    "description" : "1.0.1.4",
-    "versionName" : "1.0.3",
-    "versionCode" : 103,
+    "description" : "1.0.0.2",
+    "versionName" : "1.0.2",
+    "versionCode" : 102,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {

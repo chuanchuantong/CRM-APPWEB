@@ -22,7 +22,8 @@ function _reslog(res) {
 
 // 创建自定义接口服务实例
 const http = axios.create({ 
-	baseURL: 'http://localhost:6688',
+	baseURL: 'http://47.90.255.81:8080',
+	// baseURL: 'http://127.0.0.1:6688',
 	// baseURL: 'http://www.huimopei.com:8081', 
 	// baseURL: 'https://souacdy.com',
 	timeout: 60000, // 不可超过 manifest.json 中配置 networkTimeout的超时时间
