@@ -78,15 +78,15 @@
 				</view>
 			</view>
 			<view v-show="showOrHide5" class="customClass">
-				<view class="cu-bar bg-white solid-bottom">
+				<view class="cu-bar bg-white solid-bottom" v-if="(updateData.cstatus==0 && showXs)||(updateData.cstatus==1 && ShowOA)">
 					<view class="action">
 						<text class="cuIcon-titles text-green"></text>
 						沟通信息
 					</view>
 				</view>
-				<view class="cu-form-group">
+				<view class="cu-form-group" v-if="(updateData.cstatus==0 && showXs)||(updateData.cstatus==1 && ShowOA)">
 					<view class="title usertrait">沟通内容</view>
-					<textarea v-model="updateData.remarks" maxlength="500" placeholder="请输入沟通内容"></textarea>
+					<textarea v-model="remarks" maxlength="500" placeholder="请输入沟通内容"></textarea>
 				</view>
 				<view class="cu-bar bg-white solid-bottom">
 					<view class="action">
@@ -98,8 +98,9 @@
 					<text class="customTest">暂无沟通日志</text>
 				</view>
 				<view class="cu-form-group" v-else v-for="(item,index) in communicateList" :key="index">
-					<view class="title">{{item.createtime}}</view>
-					{{item.approvalremark}}
+					<view class="title">{{item.createtime  | formatTime}}</view>
+					<!-- <text class="customTest">{{item.approvalremark}}</text> -->
+					<textarea v-model="item.approvalremark" maxlength="500" disabled placeholder=""></textarea>
 				</view>
 
 			</view>
@@ -149,6 +150,7 @@
 				oausers: [],
 				leave: '',
 				date: '',
+				remarks:'',
 				approvalObject: {
 					//选择的oa专员
 					oauser: -1,
@@ -161,7 +163,16 @@
 				}
 			};
 		},
+		filters: {
+			'formatTime': function(value) {
+				var _this = this;
+				if (value != undefined && value != null && value != '') {
+					return value.split('T')[0];
+				}
+			}
+		},
 		created() {
+			
 			var _this = this;
 			//1、销售经理显示OA下拉框（此角色为销售经理所有）
 			//2、客户级别单选按钮 A+   A  A-（此选项为OA所有）
@@ -211,6 +222,11 @@
 			showModal() {
 				var _this = this;
 				this.$emit("showModal", 'viewModal')
+			}
+		},
+		watch:{
+			'remarks':function(old,newv){
+				this.updateData.remarks=this.remarks;
 			}
 		}
 
