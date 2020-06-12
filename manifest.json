@@ -1,9 +1,9 @@
 {
     "name" : "FiMiCar",
     "appid" : "__UNI__3716FDD",
-    "description" : "1.0.0.2",
-    "versionName" : "1.0.2",
-    "versionCode" : 102,
+    "description" : "1.0.1.4",
+    "versionName" : "1.3.4",
+    "versionCode" : 134,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {

@@ -136,5 +136,13 @@ const My = [{
 	meta: {
 		title: '管理员更新密码',
 	}
+},
+{
+	path: '/pages/my/components/about/about',
+	name: 'about',
+	aliasPath: '/about',
+	meta: {
+		title: '隐私政策',
+	}
 }]
 export default My

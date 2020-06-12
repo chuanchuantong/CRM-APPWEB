@@ -208,6 +208,9 @@
         ,{
             "path" : "pages/clues/components/oaspecialist/myclues/index",
             "style" : {}
+        } ,{
+            "path" : "pages/my/components/about/about",
+            "style" : {}
         }
     ],
 	"globalStyle": {

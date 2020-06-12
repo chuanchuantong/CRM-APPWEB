@@ -20,7 +20,7 @@
 			</view> -->
 			<!-- #ifdef APP-PLUS -->
 
-			<view class="cu-item" @click="openUrl('setup')">
+			<view class="cu-item">
 				<view class="content">
 
 					<text class="text-grey">APP版本</text>
@@ -31,6 +31,13 @@
 			</view>
 			<!-- #endif -->
 
+			<view class="cu-list menu sm-border">
+				<view class="cu-item arrow" @click="openUrl('about')">
+					<view class="content"> 
+						<text class="text-grey">隐私政策</text>
+					</view>
+				</view>
+			</view> 
 			<button class="cu-btn bg-white" @click="outLogin">
 				退出登录
 			</button>
@@ -60,6 +67,18 @@
 		},
 
 		methods: {
+			//跳转页面
+			openUrl(url) {
+				//#ifdef APP-PLUS
+				console.log("点击了路由跳转", url)
+				Router.push(url);
+				//#endif
+			
+				//#ifdef H5
+				console.log("点击了路由跳转H5", url)
+				this.$router.push(url);
+				//#endif
+			},
 			//退出登录
 			outLogin() {
 				uni.showModal({
